@@ -2,7 +2,7 @@ package com.nexora.security.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.springfx.properties.EncryptablePropertySourceUtils;
+import org.jasypt.salt.RandomSaltGenerator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -44,9 +44,7 @@ public class JasyptAutoConfiguration {
         encryptor.setAlgorithm(jasypt.getAlgorithm());
         encryptor.setPassword(jasypt.getPassword());
         encryptor.setKeyObtentionIterations(jasypt.getKeyObtentionIterations());
-        encryptor.setPoolSize(jasypt.getPoolSize());
-        encryptor.setSaltGeneratorClassName(jasypt.getSaltGeneratorClassname());
-        encryptor.setIvGeneratorClassName(jasypt.getIvGeneratorClassname());
+        encryptor.setSaltGenerator(new RandomSaltGenerator());
 
         log.info("Initialized Jasypt encryptor with algorithm: {}", jasypt.getAlgorithm());
 

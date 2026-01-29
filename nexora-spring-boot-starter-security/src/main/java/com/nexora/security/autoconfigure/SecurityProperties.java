@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.time.Duration;
 
 /**
- * Security properties for encryption and JWT.
+ * Security properties for encryption, JWT, and SMS login.
  *
  * <p>Configuration example:
  * <pre>
@@ -14,6 +14,8 @@ import java.time.Duration;
  * nexora.security.jasypt.password=${JASYPT_PASSWORD}
  * nexora.security.jwt.secret=${JWT_SECRET}
  * nexora.security.jwt.expiration=1h
+ * nexora.security.sms.enabled=true
+ * nexora.security.sms.code-expiration=5m
  * </pre>
  *
  * @author sujie
@@ -31,6 +33,11 @@ public class SecurityProperties {
      * JWT configuration.
      */
     private Jwt jwt = new Jwt();
+
+    /**
+     * SMS login configuration.
+     */
+    private Sms sms = new Sms();
 
     @Data
     public static class Jasypt {
@@ -101,5 +108,38 @@ public class SecurityProperties {
          * Token audience.
          */
         private String audience = "nexora-api";
+    }
+
+    @Data
+    public static class Sms {
+        /**
+         * Enable SMS login support.
+         */
+        private boolean enabled = false;
+
+        /**
+         * SMS code expiration time.
+         */
+        private Duration codeExpiration = Duration.ofMinutes(5);
+
+        /**
+         * Maximum number of SMS send attempts per phone number.
+         */
+        private int maxSendAttempts = 10;
+
+        /**
+         * Length of the generated SMS verification code.
+         */
+        private int codeLength = 6;
+
+        /**
+         * Whether captcha is required before sending SMS.
+         */
+        private boolean requireCaptcha = true;
+
+        /**
+         * Login processing URL for SMS authentication.
+         */
+        private String loginProcessingUrl = "/auth/sms/login";
     }
 }
