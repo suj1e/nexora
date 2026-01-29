@@ -28,11 +28,11 @@ Each starter uses Spring Boot's `@AutoConfiguration` mechanism:
 
 | Starter | Auto-Configuration | Key Components | Properties Prefix |
 |---------|-------------------|----------------|-------------------|
-| **nexora-web-starter** | `CommonWebAutoConfiguration` | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` | None (uses defaults) |
-| **nexora-redis-starter** | `RedisCacheAutoConfiguration`, `CaffeineAutoConfiguration` | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` | `common.redis` |
-| **nexora-kafka-starter** | `KafkaAutoConfiguration`, `KafkaDlqAutoConfiguration` | `EventPublisher`, `OutboxEvent`, DLQ handler | `common.kafka` |
-| **nexora-resilience-starter** | `ResilienceAutoConfiguration`, `EventListenerAutoConfiguration` | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, Event loggers | `common.resilience` |
-| **nexora-security-starter** | `SecurityAutoConfiguration`, `JasyptAutoConfiguration` | `JwtTokenProvider`, `Encryptor` | `common.security` |
+| **nexora-spring-boot-starter-web** | `CommonWebAutoConfiguration` | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` | None (uses defaults) |
+| **nexora-spring-boot-starter-redis** | `RedisCacheAutoConfiguration`, `CaffeineAutoConfiguration` | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` | `common.redis` |
+| **nexora-spring-boot-starter-kafka** | `KafkaAutoConfiguration`, `KafkaDlqAutoConfiguration` | `EventPublisher`, `OutboxEvent`, DLQ handler | `common.kafka` |
+| **nexora-spring-boot-starter-resilience** | `ResilienceAutoConfiguration`, `EventListenerAutoConfiguration` | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, Event loggers | `common.resilience` |
+| **nexora-spring-boot-starter-security** | `SecurityAutoConfiguration`, `JasyptAutoConfiguration` | `JwtTokenProvider`, `Encryptor` | `common.security` |
 
 ## Development Commands
 

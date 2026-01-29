@@ -6,11 +6,11 @@
 
 | 模块 | 说明 | 核心组件 |
 |------|------|----------|
-| **nexora-web-starter** | Web 统一处理 | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` |
-| **nexora-redis-starter** | 多级缓存 | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` |
-| **nexora-kafka-starter** | 消息队列 | `EventPublisher`, `OutboxEvent`, DLQ 错误处理器 |
-| **nexora-resilience-starter** | 熔断降级 | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, 事件监听器 |
-| **nexora-security-starter** | 安全工具 | `JwtTokenProvider`, `Encryptor` (Jasypt) |
+| **nexora-spring-boot-starter-web** | Web 统一处理 | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` |
+| **nexora-spring-boot-starter-redis** | 多级缓存 | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` |
+| **nexora-spring-boot-starter-kafka** | 消息队列 | `EventPublisher`, `OutboxEvent`, DLQ 错误处理器 |
+| **nexora-spring-boot-starter-resilience** | 熔断降级 | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, 事件监听器 |
+| **nexora-spring-boot-starter-security** | 安全工具 | `JwtTokenProvider`, `Encryptor` (Jasypt) |
 
 ## 使用方式
 
