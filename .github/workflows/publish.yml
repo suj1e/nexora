@@ -2,11 +2,23 @@ name: Publish to Aliyun Yunxiao
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   release:
     types: [created]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to publish (e.g., 1.0.0)'
+        required: false
+        type: string
+      type:
+        description: 'Release type: snapshot or release'
+        required: true
+        type: choice
+        default: 'snapshot'
+        options:
+          - snapshot
+          - release
 
 jobs:
   publish:
@@ -25,41 +37,83 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        continue-on-error: true
 
-      - name: Create gradle wrapper if not exists
-        run: gradle wrapper --gradle-version 9.0.0
+      - name: Create Gradle wrapper if not exists
+        run: |
+          if [ ! -f "gradlew" ]; then
+            gradle wrapper --gradle-version 9.0.0
+          fi
 
-      - name: Publish to Aliyun Yunxiao (Snapshot)
-        if: github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/')
+      - name: Build before publishing
         env:
           YUNXIAO_USERNAME: ${{ secrets.YUNXIAO_USERNAME }}
           YUNXIAO_PASSWORD: ${{ secrets.YUNXIAO_PASSWORD }}
           YUNXIAO_SNAPSHOT_URL: ${{ secrets.YUNXIAO_SNAPSHOT_URL }}
         run: |
-          ./gradlew publishAllPublicationsToYunxiaoSnapshotRepository \
+          ./gradlew clean build --no-daemon \
             -PYunxiaoSnapshotRepositoryUrl="$YUNXIAO_SNAPSHOT_URL" \
             -PYunxiaoSnapshotUsername="$YUNXIAO_USERNAME" \
             -PYunxiaoSnapshotPassword="$YUNXIAO_PASSWORD"
 
-      - name: Publish to Aliyun Yunxiao (Release)
-        if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v')
+      - name: Publish Snapshot to Aliyun Yunxiao
+        if: |
+          github.event_name == 'push' && !startsWith(github.ref, 'refs/tags/') ||
+          (github.event_name == 'workflow_dispatch' && inputs.type == 'snapshot')
+        env:
+          YUNXIAO_USERNAME: ${{ secrets.YUNXIAO_USERNAME }}
+          YUNXIAO_PASSWORD: ${{ secrets.YUNXIAO_PASSWORD }}
+          YUNXIAO_SNAPSHOT_URL: ${{ secrets.YUNXIAO_SNAPSHOT_URL }}
+        run: |
+          ./gradlew publishAllPublicationsToYunxiaoSnapshotRepository --no-daemon \
+            -PYunxiaoSnapshotRepositoryUrl="$YUNXIAO_SNAPSHOT_URL" \
+            -PYunxiaoSnapshotUsername="$YUNXIAO_USERNAME" \
+            -PYunxiaoSnapshotPassword="$YUNXIAO_PASSWORD"
+
+      - name: Publish Release to Aliyun Yunxiao
+        if: |
+          github.event_name == 'release' || startsWith(github.ref, 'refs/tags/v') ||
+          (github.event_name == 'workflow_dispatch' && inputs.type == 'release')
         env:
           YUNXIAO_USERNAME: ${{ secrets.YUNXIAO_USERNAME }}
           YUNXIAO_PASSWORD: ${{ secrets.YUNXIAO_PASSWORD }}
           YUNXIAO_RELEASE_URL: ${{ secrets.YUNXIAO_RELEASE_URL }}
         run: |
-          # Extract version from tag or release
-          VERSION=${GITHUB_REF#refs/tags/v}
-          if [ "$VERSION" = "$GITHUB_REF" ]; then
-            VERSION=${{ github.event.release.tag_name }}
+          # Extract version from tag or release or input
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            VERSION="${{ inputs.version }}"
+          elif [ "${{ github.event_name }}" == "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+          else
+            VERSION=${GITHUB_REF#refs/tags/v}
           fi
 
-          ./gradlew publishAllPublicationsToYunxiaoReleaseRepository \
+          # Remove 'v' prefix if present
+          VERSION=${VERSION#v}
+
+          echo "Publishing version: $VERSION"
+
+          ./gradlew publishAllPublicationsToYunxiaoReleaseRepository --no-daemon \
             -PYunxiaoReleaseRepositoryUrl="$YUNXIAO_RELEASE_URL" \
             -PYunxiaoReleaseUsername="$YUNXIAO_USERNAME" \
             -PYunxiaoReleasePassword="$YUNXIAO_PASSWORD" \
             -PprojectVersion=$VERSION
 
-      - name: Build status
-        run: echo "Publish completed successfully!"
+      - name: Publish summary
+        if: always()
+        run: |
+          echo "### 📦 Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Event:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch/Tag:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Published to Aliyun Yunxiao" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "::error::Publish to Aliyun Yunxiao failed!"
+          exit 1

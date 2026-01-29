@@ -1,0 +1,65 @@
+version: 2
+updates:
+  # Gradle dependencies in libs.versions.toml
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "suj1e"
+    labels:
+      - "dependencies"
+      - "gradle"
+    commit-message:
+      prefix: "gradle"
+      include: "scope"
+    groups:
+      spring-boot:
+        patterns:
+          - "org.springframework.boot*"
+        exclude-patterns:
+          - "*-maven-plugin"
+      spring-framework:
+        patterns:
+          - "org.springframework*"
+      resilience4j:
+        patterns:
+          - "io.github.resilience4j*"
+      testing:
+        patterns:
+          - "org.junit*"
+          - "org.mockito*"
+          - "org.assertj*"
+
+  # GitHub Actions (workflow dependencies)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "github-actions"
+      - "dependencies"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+  # Docker (if added in the future)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    labels:
+      - "docker"
+      - "dependencies"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
