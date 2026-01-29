@@ -5,9 +5,6 @@
 
 | 模块 | 说明 |
 |------|------|
-| nexora-dependencies | BOM 统一版本管理 |
-| nexora-starter | 核心基础功能（自动配置） |
-| nexora-id-starter | 分布式 ID（Snowflake） |
 | nexora-redis-starter | Redis + Caffeine 多级缓存 |
 | nexora-kafka-starter | Kafka + DLQ + Outbox |
 | nexora-resilience-starter | Resilience4j 熔断降级限流 |
@@ -16,40 +13,23 @@
 
 ## 使用方式
 
-### 1. 引入 BOM（统一版本）
+添加所需 Starter：
 
 ```gradle
 dependencies {
-    implementation(platform("com.nexora:nexora-dependencies:1.0.0"))
-}
-```
-
-### 2. 添加所需 Starter
-
-```gradle
-dependencies {
-    // 核心基础（推荐所有服务引入）
-    implementation("com.nexora:nexora-starter")
-
-    // 按需引入
-    implementation("com.nexora:nexora-id-starter")
     implementation("com.nexora:nexora-redis-starter")
     implementation("com.nexora:nexora-kafka-starter")
     implementation("com.nexora:nexora-resilience-starter")
     implementation("com.nexora:nexora-security-starter")
+    implementation("com.nexora:nexora-web-starter")
 }
 ```
 
-### 3. 配置（可选）
+### 配置（可选）
 
 大部分功能零配置，部分功能可按需配置：
 
 ```yaml
-# Snowflake ID
-snowflake:
-  worker-id: ${SNOWFLAKE_WORKER_ID:0}
-  datacenter-id: ${SNOWFLAKE_DATACENTER_ID:0}
-
 # Kafka + DLQ + Outbox
 spring:
   kafka:

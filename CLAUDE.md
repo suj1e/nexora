@@ -13,28 +13,10 @@ This is a multi-module Gradle project providing Spring Boot starters for microse
 
 ## Module Architecture
 
-The project follows a clear separation pattern:
-
-- **nexora-dependencies** - BOM for unified version management (imports Spring Boot dependencies)
-- **nexora-starter** - Convenience module that aggregates all other starters
-- Individual feature starters (each is independent and auto-configures via Spring Boot)
-
-### Auto-Configuration Pattern
-
-Each starter uses Spring Boot's `@AutoConfiguration` mechanism:
-
-1. Auto-configuration classes are in `.../autoconfigure/` packages
-2. Registrations are in `src/main/resources/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
-3. Conditional activation uses:
-   - `@ConditionalOnClass` - only activate if dependencies are present
-   - `@ConditionalOnMissingBean` - allow user override
-   - `@ConditionalOnProperty` - enable/disable via configuration
-
 ### Starter Responsibilities
 
 | Starter | Key Components |
 |---------|----------------|
-| **nexora-id-starter** | `SnowflakeIdGenerator` - distributed ID generation with configurable worker/datacenter IDs |
 | **nexora-web-starter** | `ResponseWrapperAspect` - wraps controller responses in `Result<T>`, `GlobalExceptionHandler` - unified error handling |
 | **nexora-redis-starter** | Multi-level caching (Caffeine L1 + Redis L2), JSON serialization, per-cache TTL |
 | **nexora-kafka-starter** | `EventPublisher` for messaging, DLQ error handler, `OutboxEvent` entity for transactional outbox pattern |
@@ -52,7 +34,7 @@ Each starter uses Spring Boot's `@AutoConfiguration` mechanism:
 ### Build specific module
 
 ```bash
-./gradlew :nexora-id-starter:build
+./gradlew :nexora-spring-boot-starter-web:build
 ```
 
 ### Clean build
@@ -71,10 +53,9 @@ Each starter uses Spring Boot's `@AutoConfiguration` mechanism:
 
 ### Configuration Properties
 
-Each starter defines its own `@ConfigurationProperties` class (e.g., `SnowflakeProperties`, `KafkaProperties`, `RedisProperties`). Properties follow the naming pattern:
+Each starter defines its own `@ConfigurationProperties` class (e.g., `KafkaProperties`, `RedisProperties`). Properties follow the naming pattern:
 
 ```yaml
-snowflake:          # ID generation
 common:
   kafka:            # Kafka features
   redis:            # Cache configuration
@@ -99,4 +80,3 @@ Resilience4j event listeners (`CircuitBreakerEventLogger`, `RetryEventLogger`) a
 3. Create auto-configuration class in `.../autoconfigure/` package
 4. Create `@ConfigurationProperties` class if needed
 5. Register in `META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports`
-6. Add to `nexora-starter/build.gradle.kts` dependencies if it should be included in the aggregate
