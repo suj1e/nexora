@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group = "com.nexora"
-    version = "1.0.0"
+    version = project.findProperty("projectVersion")?.toString() ?: (property("version") as String)
 
     repositories {
         maven { url = uri("https://maven.aliyun.com/repository/public") }

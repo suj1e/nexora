@@ -1,0 +1,53 @@
+name: Release Please
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run release-please
+        uses: google-github-actions/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: java
+          package-name: nexora-spring-boot-starters
+          extra-files: |
+            gradle.properties
+          changelog-types: |
+            [
+              {"type": "feat", "section": "Features", "hidden": false},
+              {"type": "fix", "section": "Bug Fixes", "hidden": false},
+              {"type": "perf", "section": "Performance", "hidden": false},
+              {"type": "refactor", "section": "Refactor", "hidden": false},
+              {"type": "docs", "section": "Documentation", "hidden": false},
+              {"type": "chore", "section": "Chore", "hidden": false},
+              {"type": "test", "section": "Tests", "hidden": false},
+              {"type": "ci", "section": "CI", "hidden": false}
+            ]
+
+      - name: Release summary
+        if: steps.release.outputs.releases_created == 'true'
+        run: |
+          echo "### 🚀 Release Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Property | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Release** | \`${{ steps.release.outputs.tag_name }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Major** | ${{ steps.release.outputs.major }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Minor** | ${{ steps.release.outputs.minor }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Patch** | ${{ steps.release.outputs.patch }} |" >> $GITHUB_STEP_SUMMARY

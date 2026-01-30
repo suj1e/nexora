@@ -1,15 +1,16 @@
 name: CI
 
 on:
-  push:
-    branches: [main, develop]
   pull_request:
+    branches: [main, develop]
+  push:
     branches: [main, develop]
   workflow_dispatch:
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout code
@@ -24,18 +25,11 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        continue-on-error: true
 
-      - name: Create gradle wrapper if not exists
-        run: gradle wrapper --gradle-version 9.0.0
+      - name: Build and validate
+        run: ./gradlew build check --no-daemon --scan
 
-      - name: Build with Gradle
-        run: ./gradlew build --no-daemon
-
-      - name: Run tests
-        run: ./gradlew test --no-daemon
-
-      - name: Generate test report
+      - name: Upload test report
         if: always()
         uses: dorny/test-reporter@v1
         with:
@@ -44,43 +38,36 @@ jobs:
           reporter: java-junit
           fail-on-error: false
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
         with:
-          name: build-artifacts
-          path: |
-            **/build/libs/*.jar
-            **/build/publications/**/*.pom
-          retention-days: 7
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: '**/build/reports/jacoco/test/jacocoTestReport.xml'
+          fail_ci_if_error: false
 
-      - name: Build and test summary
+      - name: Security scan (PR only)
+        if: github.event_name == 'pull_request'
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload security results
+        if: github.event_name == 'pull_request'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Validate summary
         if: always()
         run: |
-          echo "### 📦 Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Validation Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-
-  security-scan:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run OWASP Dependency Check
-        uses: dependency-check/dependency-check-action@v4
-        with:
-          project: 'nexora-spring-boot-starters'
-          path: '.'
-          format: 'HTML'
-          out: 'reports'
-
-      - name: Upload security report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: security-report
-          path: reports
+          echo "| Status | Details |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|---------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Status** | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Event** | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Branch** | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
