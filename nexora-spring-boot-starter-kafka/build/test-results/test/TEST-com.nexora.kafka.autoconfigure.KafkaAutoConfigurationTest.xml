@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="KafkaAutoConfiguration Integration Tests" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-01-30T13:46:14.568Z" hostname="192.168.31.66" time="0.928">
+  <properties/>
+  <testcase name="Should enable Kafka via @EnableKafka" classname="com.nexora.kafka.autoconfigure.KafkaAutoConfigurationTest" time="0.874"/>
+  <testcase name="Should scan EventPublisher component" classname="com.nexora.kafka.autoconfigure.KafkaAutoConfigurationTest" time="0.019"/>
+  <testcase name="Should not load without KafkaTemplate class" classname="com.nexora.kafka.autoconfigure.KafkaAutoConfigurationTest" time="0.016"/>
+  <testcase name="Should load KafkaAutoConfiguration with KafkaTemplate present" classname="com.nexora.kafka.autoconfigure.KafkaAutoConfigurationTest" time="0.014"/>
+  <system-out><![CDATA[21:46:15.479 [Test worker] WARN org.springframework.context.annotation.AnnotationConfigApplicationContext -- Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'eventPublisher' defined in file [/Users/sujie/workspace/dev/github/nexora-spring-boot-starters/nexora-spring-boot-starter-kafka/build/classes/java/main/com/nexora/kafka/publisher/EventPublisher.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'org.springframework.kafka.core.KafkaTemplate<java.lang.String, java.lang.String>' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+]]></system-out>
+  <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (/Users/sujie/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
+</testsuite>
