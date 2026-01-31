@@ -1,0 +1,150 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.nexora",
+    "module": "nexora-spring-boot-starter-security",
+    "version": "1.0.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.0.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "4.0.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-security"
+        },
+        {
+          "group": "org.springframework.security",
+          "module": "spring-security-web"
+        },
+        {
+          "group": "com.github.ulisesbocchio",
+          "module": "jasypt-spring-boot-starter",
+          "version": {
+            "requires": "3.0.5"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-api",
+          "version": {
+            "requires": "0.12.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "size": 29485,
+          "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
+          "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",
+          "sha1": "5ea4078674bdcf8efd59f4be88f357baa4af224d",
+          "md5": "9195676320761a11d50744851b36bfda"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "4.0.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-security"
+        },
+        {
+          "group": "org.springframework.security",
+          "module": "spring-security-web"
+        },
+        {
+          "group": "com.github.ulisesbocchio",
+          "module": "jasypt-spring-boot-starter",
+          "version": {
+            "requires": "3.0.5"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-api",
+          "version": {
+            "requires": "0.12.3"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-impl",
+          "version": {
+            "requires": "0.12.3"
+          }
+        },
+        {
+          "group": "io.jsonwebtoken",
+          "module": "jjwt-jackson",
+          "version": {
+            "requires": "0.12.3"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "size": 29485,
+          "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
+          "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",
+          "sha1": "5ea4078674bdcf8efd59f4be88f357baa4af224d",
+          "md5": "9195676320761a11d50744851b36bfda"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata modelVersion="1.1.0">
+  <groupId>com.nexora</groupId>
+  <artifactId>nexora-spring-boot-starter-kafka</artifactId>
+  <versioning>
+    <lastUpdated>20260131070711</lastUpdated>
+    <snapshot>
+      <timestamp>20260131.070711</timestamp>
+      <buildNumber>3</buildNumber>
+    </snapshot>
+    <snapshotVersions>
+      <snapshotVersion>
+        <extension>jar</extension>
+        <value>1.0.0-20260131.070711-3</value>
+        <updated>20260131070711</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>module</extension>
+        <value>1.0.0-20260131.070711-3</value>
+        <updated>20260131070711</updated>
+      </snapshotVersion>
+      <snapshotVersion>
+        <extension>pom</extension>
+        <value>1.0.0-20260131.070711-3</value>
+        <updated>20260131070711</updated>
+      </snapshotVersion>
+    </snapshotVersions>
+  </versioning>
+  <version>1.0.0-SNAPSHOT</version>
+</metadata>

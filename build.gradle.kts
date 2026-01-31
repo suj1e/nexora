@@ -65,20 +65,20 @@ subprojects {
             // Snapshot repository (for main branch pushes)
             maven {
                 name = "YunxiaoSnapshotRepository"
-                url = uri(project.findProperty("YunxiaoSnapshotRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/snapshot")
+                url = uri(project.findProperty("repositoryUrl") ?: project.findProperty("YunxiaoSnapshotRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/snapshot")
                 credentials {
-                    username = (project.findProperty("YunxiaoSnapshotUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
-                    password = (project.findProperty("YunxiaoSnapshotPassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
+                    username = (project.findProperty("repositoryUsername") ?: project.findProperty("YunxiaoSnapshotUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
+                    password = (project.findProperty("repositoryPassword") ?: project.findProperty("YunxiaoSnapshotPassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
                 }
             }
 
             // Release repository (for tags/releases)
             maven {
                 name = "YunxiaoReleaseRepository"
-                url = uri(project.findProperty("YunxiaoReleaseRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/release")
+                url = uri(project.findProperty("repositoryUrl") ?: project.findProperty("YunxiaoReleaseRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/release")
                 credentials {
-                    username = (project.findProperty("YunxiaoReleaseUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
-                    password = (project.findProperty("YunxiaoReleasePassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
+                    username = (project.findProperty("repositoryUsername") ?: project.findProperty("YunxiaoReleaseUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
+                    password = (project.findProperty("repositoryPassword") ?: project.findProperty("YunxiaoReleasePassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
                 }
             }
         }

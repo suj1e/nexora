@@ -1,0 +1,152 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.nexora",
+    "module": "nexora-spring-boot-starter-redis",
+    "version": "1.0.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.0.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "4.0.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-data-redis"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-cache"
+        },
+        {
+          "group": "com.github.ben-manes.caffeine",
+          "module": "caffeine",
+          "version": {
+            "requires": "3.1.8"
+          }
+        },
+        {
+          "group": "io.lettuce",
+          "module": "lettuce-core",
+          "version": {
+            "requires": "6.3.2.RELEASE"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind"
+        },
+        {
+          "group": "com.fasterxml.jackson.datatype",
+          "module": "jackson-datatype-jsr310"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "size": 9198,
+          "sha512": "08b3f5388392709b16829803332c6d8dae7f218f7bd41c4f5d8c61c5226226d45ef5711a8310db345b8cbb555b1c2a77dbc74bbd295975c2868459e1f5bc2f81",
+          "sha256": "49b0d75873d2777f557205b55d2a422d61478a0df870d6bf123a67cfa22d62a5",
+          "sha1": "d5be1acc9252f5052073af4d9fd4673e2854f56f",
+          "md5": "386014d6ec532fb4e848a7c48d89cd26"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "4.0.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-data-redis"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-cache"
+        },
+        {
+          "group": "com.github.ben-manes.caffeine",
+          "module": "caffeine",
+          "version": {
+            "requires": "3.1.8"
+          }
+        },
+        {
+          "group": "io.lettuce",
+          "module": "lettuce-core",
+          "version": {
+            "requires": "6.3.2.RELEASE"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind"
+        },
+        {
+          "group": "com.fasterxml.jackson.datatype",
+          "module": "jackson-datatype-jsr310"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "size": 9198,
+          "sha512": "08b3f5388392709b16829803332c6d8dae7f218f7bd41c4f5d8c61c5226226d45ef5711a8310db345b8cbb555b1c2a77dbc74bbd295975c2868459e1f5bc2f81",
+          "sha256": "49b0d75873d2777f557205b55d2a422d61478a0df870d6bf123a67cfa22d62a5",
+          "sha1": "d5be1acc9252f5052073af4d9fd4673e2854f56f",
+          "md5": "386014d6ec532fb4e848a7c48d89cd26"
+        }
+      ]
+    }
+  ]
+}

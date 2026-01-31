@@ -1,0 +1,3 @@
+com.nexora.security.autoconfigure.JasyptAutoConfiguration
+com.nexora.security.autoconfigure.SecurityAutoConfiguration
+com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration

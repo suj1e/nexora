@@ -13,7 +13,7 @@ tasks.withType<Test> {
 }
 
 dependencies {
-    implementation(enforcedPlatform(libs.spring.boot.dependencies))
+    api(platform(libs.spring.boot.dependencies))
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
