@@ -83,7 +83,10 @@ class SecurityAutoConfigurationTest {
         new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class))
             .run(context -> {
-                assertThat(context).doesNotHaveBean(SecurityAutoConfiguration.class);
+                // Context should fail to start without StandardPBEStringEncryptor bean
+                assertThat(context).hasFailed();
+                assertThat(context.getStartupFailure()).isInstanceOf(
+                    org.springframework.beans.factory.UnsatisfiedDependencyException.class);
             });
     }
 }

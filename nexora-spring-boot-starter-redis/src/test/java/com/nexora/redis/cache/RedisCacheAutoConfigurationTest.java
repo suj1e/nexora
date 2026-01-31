@@ -1,5 +1,6 @@
 package com.nexora.redis.cache;
 
+import com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration;
 import com.nexora.redis.autoconfigure.RedisProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -48,7 +49,10 @@ class RedisCacheAutoConfigurationTest {
         new ApplicationContextRunner()
             .withConfiguration(AutoConfigurations.of(RedisCacheAutoConfiguration.class))
             .run(context -> {
-                assertThat(context).doesNotHaveBean("cacheManager");
+                // Context should fail to start without RedisConnectionFactory
+                assertThat(context).hasFailed();
+                assertThat(context.getStartupFailure()).isInstanceOf(
+                    org.springframework.beans.factory.UnsatisfiedDependencyException.class);
             });
     }
 

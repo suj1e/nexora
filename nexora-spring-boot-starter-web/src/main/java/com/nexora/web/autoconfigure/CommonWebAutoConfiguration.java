@@ -1,8 +1,10 @@
 package com.nexora.web.autoconfigure;
 
 import com.nexora.web.aspect.ResponseWrapperAspect;
+import com.nexora.web.exception.GlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
@@ -19,10 +21,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @AutoConfiguration
 @ConditionalOnWebApplication
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@ComponentScan(basePackageClasses = {ResponseWrapperAspect.class, GlobalExceptionHandler.class})
 public class CommonWebAutoConfiguration {
 
-    /**
-     * Response wrapper aspect is automatically registered via component scanning.
-     * No explicit bean registration needed.
-     */
 }

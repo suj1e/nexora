@@ -27,5 +27,6 @@ dependencies {
     runtimeOnly(libs.jjwt.jackson)
 
     testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.jakarta.servlet.api)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

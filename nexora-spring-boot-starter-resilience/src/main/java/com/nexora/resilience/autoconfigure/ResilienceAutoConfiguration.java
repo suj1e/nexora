@@ -82,8 +82,7 @@ public class ResilienceAutoConfiguration {
     @Bean
     public RetryRegistry retryRegistry() {
         RetryConfig.Builder builder = RetryConfig.custom()
-                .maxAttempts(properties.getRetry().getMaxAttempts())
-                .waitDuration(properties.getRetry().getWaitDuration());
+                .maxAttempts(properties.getRetry().getMaxAttempts());
 
         if (properties.getRetry().isEnableExponentialBackoff()) {
             builder.intervalFunction(
@@ -92,6 +91,8 @@ public class ResilienceAutoConfiguration {
                             properties.getRetry().getExponentialBackoffMultiplier()
                     )
             );
+        } else {
+            builder.waitDuration(properties.getRetry().getWaitDuration());
         }
 
         RetryRegistry registry = RetryRegistry.of(builder.build());
