@@ -1,10 +1,8 @@
 rootProject.name = "nexora-spring-boot-starters"
 
-include(
-    "nexora-spring-boot-starter-web",
-    "nexora-spring-boot-starter-redis",
-    "nexora-spring-boot-starter-kafka",
-    "nexora-spring-boot-starter-resilience",
-    "nexora-spring-boot-starter-security",
-    "nexora-spring-boot-starter-file-storage"
-)
+// Dynamically include all modules with nexora-spring-boot-starter- prefix
+file(".".canonicalFile)
+    .listFiles { file -> file.isDirectory && !file.name.startsWith(".") }
+    ?.filter { it.name.startsWith("nexora-spring-boot-starter-") }
+    ?.sorted()
+    ?.forEach { include(it.name) }
