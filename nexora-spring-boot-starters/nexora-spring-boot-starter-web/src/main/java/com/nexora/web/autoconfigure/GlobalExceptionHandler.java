@@ -134,7 +134,8 @@ public class GlobalExceptionHandler {
     public Result<Void> handleMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpServletRequest request) {
         String traceId = Result.generateTraceId();
         log.warn("Method not supported: [{}] {} - {}", traceId, request.getMethod(), ex.getMessage());
-        return Result.failWithTraceId(405, "Method not supported: " + ex.getMethod(), traceId);
+        return Result.failWithTraceId(Result.CODE_METHOD_NOT_ALLOWED,
+            Result.MSG_METHOD_NOT_ALLOWED + ": " + ex.getMethod(), traceId);
     }
 
     /**
@@ -145,7 +146,7 @@ public class GlobalExceptionHandler {
     public Result<Void> handleMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex, HttpServletRequest request) {
         String traceId = Result.generateTraceId();
         log.warn("Media type not acceptable: [{}] {} - {}", traceId, request.getRequestURI(), ex.getMessage());
-        return Result.failWithTraceId(406, "Media type not acceptable", traceId);
+        return Result.failWithTraceId(Result.CODE_NOT_ACCEPTABLE, Result.MSG_NOT_ACCEPTABLE, traceId);
     }
 
     /**
@@ -205,6 +206,6 @@ public class GlobalExceptionHandler {
     public Result<Void> handleException(Exception ex, HttpServletRequest request) {
         String traceId = Result.generateTraceId();
         log.error("Unexpected error: [{}] {} - {}", traceId, request.getRequestURI(), ex.getMessage(), ex);
-        return Result.failWithTraceId(500, "Internal server error", traceId);
+        return Result.failWithTraceId(Result.CODE_INTERNAL_SERVER_ERROR, Result.MSG_INTERNAL_SERVER_ERROR, traceId);
     }
 }

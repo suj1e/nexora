@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="SmsLoginAutoConfiguration Integration Tests" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:31:48.925Z" hostname="192.168.31.66" time="0.059">
+<testsuite name="SmsLoginAutoConfiguration Integration Tests" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:59:09.763Z" hostname="192.168.31.66" time="0.101">
   <properties/>
-  <testcase name="Should not load by default" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.02"/>
-  <testcase name="Should register SmsProperties when enabled" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.009"/>
-  <testcase name="Should load when enabled in web application" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.007"/>
-  <testcase name="Should not load in non-web application" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.003"/>
-  <testcase name="Should configure SmsProperties with custom values" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.008"/>
-  <testcase name="Should configure SmsProperties with default values" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.008"/>
-  <system-out><![CDATA[18:31:48.952 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
-18:31:48.961 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
-18:31:48.971 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
-18:31:48.981 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
+  <testcase name="Should not load by default" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.031"/>
+  <testcase name="Should register SmsProperties when enabled" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.013"/>
+  <testcase name="Should load when enabled in web application" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.01"/>
+  <testcase name="Should not load in non-web application" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.006"/>
+  <testcase name="Should configure SmsProperties with custom values" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.013"/>
+  <testcase name="Should configure SmsProperties with default values" classname="com.nexora.security.sms.autoconfigure.SmsLoginAutoConfigurationTest" time="0.016"/>
+  <system-out><![CDATA[18:59:09.804 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
+18:59:09.816 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
+18:59:09.837 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
+18:59:09.861 [Test worker] INFO com.nexora.security.sms.autoconfigure.SmsLoginAutoConfiguration -- SMS login auto-configuration enabled
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

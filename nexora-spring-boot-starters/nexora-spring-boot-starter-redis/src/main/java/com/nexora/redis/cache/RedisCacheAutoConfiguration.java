@@ -44,17 +44,27 @@ import java.util.Map;
 @ConditionalOnProperty(prefix = "nexora.redis", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class RedisCacheAutoConfiguration {
 
+    /**
+     * ObjectMapper bean for Redis JSON serialization with JavaTimeModule support.
+     * Created only if not already provided by the application.
+     */
+    @Bean
+    @ConditionalOnMissingBean(ObjectMapper.class)
+    public ObjectMapper redisObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModules(new JavaTimeModule());
+        log.debug("Created ObjectMapper for Redis cache with JavaTimeModule");
+        return objectMapper;
+    }
+
     @Bean
     @ConditionalOnMissingBean
     public CacheManager cacheManager(
             RedisConnectionFactory connectionFactory,
-            RedisProperties properties
+            RedisProperties properties,
+            ObjectMapper objectMapper
     ) {
         log.info("Initializing RedisCacheManager with default TTL: {}", properties.getCacheDefaultTtl());
-
-        // ObjectMapper for JSON serialization
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModules(new JavaTimeModule());
 
         // Redis cache configuration
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()

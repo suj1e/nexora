@@ -1,11 +1,11 @@
 package com.nexora.kafka.autoconfigure;
 
-import lombok.RequiredArgsConstructor;
+import com.nexora.kafka.properties.KafkaProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -28,19 +28,26 @@ import org.springframework.util.backoff.FixedBackOff;
 @Configuration
 @ConditionalOnClass(name = "org.springframework.kafka.core.KafkaTemplate")
 @ConditionalOnProperty(prefix = "nexora.kafka.dlq", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(KafkaProperties.class)
 public class KafkaDlqAutoConfiguration {
 
     @Autowired(required = false)
     private KafkaTemplate<Object, Object> kafkaTemplate;
+
+    private final KafkaProperties properties;
+
+    public KafkaDlqAutoConfiguration(KafkaProperties properties) {
+        this.properties = properties;
+    }
 
     /**
      * Common error handler with DLQ support.
      *
      * <p>Configuration:
      * <ul>
-     *   <li>Max retry attempts: 3</li>
-     * <li>Backoff interval: 1 second</li>
-   *   <li>Failed messages sent to DLQ topic</li>
+     *   <li>Max retry attempts: configurable via nexora.kafka.dlq.retry-attempts (default: 3)</li>
+     *   <li>Backoff interval: configurable via nexora.kafka.dlq.retry-interval-ms (default: 1000ms)</li>
+     *   <li>Failed messages sent to DLQ topic</li>
      * </ul>
      */
     @Bean
@@ -51,8 +58,11 @@ public class KafkaDlqAutoConfiguration {
             return new DefaultErrorHandler();
         }
 
-        // Fixed backoff: retry after 1 second, max 3 attempts
-        FixedBackOff backOff = new FixedBackOff(1000L, 3L);
+        // Fixed backoff: configurable retry interval and max attempts
+        FixedBackOff backOff = new FixedBackOff(
+            properties.getDlq().getRetryIntervalMs(),
+            properties.getDlq().getRetryAttempts()
+        );
 
         // Dead letter publishing recoverer
         // Automatically sends failed messages to DLQ topic
@@ -76,6 +86,9 @@ public class KafkaDlqAutoConfiguration {
             IllegalArgumentException.class,
             org.springframework.kafka.support.serializer.DeserializationException.class
         );
+
+        log.info("Kafka DLQ error handler initialized with retryAttempts={}, retryIntervalMs={}",
+            properties.getDlq().getRetryAttempts(), properties.getDlq().getRetryIntervalMs());
 
         return errorHandler;
     }

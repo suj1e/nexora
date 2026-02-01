@@ -3,12 +3,12 @@
 spring-boot = "4.0.2"
 
 # Third-party libraries
-caffeine = "3.1.8"
+caffeine = "3.2.2"
 jasypt = "3.0.5"
 jjwt = "0.12.3"
 lettuce = "6.3.2.RELEASE"
 resilience4j = "2.2.0"
-lombok = "1.18.34"
+lombok = "1.18.36"
 
 # Plugins
 dependency-management = "1.1.7"

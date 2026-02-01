@@ -11,6 +11,7 @@
 | **nexora-spring-boot-starter-kafka** | 消息队列 | `EventPublisher`, `OutboxEvent`, DLQ 错误处理器 |
 | **nexora-spring-boot-starter-resilience** | 熔断降级 | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, 事件监听器 |
 | **nexora-spring-boot-starter-security** | 安全工具 | `JwtTokenProvider`, `Encryptor` (Jasypt) |
+| **nexora-spring-boot-starter-file-storage** | 文件存储 | `FileStorageService`, `LocalStorage`, `OssStorage`, `S3Storage`, `MinioStorage` |
 
 ## 使用方式
 
@@ -23,6 +24,7 @@ dependencies {
     implementation("com.nexora:nexora-spring-boot-starter-kafka")
     implementation("com.nexora:nexora-spring-boot-starter-resilience")
     implementation("com.nexora:nexora-spring-boot-starter-security")
+    implementation("com.nexora:nexora-spring-boot-starter-file-storage")
 }
 ```
 
@@ -84,6 +86,35 @@ nexora:
     jasypt:
       enabled: false
       password: ${JASYPT_PASSWORD}
+
+# 文件存储
+nexora:
+  file-storage:
+    type: local  # local, oss, s3, minio
+    upload-path: /data/uploads
+    base-url: https://cdn.example.com
+    max-file-size: 10MB
+    allowed-extensions: jpg,jpeg,png,pdf
+    enable-date-path: true
+    enable-uuid-filename: true
+    # OSS 配置 (type=oss 时)
+    oss:
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      access-key-id: ${OSS_ACCESS_KEY_ID}
+      access-key-secret: ${OSS_ACCESS_KEY_SECRET}
+      bucket: my-bucket
+    # S3 配置 (type=s3 时)
+    s3:
+      region: us-east-1
+      access-key-id: ${AWS_ACCESS_KEY_ID}
+      secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+      bucket: my-bucket
+    # MinIO 配置 (type=minio 时)
+    minio:
+      endpoint: http://localhost:9000
+      access-key: ${MINIO_ACCESS_KEY}
+      secret-key: ${MINIO_SECRET_KEY}
+      bucket: my-bucket
 ```
 
 ## 模块详解
@@ -143,6 +174,35 @@ Claims claims = jwtTokenProvider.getClaims(token);
 // 配置加密
 app:
   password: ENC(encryptedValueHere)
+```
+
+### File Storage Starter
+
+- **统一存储接口**：支持本地、阿里云 OSS、AWS S3、MinIO
+- **自动路由**：根据配置自动选择存储实现
+- **文件验证**：支持文件大小、扩展名限制
+- **路径处理**：支持日期分区、UUID 文件名
+- **哈希计算**：支持 MD5、SHA-256、SHA-512
+
+```java
+// 上传文件
+@Autowired
+private FileStorageService fileStorageService;
+
+@PostMapping("/upload")
+public Result<FileMetadata> upload(@RequestParam("file") MultipartFile file) {
+    FileMetadata metadata = fileStorageService.upload(file, "uploads/");
+    return Result.ok(metadata);
+}
+
+// 下载文件
+InputStream stream = fileStorageService.download("uploads/2024/01/15/abc.jpg");
+
+// 获取公开 URL
+String url = fileStorageService.getPublicUrl("uploads/2024/01/15/abc.jpg");
+
+// 生成预签名 URL (云存储)
+String presignedUrl = fileStorageService.getPresignedUrl("uploads/file.pdf", 3600);
 ```
 
 ## 开发规范

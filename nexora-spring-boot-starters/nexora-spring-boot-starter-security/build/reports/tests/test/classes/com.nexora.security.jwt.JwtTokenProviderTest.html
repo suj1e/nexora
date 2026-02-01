@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.178s</div>
+<div class="counter">0.199s</div>
 <p>duration</p>
 </div>
 </td>
@@ -87,7 +87,7 @@
 <tr>
 <td class="success">Generate refresh token should create valid token</td>
 <td class="success">testGenerateRefreshToken()</td>
-<td class="success">0.001s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -99,7 +99,7 @@
 <tr>
 <td class="success">Generate token with empty claims should still work</td>
 <td class="success">testGenerateTokenWithEmptyClaims()</td>
-<td class="success">0.159s</td>
+<td class="success">0.177s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -117,7 +117,7 @@
 <tr>
 <td class="success">Get expiration should return valid expiration date</td>
 <td class="success">testGetExpiration()</td>
-<td class="success">0.002s</td>
+<td class="success">0.001s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -129,7 +129,7 @@
 <tr>
 <td class="success">Get username should extract username from claims</td>
 <td class="success">testGetUsername()</td>
-<td class="success">0.002s</td>
+<td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -147,13 +147,13 @@
 <tr>
 <td class="success">Init should throw exception when secret is null</td>
 <td class="success">testInitThrowsExceptionForNullSecret()</td>
-<td class="success">0.001s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Is token expired should return false for fresh token</td>
 <td class="success">testIsTokenExpiredForFreshToken()</td>
-<td class="success">0.001s</td>
+<td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -179,25 +179,25 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>18:31:48.728 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.888 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.889 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.891 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.893 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.894 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.897 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.898 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.900 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.901 [Test worker] WARN com.nexora.security.jwt.JwtTokenProvider -- Invalid JWT token: Malformed protected header JSON: Unable to deserialize: Unexpected character ('�' (code 65533 / 0xfffd)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
+<pre>18:59:09.540 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.718 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.720 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.722 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.724 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.725 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.727 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.728 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.730 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.731 [Test worker] WARN com.nexora.security.jwt.JwtTokenProvider -- Invalid JWT token: Malformed protected header JSON: Unable to deserialize: Unexpected character ('�' (code 65533 / 0xfffd)): expected a valid value (JSON String, Number, Array, Object or token 'null', 'true' or 'false')
  at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); line: 1, column: 1]
-18:31:48.902 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.904 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.905 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.907 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.908 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.910 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.911 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
-18:31:48.911 [Test worker] WARN com.nexora.security.jwt.JwtTokenProvider -- Invalid JWT token: Invalid compact JWT string: Compact JWSs must contain exactly 2 period characters, and compact JWEs must contain exactly 4.  Found: 1
+18:59:09.732 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.735 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.736 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.738 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.740 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.744 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.745 [Test worker] INFO com.nexora.security.jwt.JwtTokenProvider -- Initialized JwtTokenProvider with issuer: test-issuer
+18:59:09.745 [Test worker] WARN com.nexora.security.jwt.JwtTokenProvider -- Invalid JWT token: Invalid compact JWT string: Compact JWSs must contain exactly 2 period characters, and compact JWEs must contain exactly 4.  Found: 1
 </pre>
 </span>
 </div>
@@ -209,7 +209,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.0.0</a> at 2026年2月1日 18:31:49</p>
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 2026年2月1日 18:59:09</p>
 </div>
 </div>
 </body>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CommonWebAutoConfiguration Integration Tests" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:31:33.968Z" hostname="192.168.31.66" time="0.238">
+<testsuite name="CommonWebAutoConfiguration Integration Tests" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:59:11.058Z" hostname="192.168.31.66" time="0.244">
   <properties/>
-  <testcase name="Should load CommonWebAutoConfiguration in web application" classname="com.nexora.web.autoconfigure.CommonWebAutoConfigurationTest" time="0.224"/>
-  <testcase name="Should register GlobalExceptionHandler bean" classname="com.nexora.web.autoconfigure.CommonWebAutoConfigurationTest" time="0.012"/>
+  <testcase name="Should load CommonWebAutoConfiguration in web application" classname="com.nexora.web.autoconfigure.CommonWebAutoConfigurationTest" time="0.229"/>
+  <testcase name="Should register GlobalExceptionHandler bean" classname="com.nexora.web.autoconfigure.CommonWebAutoConfigurationTest" time="0.013"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

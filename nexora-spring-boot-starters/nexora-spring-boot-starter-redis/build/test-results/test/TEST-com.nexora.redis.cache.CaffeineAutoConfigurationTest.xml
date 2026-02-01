@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="CaffeineAutoConfiguration Integration Tests" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:57:17.037Z" hostname="192.168.31.66" time="0.517">
+  <properties/>
+  <testcase name="Should not load when disabled" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.21"/>
+  <testcase name="Should configure Caffeine with maximum size" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.229"/>
+  <testcase name="Should load CaffeineAutoConfiguration when enabled" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.017"/>
+  <testcase name="Should not load without Caffeine class" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.016"/>
+  <testcase name="Should configure Caffeine with expire after write" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.013"/>
+  <testcase name="Should configure Caffeine with combined spec" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.014"/>
+  <testcase name="Should use default spec when not configured" classname="com.nexora.redis.cache.CaffeineAutoConfigurationTest" time="0.011"/>
+  <system-out><![CDATA[18:57:17.465 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: maximumSize=500
+18:57:17.494 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: maximumSize=1000,expireAfterWrite=5m
+18:57:17.511 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: maximumSize=1000,expireAfterWrite=5m
+18:57:17.526 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: expireAfterWrite=10m
+18:57:17.540 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: maximumSize=1000,expireAfterWrite=5m
+18:57:17.552 [Test worker] INFO com.nexora.redis.autoconfigure.CaffeineAutoConfiguration -- Initializing CaffeineCacheManager with spec: maximumSize=1000,expireAfterWrite=5m
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

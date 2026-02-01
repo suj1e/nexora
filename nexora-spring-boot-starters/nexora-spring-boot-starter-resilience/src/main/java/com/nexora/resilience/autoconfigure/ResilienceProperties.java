@@ -81,6 +81,62 @@ public class ResilienceProperties {
          * Exception types that should be treated as failures.
          */
         private Map<String, Duration> instanceConfigs = new HashMap<>();
+
+        /**
+         * Per-instance circuit breaker configurations.
+         * Allows overriding default settings for specific instances.
+         *
+         * <p>Configuration example:
+         * <pre>
+         * nexora.resilience.circuit-breaker.instances.user-service.failure-rate-threshold=60
+         * nexora.resilience.circuit-breaker.instances.user-service.wait-duration-in-open-state=15s
+         * nexora.resilience.circuit-breaker.instances.order-service.sliding-window-size=20
+         * </pre>
+         */
+        private Map<String, CircuitBreakerInstanceConfig> instances = new HashMap<>();
+    }
+
+    @Data
+    public static class CircuitBreakerInstanceConfig {
+        /**
+         * Failure rate threshold in percentage.
+         */
+        private Float failureRateThreshold;
+
+        /**
+         * Wait duration in open state.
+         */
+        private Duration waitDurationInOpenState;
+
+        /**
+         * Permitted number of calls in half-open state.
+         */
+        private Integer permittedNumberOfCallsInHalfOpenState;
+
+        /**
+         * Sliding window size.
+         */
+        private Integer slidingWindowSize;
+
+        /**
+         * Minimum number of calls required before circuit breaker can calculate error rate.
+         */
+        private Integer minimumNumberOfCalls;
+
+        /**
+         * Sliding window type (count-based or time-based).
+         */
+        private String slidingWindowType;
+
+        /**
+         * Slow call duration threshold.
+         */
+        private Duration slowCallDurationThreshold;
+
+        /**
+         * Slow call rate threshold.
+         */
+        private Float slowCallRateThreshold;
     }
 
     @Data

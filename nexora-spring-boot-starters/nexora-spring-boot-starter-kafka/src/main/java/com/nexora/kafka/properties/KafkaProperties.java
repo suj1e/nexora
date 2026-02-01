@@ -47,6 +47,11 @@ public class KafkaProperties {
          */
         private int retryAttempts = 3;
 
+        /**
+         * Retry interval in milliseconds between attempts.
+         */
+        private long retryIntervalMs = 1000L;
+
         public boolean isEnabled() {
             return enabled;
         }
@@ -61,6 +66,14 @@ public class KafkaProperties {
 
         public void setRetryAttempts(int retryAttempts) {
             this.retryAttempts = retryAttempts;
+        }
+
+        public long getRetryIntervalMs() {
+            return retryIntervalMs;
+        }
+
+        public void setRetryIntervalMs(long retryIntervalMs) {
+            this.retryIntervalMs = retryIntervalMs;
         }
     }
 

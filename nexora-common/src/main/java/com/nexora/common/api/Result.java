@@ -34,6 +34,32 @@ public record Result<T>(
     Boolean success
 ) {
 
+    // HTTP Status Codes
+    public static final int CODE_OK = 200;
+    public static final int CODE_CREATED = 201;
+    public static final int CODE_ACCEPTED = 202;
+    public static final int CODE_NO_CONTENT = 204;
+    public static final int CODE_BAD_REQUEST = 400;
+    public static final int CODE_UNAUTHORIZED = 401;
+    public static final int CODE_FORBIDDEN = 403;
+    public static final int CODE_NOT_FOUND = 404;
+    public static final int CODE_METHOD_NOT_ALLOWED = 405;
+    public static final int CODE_NOT_ACCEPTABLE = 406;
+    public static final int CODE_INTERNAL_SERVER_ERROR = 500;
+
+    // Default Messages
+    public static final String MSG_SUCCESS = "success";
+    public static final String MSG_CREATED = "created";
+    public static final String MSG_ACCEPTED = "accepted";
+    public static final String MSG_NO_CONTENT = "no content";
+    public static final String MSG_BAD_REQUEST = "Bad Request";
+    public static final String MSG_UNAUTHORIZED = "Unauthorized";
+    public static final String MSG_FORBIDDEN = "Forbidden";
+    public static final String MSG_NOT_FOUND = "Resource Not Found";
+    public static final String MSG_METHOD_NOT_ALLOWED = "Method Not Allowed";
+    public static final String MSG_NOT_ACCEPTABLE = "Media Type Not Acceptable";
+    public static final String MSG_INTERNAL_SERVER_ERROR = "Internal Server Error";
+
     /**
      * Success response with data.
      */
@@ -46,8 +72,8 @@ public record Result<T>(
      */
     public static <T> Result<T> ok(T data, String traceId) {
         return new Result<>(
-            200,
-            "success",
+            CODE_OK,
+            MSG_SUCCESS,
             data,
             java.time.Instant.now().toString(),
             traceId,
@@ -123,8 +149,8 @@ public record Result<T>(
      */
     public static <T> Result<T> accepted(T data, String traceId) {
         return new Result<>(
-            202,
-            "accepted",
+            CODE_ACCEPTED,
+            MSG_ACCEPTED,
             data,
             java.time.Instant.now().toString(),
             traceId,
@@ -144,8 +170,8 @@ public record Result<T>(
      */
     public static <T> Result<T> created(T data, String traceId) {
         return new Result<>(
-            201,
-            "created",
+            CODE_CREATED,
+            MSG_CREATED,
             data,
             java.time.Instant.now().toString(),
             traceId,
@@ -165,8 +191,8 @@ public record Result<T>(
      */
     public static <T> Result<T> noContent(String traceId) {
         return new Result<>(
-            204,
-            "no content",
+            CODE_NO_CONTENT,
+            MSG_NO_CONTENT,
             null,
             java.time.Instant.now().toString(),
             traceId,

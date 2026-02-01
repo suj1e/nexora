@@ -62,12 +62,44 @@ public class ResilienceAutoConfiguration {
         CircuitBreakerRegistry registry = CircuitBreakerRegistry.of(config);
 
         // Add instance-specific configurations
-        for (Map.Entry<String, Duration> entry : properties.getCircuitBreaker().getInstanceConfigs().entrySet()) {
-            CircuitBreakerConfig instanceConfig = CircuitBreakerConfig.custom()
-                    .failureRateThreshold(properties.getCircuitBreaker().getFailureRateThreshold())
-                    .waitDurationInOpenState(entry.getValue())
-                    .build();
-            registry.addConfiguration(entry.getKey(), instanceConfig);
+        for (Map.Entry<String, ResilienceProperties.CircuitBreakerInstanceConfig> entry :
+                properties.getCircuitBreaker().getInstances().entrySet()) {
+            ResilienceProperties.CircuitBreakerInstanceConfig instanceConfig = entry.getValue();
+            CircuitBreakerConfig.Builder builder = CircuitBreakerConfig.custom();
+
+            // Apply default values first
+            builder.failureRateThreshold(properties.getCircuitBreaker().getFailureRateThreshold())
+                    .waitDurationInOpenState(properties.getCircuitBreaker().getWaitDurationInOpenState())
+                    .permittedNumberOfCallsInHalfOpenState(
+                            properties.getCircuitBreaker().getPermittedNumberOfCallsInHalfOpenState())
+                    .slidingWindowSize(properties.getCircuitBreaker().getSlidingWindowSize())
+                    .minimumNumberOfCalls(properties.getCircuitBreaker().getMinimumNumberOfCalls());
+
+            // Override with instance-specific values
+            if (instanceConfig.getFailureRateThreshold() != null) {
+                builder.failureRateThreshold(instanceConfig.getFailureRateThreshold());
+            }
+            if (instanceConfig.getWaitDurationInOpenState() != null) {
+                builder.waitDurationInOpenState(instanceConfig.getWaitDurationInOpenState());
+            }
+            if (instanceConfig.getPermittedNumberOfCallsInHalfOpenState() != null) {
+                builder.permittedNumberOfCallsInHalfOpenState(instanceConfig.getPermittedNumberOfCallsInHalfOpenState());
+            }
+            if (instanceConfig.getSlidingWindowSize() != null) {
+                builder.slidingWindowSize(instanceConfig.getSlidingWindowSize());
+            }
+            if (instanceConfig.getMinimumNumberOfCalls() != null) {
+                builder.minimumNumberOfCalls(instanceConfig.getMinimumNumberOfCalls());
+            }
+            if (instanceConfig.getSlowCallDurationThreshold() != null) {
+                builder.slowCallDurationThreshold(instanceConfig.getSlowCallDurationThreshold());
+            }
+            if (instanceConfig.getSlowCallRateThreshold() != null) {
+                builder.slowCallRateThreshold(instanceConfig.getSlowCallRateThreshold());
+            }
+
+            registry.addConfiguration(entry.getKey(), builder.build());
+            log.debug("Added circuit breaker configuration for instance: {}", entry.getKey());
         }
 
         log.info("Initialized CircuitBreakerRegistry with failure rate threshold: {}%",
