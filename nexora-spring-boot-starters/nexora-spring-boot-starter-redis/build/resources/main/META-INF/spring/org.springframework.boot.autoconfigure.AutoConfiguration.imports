@@ -1,2 +1,0 @@
-com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration
-com.nexora.redis.autoconfigure.CaffeineAutoConfiguration

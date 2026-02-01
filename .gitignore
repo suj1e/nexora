@@ -23,3 +23,18 @@
 hs_err_pid*
 replay_pid*
 .DS_Store
+
+# Gradle
+build/
+.gradle/
+.gradletasknamecache
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
