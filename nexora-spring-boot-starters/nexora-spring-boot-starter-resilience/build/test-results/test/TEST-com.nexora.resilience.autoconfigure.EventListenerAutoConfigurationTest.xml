@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EventListenerAutoConfiguration Integration Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:57:49.551Z" hostname="192.168.31.66" time="0.46">
+<testsuite name="EventListenerAutoConfiguration Integration Tests" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:21:25.635Z" hostname="192.168.31.66" time="0.375">
   <properties/>
-  <testcase name="Should create CircuitBreakerEventLogger bean" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.386"/>
+  <testcase name="Should create CircuitBreakerEventLogger bean" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.302"/>
   <testcase name="Should load EventListenerAutoConfiguration" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.019"/>
-  <testcase name="Should register event listeners on registries" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.017"/>
-  <testcase name="Should create RetryEventLogger bean" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.013"/>
+  <testcase name="Should register event listeners on registries" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.016"/>
+  <testcase name="Should create RetryEventLogger bean" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.015"/>
   <testcase name="Should depend on CircuitBreakerRegistry and RetryRegistry" classname="com.nexora.resilience.autoconfigure.EventListenerAutoConfigurationTest" time="0.017"/>
-  <system-out><![CDATA[18:57:49.873 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:49.878 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:49.882 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
-18:57:49.955 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:49.955 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:49.956 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
-18:57:49.974 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:49.974 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:49.975 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
-18:57:49.991 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:49.991 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:49.992 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
-18:57:50.009 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.010 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.011 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
+  <system-out><![CDATA[19:21:25.858 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:25.863 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:25.867 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
+19:21:25.956 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:25.956 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:25.957 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
+19:21:25.973 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:25.974 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:25.974 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
+19:21:25.990 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:25.991 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:25.991 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
+19:21:26.008 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.009 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.009 [Test worker] INFO com.nexora.resilience.autoconfigure.EventListenerAutoConfiguration -- Registered Resilience4j event listeners
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

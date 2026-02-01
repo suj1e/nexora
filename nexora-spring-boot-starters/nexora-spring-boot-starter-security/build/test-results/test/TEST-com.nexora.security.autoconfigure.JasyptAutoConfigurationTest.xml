@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JasyptAutoConfiguration Integration Tests" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:59:08.287Z" hostname="192.168.31.66" time="0.366">
+<testsuite name="JasyptAutoConfiguration Integration Tests" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:22:24.670Z" hostname="192.168.31.66" time="0.509">
   <properties/>
-  <testcase name="Should not load by default" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.179"/>
-  <testcase name="Should not load without StandardPBEStringEncryptor class" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.007"/>
-  <testcase name="Should configure encryptor with custom algorithm" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.13"/>
+  <testcase name="Should not load by default" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.215"/>
+  <testcase name="Should not load without StandardPBEStringEncryptor class" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.006"/>
+  <testcase name="Should configure encryptor with custom algorithm" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.181"/>
   <testcase name="Should register SecurityProperties" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.012"/>
-  <testcase name="Should load when enabled" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.009"/>
-  <testcase name="Should configure encryptor with custom iterations" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.01"/>
-  <testcase name="Should create stringEncryptor bean" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.01"/>
-  <system-out><![CDATA[18:59:08.597 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHMD5ANDDES
-18:59:08.619 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
-18:59:08.629 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
-18:59:08.641 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
-18:59:08.651 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+  <testcase name="Should load when enabled" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.011"/>
+  <testcase name="Should configure encryptor with custom iterations" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.06"/>
+  <testcase name="Should create stringEncryptor bean" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.013"/>
+  <system-out><![CDATA[19:22:25.065 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHMD5ANDDES
+19:22:25.089 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+19:22:25.102 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+19:22:25.164 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+19:22:25.177 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

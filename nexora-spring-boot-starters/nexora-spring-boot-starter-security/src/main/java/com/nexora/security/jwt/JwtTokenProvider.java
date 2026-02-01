@@ -179,4 +179,13 @@ public class JwtTokenProvider {
     public String getUsername(String token) {
         return getClaims(token).get("username", String.class);
     }
+
+    /**
+     * Get JWT properties.
+     *
+     * @return the JWT properties
+     */
+    public JwtProperties getProperties() {
+        return properties;
+    }
 }

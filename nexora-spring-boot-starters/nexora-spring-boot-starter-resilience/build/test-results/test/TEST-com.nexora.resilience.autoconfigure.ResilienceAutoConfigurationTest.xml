@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ResilienceAutoConfiguration Integration Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:57:50.014Z" hostname="192.168.31.66" time="0.137">
+<testsuite name="ResilienceAutoConfiguration Integration Tests" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:21:26.013Z" hostname="192.168.31.66" time="0.102">
   <properties/>
   <testcase name="Should load by default (enabled by default)" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.009"/>
   <testcase name="Should not load when disabled" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.004"/>
-  <testcase name="Should create TimeLimiterRegistry when enabled" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.036"/>
-  <testcase name="Should not create TimeLimiterRegistry by default" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.01"/>
-  <testcase name="Should configure retry with exponential backoff" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.012"/>
-  <testcase name="Should configure circuit breaker with custom properties" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.016"/>
-  <testcase name="Should create CircuitBreakerRegistry bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.013"/>
-  <testcase name="Should load ResilienceAutoConfiguration when enabled" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.01"/>
-  <testcase name="Should register ResilienceProperties bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.012"/>
-  <testcase name="Should create RetryRegistry bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.006"/>
-  <system-out><![CDATA[18:57:50.021 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.022 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.062 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.062 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.063 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized TimeLimiterRegistry with timeout: PT5S
-18:57:50.075 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.075 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.087 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.088 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.105 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 75.0%
-18:57:50.105 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.115 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.116 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.129 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.129 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.141 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.142 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
-18:57:50.150 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
-18:57:50.151 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+  <testcase name="Should create TimeLimiterRegistry when enabled" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.016"/>
+  <testcase name="Should not create TimeLimiterRegistry by default" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.009"/>
+  <testcase name="Should configure retry with exponential backoff" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.013"/>
+  <testcase name="Should configure circuit breaker with custom properties" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.012"/>
+  <testcase name="Should create CircuitBreakerRegistry bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.007"/>
+  <testcase name="Should load ResilienceAutoConfiguration when enabled" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.006"/>
+  <testcase name="Should register ResilienceProperties bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.01"/>
+  <testcase name="Should create RetryRegistry bean" classname="com.nexora.resilience.autoconfigure.ResilienceAutoConfigurationTest" time="0.008"/>
+  <system-out><![CDATA[19:21:26.020 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.021 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.042 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.042 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.043 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized TimeLimiterRegistry with timeout: PT5S
+19:21:26.053 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.054 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.066 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.067 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.078 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 75.0%
+19:21:26.079 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.087 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.088 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.094 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.095 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.104 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.105 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
+19:21:26.113 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized CircuitBreakerRegistry with failure rate threshold: 50.0%
+19:21:26.113 [Test worker] INFO com.nexora.resilience.autoconfigure.ResilienceAutoConfiguration -- Initialized RetryRegistry with max attempts: 3
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

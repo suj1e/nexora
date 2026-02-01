@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.nexora.audit.domain.AuditLogTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:20:05.951Z" hostname="192.168.31.66" time="0.006">
+  <properties/>
+  <testcase name="testActions()" classname="com.nexora.audit.domain.AuditLogTest" time="0.001"/>
+  <testcase name="testMarkFailed()" classname="com.nexora.audit.domain.AuditLogTest" time="0.002"/>
+  <testcase name="testFailureAuditLog()" classname="com.nexora.audit.domain.AuditLogTest" time="0.0"/>
+  <testcase name="testInvalidAction()" classname="com.nexora.audit.domain.AuditLogTest" time="0.001"/>
+  <testcase name="testSuccessAuditLog()" classname="com.nexora.audit.domain.AuditLogTest" time="0.001"/>
+  <testcase name="testMarkSuccess()" classname="com.nexora.audit.domain.AuditLogTest" time="0.0"/>
+  <testcase name="testSetters()" classname="com.nexora.audit.domain.AuditLogTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

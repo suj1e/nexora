@@ -8,7 +8,8 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
 /**
@@ -44,7 +45,7 @@ public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFil
      * Creates a new SMS authentication filter with default URL.
      */
     public SmsAuthenticationFilter() {
-        super(PathPatternRequestMatcher.pathPattern(HttpMethod.POST, DEFAULT_LOGIN_PROCESSING_URL));
+        super(new AntPathRequestMatcher(DEFAULT_LOGIN_PROCESSING_URL, HttpMethod.POST.name()));
     }
 
     /**
@@ -53,7 +54,7 @@ public class SmsAuthenticationFilter extends AbstractAuthenticationProcessingFil
      * @param loginProcessingUrl the login processing URL
      */
     public SmsAuthenticationFilter(String loginProcessingUrl) {
-        super(PathPatternRequestMatcher.pathPattern(HttpMethod.POST, loginProcessingUrl));
+        super(new AntPathRequestMatcher(loginProcessingUrl, HttpMethod.POST.name()));
     }
 
     @Override

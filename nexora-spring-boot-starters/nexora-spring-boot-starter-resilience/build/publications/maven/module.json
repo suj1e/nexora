@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-resilience",
-    "version": "1.0.0",
+    "version": "1.0.0-SNAPSHOT",
     "attributes": {
-      "org.gradle.status": "release"
+      "org.gradle.status": "integration"
     }
   },
   "createdBy": {
@@ -28,10 +28,17 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
           }
         },
         {
@@ -55,17 +62,21 @@
         {
           "group": "com.fasterxml.jackson.core",
           "module": "jackson-databind"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-webflux"
         }
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-resilience-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-resilience-1.0.0.jar",
-          "size": 17586,
-          "sha512": "1617b2d08fd6a7ed744f0ae956ddf472e98c1e5e60d6463553678313acf44f93c16e1472ff7987ddde005c89fec8be1f26d9b8c0ebf7d487376c3e6b0d78c2a3",
-          "sha256": "982f279f16db1ae7d8e7eb0310cacd59e1b3b8bad57fe1b36084b9fbcf022bab",
-          "sha1": "6e91ff41860b1b28d8003c901858b6c87dbfcc4e",
-          "md5": "58e446a7f72b28b3348be5da4fe7e164"
+          "name": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "size": 24880,
+          "sha512": "2b1e3307f0bf3bef050e56fcdfcdf3a4c6edf168fe1cc6ca8d56c4619f1a7c6ebbfa9a1b277863e295f0e129d8dcc74c77754f7825cdc6ccc34ddf2497a6c2d7",
+          "sha256": "3c335afc855cd29be3837273783759933e614d9e2cff739914baebd8ce9faf58",
+          "sha1": "a128fd141d7e88f8e9f8136b9403a53c42b685b6",
+          "md5": "867ab4dac46e2a3f068fa5a021abdae7"
         }
       ]
     },
@@ -83,10 +94,17 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
           }
         },
         {
@@ -110,17 +128,21 @@
         {
           "group": "com.fasterxml.jackson.core",
           "module": "jackson-databind"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-webflux"
         }
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-resilience-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-resilience-1.0.0.jar",
-          "size": 17586,
-          "sha512": "1617b2d08fd6a7ed744f0ae956ddf472e98c1e5e60d6463553678313acf44f93c16e1472ff7987ddde005c89fec8be1f26d9b8c0ebf7d487376c3e6b0d78c2a3",
-          "sha256": "982f279f16db1ae7d8e7eb0310cacd59e1b3b8bad57fe1b36084b9fbcf022bab",
-          "sha1": "6e91ff41860b1b28d8003c901858b6c87dbfcc4e",
-          "md5": "58e446a7f72b28b3348be5da4fe7e164"
+          "name": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "size": 24880,
+          "sha512": "2b1e3307f0bf3bef050e56fcdfcdf3a4c6edf168fe1cc6ca8d56c4619f1a7c6ebbfa9a1b277863e295f0e129d8dcc74c77754f7825cdc6ccc34ddf2497a6c2d7",
+          "sha256": "3c335afc855cd29be3837273783759933e614d9e2cff739914baebd8ce9faf58",
+          "sha1": "a128fd141d7e88f8e9f8136b9403a53c42b685b6",
+          "md5": "867ab4dac46e2a3f068fa5a021abdae7"
         }
       ]
     }

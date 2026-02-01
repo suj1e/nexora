@@ -3,26 +3,26 @@
   <groupId>com.nexora</groupId>
   <artifactId>nexora-spring-boot-starter-redis</artifactId>
   <versioning>
-    <lastUpdated>20260131070711</lastUpdated>
+    <lastUpdated>20260201132715</lastUpdated>
     <snapshot>
-      <timestamp>20260131.070711</timestamp>
-      <buildNumber>3</buildNumber>
+      <timestamp>20260201.132715</timestamp>
+      <buildNumber>7</buildNumber>
     </snapshot>
     <snapshotVersions>
       <snapshotVersion>
-        <extension>pom</extension>
-        <value>1.0.0-20260131.070711-3</value>
-        <updated>20260131070711</updated>
+        <extension>jar</extension>
+        <value>1.0.0-20260201.132715-7</value>
+        <updated>20260201132715</updated>
       </snapshotVersion>
       <snapshotVersion>
-        <extension>jar</extension>
-        <value>1.0.0-20260131.070711-3</value>
-        <updated>20260131070711</updated>
+        <extension>pom</extension>
+        <value>1.0.0-20260201.132715-7</value>
+        <updated>20260201132715</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>module</extension>
-        <value>1.0.0-20260131.070711-3</value>
-        <updated>20260131070711</updated>
+        <value>1.0.0-20260201.132715-7</value>
+        <updated>20260201132715</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>

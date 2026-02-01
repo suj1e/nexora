@@ -1,0 +1,122 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.nexora",
+    "module": "nexora-spring-boot-starter-observability",
+    "version": "1.0.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.0.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "3.5.10"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-autoconfigure"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-actuator"
+        },
+        {
+          "group": "io.micrometer",
+          "module": "micrometer-core"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-observability-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-observability-1.0.0-SNAPSHOT.jar",
+          "size": 9858,
+          "sha512": "beddc0c59c66260642d64d3a74fbb12b803e6c83cf7bfe5a45f3f7c06c86108ea93970fbdfe87987bd9b6fdb6f7a2dd45896592de0067609e919f09f29653369",
+          "sha256": "638cb093f0abd5a36f2d29151368d415db29510a33716dedafa0f7c8306f5c64",
+          "sha1": "fd6b08b2172fbb8a3c29f86d9e9fe87e2e5e85af",
+          "md5": "bce02189101df776556944e95f2f2334"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "3.5.10"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-autoconfigure"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-actuator"
+        },
+        {
+          "group": "io.micrometer",
+          "module": "micrometer-core"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-observability-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-observability-1.0.0-SNAPSHOT.jar",
+          "size": 9858,
+          "sha512": "beddc0c59c66260642d64d3a74fbb12b803e6c83cf7bfe5a45f3f7c06c86108ea93970fbdfe87987bd9b6fdb6f7a2dd45896592de0067609e919f09f29653369",
+          "sha256": "638cb093f0abd5a36f2d29151368d415db29510a33716dedafa0f7c8306f5c64",
+          "sha1": "fd6b08b2172fbb8a3c29f86d9e9fe87e2e5e85af",
+          "md5": "bce02189101df776556944e95f2f2334"
+        }
+      ]
+    }
+  ]
+}

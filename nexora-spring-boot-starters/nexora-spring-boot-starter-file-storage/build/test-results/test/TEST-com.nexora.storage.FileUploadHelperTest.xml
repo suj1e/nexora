@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FileUploadHelper Tests" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:57:10.755Z" hostname="192.168.31.66" time="0.632">
+<testsuite name="FileUploadHelper Tests" tests="19" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:21:11.657Z" hostname="192.168.31.66" time="0.674">
   <properties/>
-  <testcase name="GetExtension should handle edge cases" classname="com.nexora.storage.FileUploadHelperTest" time="0.589"/>
-  <testcase name="ValidateFile should check file extension" classname="com.nexora.storage.FileUploadHelperTest" time="0.012"/>
-  <testcase name="ValidateFile should return error for empty file" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
+  <testcase name="GetExtension should handle edge cases" classname="com.nexora.storage.FileUploadHelperTest" time="0.631"/>
+  <testcase name="ValidateFile should check file extension" classname="com.nexora.storage.FileUploadHelperTest" time="0.013"/>
+  <testcase name="ValidateFile should return error for empty file" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="GenerateSafeFilename should replace special characters" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
-  <testcase name="ValidateFile should pass for valid file" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
+  <testcase name="ValidateFile should pass for valid file" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="IsDocument should return true for document files" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
-  <testcase name="ValidateFile should pass when no size limit set" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
-  <testcase name="FormatSize should format bytes correctly" classname="com.nexora.storage.FileUploadHelperTest" time="0.004"/>
+  <testcase name="ValidateFile should pass when no size limit set" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
+  <testcase name="FormatSize should format bytes correctly" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
   <testcase name="ValidationError should store code and message" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
-  <testcase name="GenerateSafeFilename should handle edge cases" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
+  <testcase name="GenerateSafeFilename should handle edge cases" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
   <testcase name="IsImage should return false for non-image files" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="IsVideo should return false for non-video files" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="ValidateFile should return error for null file" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
-  <testcase name="GetExtension should extract extension correctly" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
+  <testcase name="GetExtension should extract extension correctly" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
   <testcase name="IsImage should be case-insensitive" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
-  <testcase name="ValidateFile should check file size" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
+  <testcase name="ValidateFile should check file size" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>
   <testcase name="IsImage should return true for image files" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="IsVideo should return true for video files" classname="com.nexora.storage.FileUploadHelperTest" time="0.001"/>
   <testcase name="IsDocument should return false for non-document files" classname="com.nexora.storage.FileUploadHelperTest" time="0.002"/>

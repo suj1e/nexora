@@ -29,6 +29,12 @@ dependencies {
     api(libs.spring.boot.starter.web)
     api(libs.spring.security.web)
 
+    // WebFlux for reactive support
+    api("org.springframework.boot:spring-boot-starter-webflux")
+
+    // Reactor Core
+    api("io.projectreactor:reactor-core")
+
     // Jasypt for encryption
     api(libs.jasypt.spring.boot.starter)
 
@@ -39,6 +45,10 @@ dependencies {
 
     // Servlet API (optional at compile time)
     compileOnly(libs.jakarta.servlet.api)
+
+    // JPA (optional, for RefreshToken support)
+    compileOnly(libs.spring.boot.starter.data.jpa)
+    compileOnly(libs.jakarta.persistence.api)
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.jakarta.servlet.api)

@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-security",
-    "version": "1.0.0",
+    "version": "1.0.0-SNAPSHOT",
     "attributes": {
-      "org.gradle.status": "release"
+      "org.gradle.status": "integration"
     }
   },
   "createdBy": {
@@ -28,11 +28,22 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
           }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind"
         },
         {
           "group": "org.springframework.boot",
@@ -43,8 +54,20 @@
           "module": "spring-boot-starter-security"
         },
         {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-web"
+        },
+        {
           "group": "org.springframework.security",
           "module": "spring-security-web"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-webflux"
+        },
+        {
+          "group": "io.projectreactor",
+          "module": "reactor-core"
         },
         {
           "group": "com.github.ulisesbocchio",
@@ -63,13 +86,13 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-security-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-security-1.0.0.jar",
-          "size": 29485,
-          "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
-          "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",
-          "sha1": "5ea4078674bdcf8efd59f4be88f357baa4af224d",
-          "md5": "9195676320761a11d50744851b36bfda"
+          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "size": 47117,
+          "sha512": "424eebbca74b96ff98877c5fb862658e23bd8e7a4a2621188f3e3f349a9e2f38006ae2657145cbe90ac519dbb76c9eb99a37c0f512c5af10c5bde094785d51bf",
+          "sha256": "3c84e91cc0a2adb10e0fb9d73a46f372e362e40229858b8f61c9f79b811a6d3a",
+          "sha1": "8519821f0d6093f7377d8742ae6e8e9dd4e69f4a",
+          "md5": "383c285cfe0f697a09f9e87b3e4be01b"
         }
       ]
     },
@@ -87,11 +110,22 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
           }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "com.fasterxml.jackson.core",
+          "module": "jackson-databind"
         },
         {
           "group": "org.springframework.boot",
@@ -102,8 +136,20 @@
           "module": "spring-boot-starter-security"
         },
         {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-web"
+        },
+        {
           "group": "org.springframework.security",
           "module": "spring-security-web"
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-webflux"
+        },
+        {
+          "group": "io.projectreactor",
+          "module": "reactor-core"
         },
         {
           "group": "com.github.ulisesbocchio",
@@ -136,13 +182,13 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-security-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-security-1.0.0.jar",
-          "size": 29485,
-          "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
-          "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",
-          "sha1": "5ea4078674bdcf8efd59f4be88f357baa4af224d",
-          "md5": "9195676320761a11d50744851b36bfda"
+          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "size": 47117,
+          "sha512": "424eebbca74b96ff98877c5fb862658e23bd8e7a4a2621188f3e3f349a9e2f38006ae2657145cbe90ac519dbb76c9eb99a37c0f512c5af10c5bde094785d51bf",
+          "sha256": "3c84e91cc0a2adb10e0fb9d73a46f372e362e40229858b8f61c9f79b811a6d3a",
+          "sha1": "8519821f0d6093f7377d8742ae6e8e9dd4e69f4a",
+          "md5": "383c285cfe0f697a09f9e87b3e4be01b"
         }
       ]
     }

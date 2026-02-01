@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">1.148s</div>
+<div class="counter">1.128s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,49 +81,49 @@
 <tr>
 <td class="success">Should configure cache with default TTL</td>
 <td class="success">shouldConfigureDefaultTtl()</td>
-<td class="success">0.123s</td>
+<td class="success">0.122s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should configure key prefix</td>
 <td class="success">shouldConfigureKeyPrefix()</td>
-<td class="success">0.120s</td>
+<td class="success">0.124s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should configure per-cache TTL mappings</td>
 <td class="success">shouldConfigurePerCacheTtl()</td>
-<td class="success">0.249s</td>
+<td class="success">0.250s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should disable null value caching when configured</td>
 <td class="success">shouldDisableNullValueCaching()</td>
-<td class="success">0.127s</td>
+<td class="success">0.123s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should load RedisCacheAutoConfiguration when enabled</td>
 <td class="success">shouldLoadWhenEnabled()</td>
-<td class="success">0.128s</td>
+<td class="success">0.123s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should not load when disabled</td>
 <td class="success">shouldNotLoadWhenDisabled()</td>
-<td class="success">0.258s</td>
+<td class="success">0.251s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should not load without RedisConnectionFactory</td>
 <td class="success">shouldNotLoadWithoutRedisConnectionFactory()</td>
-<td class="success">0.013s</td>
+<td class="success">0.015s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Should register RedisProperties bean</td>
 <td class="success">shouldRegisterRedisProperties()</td>
-<td class="success">0.130s</td>
+<td class="success">0.120s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -131,14 +131,13 @@
 <div class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>18:57:17.649 [Test worker] WARN io.netty.resolver.dns.DnsServerAddressStreamProviders -- Can not find io.netty.resolver.dns.macos.MacOSDnsServerAddressStreamProvider in the classpath, fallback to system defaults. This may result in incorrect DNS resolutions on MacOS. Check whether you have a dependency on 'io.netty:netty-resolver-dns-native-macos'
-18:57:17.940 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
-18:57:18.087 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
-18:57:18.214 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
-18:57:18.344 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
-18:57:18.471 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
-18:57:18.592 [Test worker] WARN org.springframework.context.annotation.AnnotationConfigApplicationContext -- Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cacheManager' defined in com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration: Unsatisfied dependency expressed through method 'cacheManager' parameter 0: No qualifying bean of type 'org.springframework.data.redis.connection.RedisConnectionFactory' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
-18:57:18.606 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+<pre>19:21:23.258 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+19:21:23.395 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+19:21:23.518 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+19:21:23.643 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+19:21:23.765 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
+19:21:23.886 [Test worker] WARN org.springframework.context.annotation.AnnotationConfigApplicationContext -- Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'cacheManager' defined in com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration: Unsatisfied dependency expressed through method 'cacheManager' parameter 0: No qualifying bean of type 'org.springframework.data.redis.connection.RedisConnectionFactory' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+19:21:23.905 [Test worker] INFO com.nexora.redis.autoconfigure.RedisCacheAutoConfiguration -- Initializing RedisCacheManager with default TTL: PT30M
 </pre>
 </span>
 </div>
@@ -150,7 +149,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="https://www.gradle.org">Gradle 9.0.0</a> at 2026年2月1日 18:57:18</p>
+<a href="https://www.gradle.org">Gradle 9.0.0</a> at 2026年2月1日 19:21:24</p>
 </div>
 </div>
 </body>

@@ -1,0 +1,106 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.nexora",
+    "module": "nexora-spring-boot-starter-data-jpa",
+    "version": "1.0.0-SNAPSHOT",
+    "attributes": {
+      "org.gradle.status": "integration"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.0.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "3.5.10"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-data-jpa"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-data-jpa-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-data-jpa-1.0.0-SNAPSHOT.jar",
+          "size": 15661,
+          "sha512": "aac054d9dd7f5837a9682f86508bef12c8091e322291da18a1179da55d7d10f1c5fb67ad669dc48afaec74d1a4213c3d2910de547d9472c17bfbb25be0228139",
+          "sha256": "55dac1d9870127a668e8cd785385e777a0421f605fe4e82097fa5eedfb1b5325",
+          "sha1": "a826af304f05c52e507fa18a33527de19389f639",
+          "md5": "22f8f9f5c2cd9fc6a2d15bff17625ca7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-dependencies",
+          "version": {
+            "requires": "3.5.10"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          }
+        },
+        {
+          "group": "com.nexora",
+          "module": "nexora-common",
+          "version": {
+            "requires": "1.0.0-SNAPSHOT"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-data-jpa"
+        }
+      ],
+      "files": [
+        {
+          "name": "nexora-spring-boot-starter-data-jpa-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-data-jpa-1.0.0-SNAPSHOT.jar",
+          "size": 15661,
+          "sha512": "aac054d9dd7f5837a9682f86508bef12c8091e322291da18a1179da55d7d10f1c5fb67ad669dc48afaec74d1a4213c3d2910de547d9472c17bfbb25be0228139",
+          "sha256": "55dac1d9870127a668e8cd785385e777a0421f605fe4e82097fa5eedfb1b5325",
+          "sha1": "a826af304f05c52e507fa18a33527de19389f639",
+          "md5": "22f8f9f5c2cd9fc6a2d15bff17625ca7"
+        }
+      ]
+    }
+  ]
+}

@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-redis",
-    "version": "1.0.0",
+    "version": "1.0.0-SNAPSHOT",
     "attributes": {
-      "org.gradle.status": "release"
+      "org.gradle.status": "integration"
     }
   },
   "createdBy": {
@@ -28,7 +28,7 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
@@ -50,7 +50,7 @@
           "group": "com.github.ben-manes.caffeine",
           "module": "caffeine",
           "version": {
-            "requires": "3.1.8"
+            "requires": "3.2.2"
           }
         },
         {
@@ -71,13 +71,13 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-redis-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-redis-1.0.0.jar",
-          "size": 9198,
-          "sha512": "08b3f5388392709b16829803332c6d8dae7f218f7bd41c4f5d8c61c5226226d45ef5711a8310db345b8cbb555b1c2a77dbc74bbd295975c2868459e1f5bc2f81",
-          "sha256": "49b0d75873d2777f557205b55d2a422d61478a0df870d6bf123a67cfa22d62a5",
-          "sha1": "d5be1acc9252f5052073af4d9fd4673e2854f56f",
-          "md5": "386014d6ec532fb4e848a7c48d89cd26"
+          "name": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "size": 10021,
+          "sha512": "9fd077c3f314ad7ed55d7e08c013acb55606f5bcdbec65581f4c19609e70d884b8b298a0fb0ee77d570e044290b35161ac1a651c6adc74909122975431b07f46",
+          "sha256": "3ab3cd80adfcc145d0d0fbaf9328fc6c300de47cf1efc5a9fc9e9f7af4022b58",
+          "sha1": "a6c33d38907f8372e853cdc38bb3f05af750f451",
+          "md5": "d286ef6f932b432f5ffebf33a5db989f"
         }
       ]
     },
@@ -95,7 +95,7 @@
           "group": "org.springframework.boot",
           "module": "spring-boot-dependencies",
           "version": {
-            "requires": "4.0.2"
+            "requires": "3.5.10"
           },
           "attributes": {
             "org.gradle.category": "platform"
@@ -117,7 +117,7 @@
           "group": "com.github.ben-manes.caffeine",
           "module": "caffeine",
           "version": {
-            "requires": "3.1.8"
+            "requires": "3.2.2"
           }
         },
         {
@@ -138,13 +138,13 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-redis-1.0.0.jar",
-          "url": "nexora-spring-boot-starter-redis-1.0.0.jar",
-          "size": 9198,
-          "sha512": "08b3f5388392709b16829803332c6d8dae7f218f7bd41c4f5d8c61c5226226d45ef5711a8310db345b8cbb555b1c2a77dbc74bbd295975c2868459e1f5bc2f81",
-          "sha256": "49b0d75873d2777f557205b55d2a422d61478a0df870d6bf123a67cfa22d62a5",
-          "sha1": "d5be1acc9252f5052073af4d9fd4673e2854f56f",
-          "md5": "386014d6ec532fb4e848a7c48d89cd26"
+          "name": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "url": "nexora-spring-boot-starter-redis-1.0.0-SNAPSHOT.jar",
+          "size": 10021,
+          "sha512": "9fd077c3f314ad7ed55d7e08c013acb55606f5bcdbec65581f4c19609e70d884b8b298a0fb0ee77d570e044290b35161ac1a651c6adc74909122975431b07f46",
+          "sha256": "3ab3cd80adfcc145d0d0fbaf9328fc6c300de47cf1efc5a9fc9e9f7af4022b58",
+          "sha1": "a6c33d38907f8372e853cdc38bb3f05af750f451",
+          "md5": "d286ef6f932b432f5ffebf33a5db989f"
         }
       ]
     }

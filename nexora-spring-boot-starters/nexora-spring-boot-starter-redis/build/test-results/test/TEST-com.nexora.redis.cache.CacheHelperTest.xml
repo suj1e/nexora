@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CacheHelper Tests" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:57:16.362Z" hostname="192.168.31.66" time="0.631">
+<testsuite name="CacheHelper Tests" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-02-01T11:21:21.680Z" hostname="192.168.31.66" time="0.637">
   <properties/>
-  <testcase name="evict should do nothing when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.59"/>
-  <testcase name="getOptional should return empty for null cached value" classname="com.nexora.redis.cache.CacheHelperTest" time="0.003"/>
+  <testcase name="evict should do nothing when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.595"/>
+  <testcase name="getOptional should return empty for null cached value" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
   <testcase name="getOrCompute should compute and cache value when not present" classname="com.nexora.redis.cache.CacheHelperTest" time="0.005"/>
-  <testcase name="clear should clear all entries in cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
+  <testcase name="clear should clear all entries in cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
   <testcase name="evict should evict entry from cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
-  <testcase name="clear should do nothing when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
-  <testcase name="getOrCompute should invoke supplier only once when caching" classname="com.nexora.redis.cache.CacheHelperTest" time="0.019"/>
+  <testcase name="clear should do nothing when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
+  <testcase name="getOrCompute should invoke supplier only once when caching" classname="com.nexora.redis.cache.CacheHelperTest" time="0.017"/>
   <testcase name="getOptional should return empty when value not in cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
-  <testcase name="getOptional should return value when present in cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
-  <testcase name="getOrCompute should compute value when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
+  <testcase name="getOptional should return value when present in cache" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
+  <testcase name="getOrCompute should compute value when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
   <testcase name="getOptional should return empty when cache is null" classname="com.nexora.redis.cache.CacheHelperTest" time="0.001"/>
   <testcase name="getOrCompute should return cached value when present" classname="com.nexora.redis.cache.CacheHelperTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>

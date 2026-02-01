@@ -1,0 +1,114 @@
+{
+  "groups": [
+    {
+      "name": "nexora.webflux",
+      "type": "com.nexora.webflux.config.WebFluxProperties",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties"
+    },
+    {
+      "name": "nexora.webflux.cors",
+      "type": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties",
+      "sourceMethod": "getCors()"
+    },
+    {
+      "name": "nexora.webflux.logging",
+      "type": "com.nexora.webflux.config.WebFluxProperties$Logging",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties",
+      "sourceMethod": "getLogging()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "nexora.webflux.cors.allow-credentials",
+      "type": "java.lang.Boolean",
+      "description": "Allow credentials.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": true
+    },
+    {
+      "name": "nexora.webflux.cors.allowed-headers",
+      "type": "java.lang.String[]",
+      "description": "Allowed headers.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": [
+        "*"
+      ]
+    },
+    {
+      "name": "nexora.webflux.cors.allowed-methods",
+      "type": "java.lang.String[]",
+      "description": "Allowed methods.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": [
+        "GET",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS"
+      ]
+    },
+    {
+      "name": "nexora.webflux.cors.allowed-origins",
+      "type": "java.lang.String[]",
+      "description": "Allowed origins.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": [
+        "*"
+      ]
+    },
+    {
+      "name": "nexora.webflux.cors.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable CORS.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": false
+    },
+    {
+      "name": "nexora.webflux.cors.max-age",
+      "type": "java.time.Duration",
+      "description": "Max age for preflight requests.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Cors",
+      "defaultValue": "1h"
+    },
+    {
+      "name": "nexora.webflux.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable WebFlux auto-configuration.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "nexora.webflux.logging.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable request logging.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Logging",
+      "defaultValue": true
+    },
+    {
+      "name": "nexora.webflux.logging.log-body",
+      "type": "java.lang.Boolean",
+      "description": "Log request body.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Logging",
+      "defaultValue": false
+    },
+    {
+      "name": "nexora.webflux.logging.log-response-body",
+      "type": "java.lang.Boolean",
+      "description": "Log response body.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties$Logging",
+      "defaultValue": false
+    },
+    {
+      "name": "nexora.webflux.request-timeout",
+      "type": "java.time.Duration",
+      "description": "Request timeout.",
+      "sourceType": "com.nexora.webflux.config.WebFluxProperties",
+      "defaultValue": "30s"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

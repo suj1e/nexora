@@ -45,6 +45,10 @@ public record Result<T>(
     public static final int CODE_NOT_FOUND = 404;
     public static final int CODE_METHOD_NOT_ALLOWED = 405;
     public static final int CODE_NOT_ACCEPTABLE = 406;
+    public static final int CODE_VALIDATION_ERROR = 422;
+    public static final int CODE_TOO_MANY_REQUESTS = 429;
+    public static final int CODE_SERVICE_UNAVAILABLE = 503;
+    public static final int CODE_INTERNAL_ERROR = 500;
     public static final int CODE_INTERNAL_SERVER_ERROR = 500;
 
     // Default Messages
