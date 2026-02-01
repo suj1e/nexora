@@ -1,10 +1,15 @@
-rootProject.name = "nexora-spring-boot-starters"
+rootProject.name = "nexora"
 
 // Include common module
 include("nexora-common")
 
-// Dynamically include all modules with nexora-spring-boot-starter- prefix
+// Dynamically include all starter modules
 rootDir.listFiles { file -> file.isDirectory && !file.name.startsWith(".") }
+    ?.filter { it.name == "nexora-spring-boot-starters" }
+    ?.first()
+    ?.listFiles { it.isDirectory && !it.name.startsWith(".") }
     ?.filter { it.name.startsWith("nexora-spring-boot-starter-") }
     ?.sorted()
-    ?.forEach { include(it.name) }
+    ?.forEach {
+        include("nexora-spring-boot-starters:${it.name}")
+    }
