@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-resilience",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "1.0.0",
     "attributes": {
-      "org.gradle.status": "integration"
+      "org.gradle.status": "release"
     }
   },
   "createdBy": {
@@ -59,8 +59,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-resilience-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-resilience-1.0.0.jar",
           "size": 17586,
           "sha512": "1617b2d08fd6a7ed744f0ae956ddf472e98c1e5e60d6463553678313acf44f93c16e1472ff7987ddde005c89fec8be1f26d9b8c0ebf7d487376c3e6b0d78c2a3",
           "sha256": "982f279f16db1ae7d8e7eb0310cacd59e1b3b8bad57fe1b36084b9fbcf022bab",
@@ -114,8 +114,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-resilience-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-resilience-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-resilience-1.0.0.jar",
           "size": 17586,
           "sha512": "1617b2d08fd6a7ed744f0ae956ddf472e98c1e5e60d6463553678313acf44f93c16e1472ff7987ddde005c89fec8be1f26d9b8c0ebf7d487376c3e6b0d78c2a3",
           "sha256": "982f279f16db1ae7d8e7eb0310cacd59e1b3b8bad57fe1b36084b9fbcf022bab",

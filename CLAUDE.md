@@ -28,7 +28,7 @@ Each starter uses Spring Boot's `@AutoConfiguration` mechanism:
 
 | Starter | Auto-Configuration | Key Components | Properties Prefix |
 |---------|-------------------|----------------|-------------------|
-| **nexora-spring-boot-starter-web** | `CommonWebAutoConfiguration` | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` | None (uses defaults) |
+| **nexora-spring-boot-starter-web** | `CommonWebAutoConfiguration` | `GlobalExceptionHandler`, `Result<T>`, `BusinessException` | None (uses defaults) |
 | **nexora-spring-boot-starter-redis** | `RedisCacheAutoConfiguration`, `CaffeineAutoConfiguration` | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` | `nexora.redis` |
 | **nexora-spring-boot-starter-kafka** | `KafkaAutoConfiguration`, `KafkaDlqAutoConfiguration` | `EventPublisher`, `OutboxEvent`, DLQ handler | `nexora.kafka` |
 | **nexora-spring-boot-starter-resilience** | `ResilienceAutoConfiguration`, `EventListenerAutoConfiguration` | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, Event loggers | `nexora.resilience` |
@@ -128,9 +128,9 @@ nexora:
 ### Web Starter
 
 - `@ConditionalOnWebApplication` - only activates in web apps
-- `@EnableAspectJAutoProxy` - enables AOP for response wrapping
-- `ResponseWrapperAspect` - wraps all `@RestController` responses in `Result<T>`
 - `GlobalExceptionHandler` - `@RestControllerAdvice` for unified error handling
+- `Result<T>` - Unified API response format with `success`, `code`, `message`, `data`, `timestamp`, `traceId`
+- `BusinessException` - Business exception with error codes and trace ID support
 
 Exception mappings:
 - `BusinessException` → 400

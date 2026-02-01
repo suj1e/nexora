@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-security",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "1.0.0",
     "attributes": {
-      "org.gradle.status": "integration"
+      "org.gradle.status": "release"
     }
   },
   "createdBy": {
@@ -63,8 +63,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-security-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0.jar",
           "size": 29485,
           "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
           "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",
@@ -136,8 +136,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-security-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-security-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-security-1.0.0.jar",
           "size": 29485,
           "sha512": "86ba32ec9f9a31346cb8f6aa4e0c5d08e37a285092b4747456b03ff777451aecfe02d00d20d1864797ff37eb9e6fcd50a8445d5027cf7e669e57f91ccf61df18",
           "sha256": "4a40b4f6613232cf8e6169be17eacea6c96fc1e5b9d90398ccfde3644a8e0ebe",

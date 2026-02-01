@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.nexora</groupId>
   <artifactId>nexora-spring-boot-starter-security</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>nexora-spring-boot-starter-security</name>
   <description>Nexora Spring Boot Starters - nexora-spring-boot-starter-security</description>
   <url>https://github.com/suj1e/nexora-spring-boot-starters</url>

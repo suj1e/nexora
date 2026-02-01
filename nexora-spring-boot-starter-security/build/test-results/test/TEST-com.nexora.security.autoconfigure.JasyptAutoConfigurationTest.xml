@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="JasyptAutoConfiguration Integration Tests" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-02-01T10:31:47.564Z" hostname="192.168.31.66" time="0.385">
+  <properties/>
+  <testcase name="Should not load by default" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.196"/>
+  <testcase name="Should not load without StandardPBEStringEncryptor class" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.007"/>
+  <testcase name="Should configure encryptor with custom algorithm" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.138"/>
+  <testcase name="Should register SecurityProperties" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.011"/>
+  <testcase name="Should load when enabled" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.01"/>
+  <testcase name="Should configure encryptor with custom iterations" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.008"/>
+  <testcase name="Should create stringEncryptor bean" classname="com.nexora.security.autoconfigure.JasyptAutoConfigurationTest" time="0.008"/>
+  <system-out><![CDATA[18:31:47.896 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHMD5ANDDES
+18:31:47.920 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+18:31:47.930 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+18:31:47.939 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+18:31:47.948 [Test worker] INFO com.nexora.security.autoconfigure.JasyptAutoConfiguration -- Initialized Jasypt encryptor with algorithm: PBEWITHHMACSHA512ANDAES_256
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

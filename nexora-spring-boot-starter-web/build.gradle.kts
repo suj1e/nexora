@@ -17,15 +17,15 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+    // Depend on common module for shared classes
+    api(project(":nexora-common"))
+
     api(libs.spring.boot.starter.web)
     compileOnly(libs.spring.boot.starter.validation)
-    compileOnly("org.aspectj:aspectjweaver")
     compileOnly("jakarta.persistence:jakarta.persistence-api")
-    api(libs.jackson.databind)
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation(libs.spring.boot.starter.validation)
-    testImplementation("org.aspectj:aspectjweaver")
     testImplementation("jakarta.persistence:jakarta.persistence-api")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

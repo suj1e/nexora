@@ -3,9 +3,9 @@
   "component": {
     "group": "com.nexora",
     "module": "nexora-spring-boot-starter-kafka",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "1.0.0",
     "attributes": {
-      "org.gradle.status": "integration"
+      "org.gradle.status": "release"
     }
   },
   "createdBy": {
@@ -49,8 +49,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-kafka-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-kafka-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-kafka-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-kafka-1.0.0.jar",
           "size": 10904,
           "sha512": "9a21500c1860171d61f471d675e06f565247ea84e5c9ab7243978931f5635faa0f2c2668f9299430e819611b3cf15594f6e343b009995040af48be6f5c58f60e",
           "sha256": "532c0f03f5cfa10b4131fbd22d1da0c9c00ad8d721ce272d5c443eb119d5b4f0",
@@ -94,8 +94,8 @@
       ],
       "files": [
         {
-          "name": "nexora-spring-boot-starter-kafka-1.0.0-SNAPSHOT.jar",
-          "url": "nexora-spring-boot-starter-kafka-1.0.0-SNAPSHOT.jar",
+          "name": "nexora-spring-boot-starter-kafka-1.0.0.jar",
+          "url": "nexora-spring-boot-starter-kafka-1.0.0.jar",
           "size": 10904,
           "sha512": "9a21500c1860171d61f471d675e06f565247ea84e5c9ab7243978931f5635faa0f2c2668f9299430e819611b3cf15594f6e343b009995040af48be6f5c58f60e",
           "sha256": "532c0f03f5cfa10b4131fbd22d1da0c9c00ad8d721ce272d5c443eb119d5b4f0",
