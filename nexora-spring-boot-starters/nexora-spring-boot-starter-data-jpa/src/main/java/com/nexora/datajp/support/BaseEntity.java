@@ -144,6 +144,8 @@ public abstract class BaseEntity implements Serializable {
      * For new entities (id is null), uses reference equality.
      * For persisted entities, compares by id and class type.
      * This ensures proper behavior in collections and JPA contexts.
+     * <p>
+     * Uses Java 21 pattern matching for instanceof.
      */
     @Override
     public boolean equals(Object o) {

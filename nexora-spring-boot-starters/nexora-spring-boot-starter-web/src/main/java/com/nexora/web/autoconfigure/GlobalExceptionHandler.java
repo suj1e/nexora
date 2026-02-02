@@ -1,5 +1,6 @@
 package com.nexora.web.autoconfigure;
 
+import com.nexora.common.api.ProblemDetail;
 import com.nexora.common.api.Result;
 import com.nexora.common.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
@@ -23,18 +24,32 @@ import jakarta.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 
 /**
- * Global exception handler.
+ * Global exception handler with RFC 7807 ProblemDetail support.
  *
- * <p>Automatically handles all exceptions and returns unified {@link Result} format.
+ * <p>Automatically handles all exceptions and returns standardized responses.
+ * Supports both legacy {@link Result} format and modern RFC 7807 ProblemDetail format.
+ *
+ * <p>To enable ProblemDetail responses, set the HTTP header:
+ * <pre>Accept: application/problem+json</pre>
+ *
+ * <p>Or configure in application.yml:
+ * <pre>
+ * spring:
+ *   mvc:
+ *     problemdetails:
+ *       enabled: true
+ * </pre>
  *
  * <p>Features:
  * <ul>
  *   <li>Automatic trace ID generation for error tracking</li>
  *   <li>Detailed error logging with request context</li>
- *   <li>Standardized error responses</li>
+ *   <li>Standardized error responses (Result and ProblemDetail)</li>
+ *   <li>Java 21 pattern matching for exception handling</li>
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @RestControllerAdvice
@@ -42,6 +57,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Handle business exceptions.
+     * Returns Result format for backward compatibility.
      */
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -54,6 +70,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Handle validation exceptions (Bean Validation on request body).
+     * Uses pattern matching for instanceof (Java 21).
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -104,6 +121,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Handle resource not found exceptions (JPA).
+     * Uses pattern matching for instanceof (Java 21).
      */
     @ExceptionHandler({jakarta.persistence.EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)

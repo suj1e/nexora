@@ -22,10 +22,19 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+    // Spring Boot configuration processor for metadata generation
+    annotationProcessor(platform(libs.spring.boot.dependencies))
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     // Jakarta validation (optional)
     compileOnly("jakarta.validation:jakarta.validation-api:3.0.2")
 
     // Testing
     testImplementation(libs.spring.boot.starter.test)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+}
+
+// Configure Lombok to support sealed classes
+tasks.withType<JavaCompile>().configureEach {
+    options.compilerArgs.add("-parameters")
 }
