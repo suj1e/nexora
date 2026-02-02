@@ -22,6 +22,7 @@ import java.time.Duration;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "nexora.security.sms")

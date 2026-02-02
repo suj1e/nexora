@@ -12,6 +12,7 @@ import java.util.Optional;
  * Repository for {@link AuditLog} entities.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Repository
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {

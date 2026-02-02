@@ -16,6 +16,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "nexora.jpa")

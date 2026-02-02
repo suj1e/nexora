@@ -12,6 +12,7 @@ import java.util.Optional;
  * Repository for {@link RefreshToken} entities.
  *
  * @author sujie
+ * @since 1.0.0
  */
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long> {
 

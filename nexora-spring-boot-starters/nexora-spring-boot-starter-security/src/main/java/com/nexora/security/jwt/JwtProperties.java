@@ -12,6 +12,7 @@ import java.time.Duration;
  * For full configuration, use SecurityProperties.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "nexora.security.jwt")
