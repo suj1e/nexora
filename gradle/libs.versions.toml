@@ -4,7 +4,7 @@ spring-boot = "3.5.7"
 
 # Third-party libraries - updated to latest stable versions
 caffeine = "3.1.8"
-jasypt = "4.0.3"
+jasypt = "4.0.4"
 jjwt = "0.13.0"
 lettuce = "7.2.1.RELEASE"
 resilience4j = "2.3.0"
