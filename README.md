@@ -2,20 +2,173 @@
 
 统一的微服务基础设施组件库，提供开箱即用的自动配置。
 
-## 模块列表
+Unified microservice infrastructure component library providing zero-configuration auto-configuration for Spring Boot applications.
+
+[![Build Status](https://github.com/suj1e/nexora/actions/workflows/ci.yml/badge.svg)](https://github.com/suj1e/nexora/actions/workflows/ci.yml)
+[![Snapshot Version](https://img.shields.io/maven-central/v/com.nexora/nexora-spring-boot-starter-web?version=1.0.0-SNAPSHOT)](https://oss.sonatype.org/content/repositories/snapshots/com/nexora/)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-21+-brightgreen.svg)](https://openjdk.org/projects/jdk/21)
+
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Modules](#modules)
+- [Architecture](#architecture)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Module Details](#module-details)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Quick Start
+
+### 1. Add Dependencies
+
+Add Nexora starters to your `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("com.nexora:nexora-spring-boot-starter-web:1.0.0")
+    implementation("com.nexora:nexora-spring-boot-starter-redis:1.0.0")
+    implementation("com.nexora:nexora-spring-boot-starter-kafka:1.0.0")
+    // Add more starters as needed
+}
+```
+
+Or `pom.xml`:
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.nexora</groupId>
+        <artifactId>nexora-spring-boot-starter-web</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+    <dependency>
+        <groupId>com.nexora</groupId>
+        <artifactId>nexora-spring-boot-starter-redis</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+### 2. Configure (Optional)
+
+Most features work with zero configuration. Add `application.yml` for customization:
+
+```yaml
+nexora:
+  redis:
+    enabled: true
+    cache-default-ttl: 30m
+  kafka:
+    dlq:
+      enabled: true
+```
+
+### 3. Start Coding
+
+```java
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    @GetMapping("/{id}")
+    public Result<User> getUser(@PathVariable Long id) {
+        return Result.success(userService.findById(id));
+    }
+
+    @PostMapping
+    public Result<User> createUser(@Valid @RequestBody CreateUserRequest request) {
+        return Result.success(userService.create(request));
+    }
+}
+```
+
+That's it! The starter automatically provides:
+- Unified response format `Result<T>`
+- Global exception handling
+- Request validation
+- Logging
+
+## Modules
 
 | 模块 | 说明 | 核心组件 |
 |------|------|----------|
-| **nexora-spring-boot-starter-web** | Web 统一处理 | `ResponseWrapperAspect`, `GlobalExceptionHandler`, `Result<T>`, `BusinessException` |
+| **nexora-spring-boot-starter-web** | Web 统一处理 | `GlobalExceptionHandler`, `Result<T>`, `BusinessException` |
+| **nexora-spring-boot-starter-webflux** | 响应式 Web | `GlobalWebFluxExceptionHandler`, reactive types |
+| **nexora-spring-boot-starter-data-jpa** | JPA 审计 | `BaseEntity`, `@CreatedDate`, `@LastModifiedDate` |
 | **nexora-spring-boot-starter-redis** | 多级缓存 | `RedisCacheManager`, `CaffeineCacheManager`, `CacheHelper` |
 | **nexora-spring-boot-starter-kafka** | 消息队列 | `EventPublisher`, `OutboxEvent`, DLQ 错误处理器 |
-| **nexora-spring-boot-starter-resilience** | 熔断降级 | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry`, 事件监听器 |
+| **nexora-spring-boot-starter-resilience** | 熔断降级 | `CircuitBreakerRegistry`, `RetryRegistry`, `TimeLimiterRegistry` |
 | **nexora-spring-boot-starter-security** | 安全工具 | `JwtTokenProvider`, `Encryptor` (Jasypt) |
-| **nexora-spring-boot-starter-file-storage** | 文件存储 | `FileStorageService`, `LocalStorage`, `OssStorage`, `S3Storage`, `MinioStorage` |
+| **nexora-spring-boot-starter-file-storage** | 文件存储 | `FileStorageService`, `LocalStorage`, `OssStorage`, `S3Storage` |
+| **nexora-spring-boot-starter-audit** | 实体审计 | `@CreatedBy`, `@LastModifiedBy`, `AuditorAware` |
+| **nexora-spring-boot-starter-observability** | 可观测性 | `MeterRegistry`, metrics, tracing |
 
-## 使用方式
+## Architecture
+
+### Component Overview
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   Your Application                          │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    Nexora Starters                          │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
+│  │   Web    │ │  Redis   │ │  Kafka   │ │    Security      │ │
+│  │   +WebFlux│ │  L1+L2   │ │  +DLQ    │ │    JWT+Encrypt   │ │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────────────┘ │
+│  ┌──────────┐ ┌───────────────────────────────────────────┐ │
+│  │Resilience│ │  Data-JPA │ File-Storage │  Audit │ Obs.  │ │
+│  │CB+Retry  │ │  Audit   │ Multi-Cloud   │ Auditing│Met. │ │
+│  └──────────┘ └───────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   Spring Boot 3.5.x                         │
+│              (Auto-Configuration & Context)                 │
+└─────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│              Infrastructure (Redis, Kafka, DB, etc.)        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Design Principles
+
+1. **Zero Configuration** - Sensible defaults out of the box
+2. **Modular** - Use only what you need
+3. **Extensible** - Override any bean with `@ConditionalOnMissingBean`
+4. **Production Ready** - Built-in resilience, observability, security
+
+## Usage
 
 ### 添加依赖
+
+### Maven Repository
+
+Add the Maven repository (if using snapshots):
+
+```xml
+<repositories>
+    <repository>
+        <id>yunxiao-snapshots</id>
+        <url>https://repo.rdc.aliyun.com/repository/xxxxx-snapshot</url>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+```
+
+### Gradle
 
 ```gradle
 dependencies {
@@ -28,7 +181,7 @@ dependencies {
 }
 ```
 
-### 配置（可选）
+### Configuration
 
 大部分功能零配置开启，可通过配置调整行为：
 
@@ -205,7 +358,7 @@ String url = fileStorageService.getPublicUrl("uploads/2024/01/15/abc.jpg");
 String presignedUrl = fileStorageService.getPresignedUrl("uploads/file.pdf", 3600);
 ```
 
-## 开发规范
+## Development Standards
 
 - 每个 Starter 只解决一类问题
 - 依赖 Spring Boot 自动配置机制
@@ -213,6 +366,198 @@ String presignedUrl = fileStorageService.getPresignedUrl("uploads/file.pdf", 360
 - 支持外部配置覆盖
 - 完整的单元测试
 - 详细的文档和示例
+
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Auto-configuration not activating
+
+**Problem**: Starter beans are not being created.
+
+**Solution**: Check that the required dependencies are present:
+
+```kotlin
+// Make sure you have the required dependencies
+implementation("org.springframework.boot:spring-boot-starter-web")
+implementation("com.nexora:nexora-spring-boot-starter-redis")
+```
+
+Enable debug logging to see why auto-configuration is skipped:
+
+```yaml
+logging:
+  level:
+    com.nexora: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+```
+
+#### 2. Cache not working
+
+**Problem**: Cache is not caching or returning stale data.
+
+**Solution**: Verify configuration:
+
+```yaml
+nexora:
+  redis:
+    enabled: true  # Must be true
+    cache-default-ttl: 30m
+    enable-caffeine: true  # For L1 cache
+```
+
+Check Redis connectivity:
+
+```bash
+redis-cli ping
+```
+
+Clear cache manually:
+
+```bash
+redis-cli KEYS "nexora:*" | xargs redis-cli DEL
+```
+
+#### 3. Kafka messages not being consumed
+
+**Problem**: DLQ is filling up, messages not processed.
+
+**Solution**: Check consumer configuration:
+
+```yaml
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+```
+
+Verify DLQ is enabled:
+
+```yaml
+nexora:
+  kafka:
+    dlq:
+      enabled: true
+      retry-attempts: 3
+```
+
+#### 4. Circuit breaker always open
+
+**Problem**: All requests fail with "Circuit breaker is open".
+
+**Solution**: Check configuration thresholds:
+
+```yaml
+nexora:
+  resilience:
+    circuit-breaker:
+      failure-rate-threshold: 50  # Percentage (1-100)
+      sliding-window-size: 10     # Number of calls
+      wait-duration-in-open-state: 10s  # Time before retry
+```
+
+Wait for `wait-duration-in-open-state` before retrying.
+
+#### 5. JWT token validation failing
+
+**Problem**: `JwtValidationException` on token validation.
+
+**Solution**: Check configuration:
+
+```yaml
+nexora:
+  security:
+    jwt:
+      secret: ${JWT_SECRET}  # Must be same as generation
+      expiration: 1h
+```
+
+Make sure:
+- Secret matches between generation and validation
+- Token is not expired
+- Clock is synchronized across services
+
+#### 6. File upload failing
+
+**Problem**: Upload fails with size or extension error.
+
+**Solution**: Configure limits:
+
+```yaml
+nexora:
+  file-storage:
+    max-file-size: 10MB
+    allowed-extensions: jpg,jpeg,png,pdf,doc,docx
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+```
+
+#### 7. Build failures
+
+**Problem**: `./gradlew build` fails with dependency errors.
+
+**Solution**: Clean and rebuild:
+
+```bash
+./gradlew clean --no-configuration-cache
+./gradlew build
+```
+
+If dependency verification fails:
+
+```bash
+./gradlew --write-verification-metadata sha256 help
+```
+
+### Debug Mode
+
+Enable comprehensive debug logging:
+
+```yaml
+logging:
+  level:
+    com.nexora: DEBUG
+    org.springframework: DEBUG
+    io.lettuce: DEBUG  # Redis
+    org.apache.kafka: DEBUG  # Kafka
+```
+
+### Health Checks
+
+Check starter health with Actuator:
+
+```bash
+curl http://localhost:8080/actuator/health
+```
+
+Expected response:
+
+```json
+{
+  "status": "UP",
+  "components": {
+    "redis": { "status": "UP" },
+    "diskSpace": { "status": "UP" }
+  }
+}
+```
+
+### Getting Help
+
+- **Documentation**: See [DEVELOPMENT.md](DEVELOPMENT.md) for technical details
+- **Architecture**: See [ARCHITECTURE.md](ARCHITECTURE.md) for design details
+- **Contributing**: See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines
+- **Issues**: [GitHub Issues](https://github.com/suj1e/nexora/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/suj1e/nexora/discussions)
+
+## Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 
