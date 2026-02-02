@@ -23,7 +23,7 @@ dependencies {
     api(libs.jackson.databind)
 
     // WebFlux for reactive fallback handlers
-    api("org.springframework.boot:spring-boot-starter-webflux")
+    api(libs.spring.boot.starter.webflux)
 
     // Validation API for @Validated and constraint annotations
     compileOnly(libs.spring.boot.starter.validation)

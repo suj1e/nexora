@@ -17,19 +17,19 @@ dependencies {
     api(project(":nexora-common"))
 
     // Spring Boot
-    api("org.springframework.boot:spring-boot-starter-webflux")
+    api(libs.spring.boot.starter.webflux)
 
     // Reactor
-    api("io.projectreactor:reactor-core")
+    api(libs.reactor.core)
 
     // Validation
-    api("jakarta.validation:jakarta.validation-api")
+    api(libs.jakarta.validation.api)
 
     // Jackson
-    api("com.fasterxml.jackson.core:jackson-databind")
-    api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+    api(libs.jackson.databind)
+    api(libs.jackson.datatype.jsr310)
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation("io.projectreactor:reactor-test")
+    testImplementation(libs.reactor.test)
 }

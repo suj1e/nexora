@@ -18,11 +18,11 @@ dependencies {
     api(project(":nexora-common"))
 
     // Spring Boot annotations and auto-configuration
-    api("org.springframework.boot:spring-boot-autoconfigure")
-    api("org.springframework.boot:spring-boot-starter-actuator")
+    api(libs.spring.boot.autoconfigure)
+    api(libs.spring.boot.starter.actuator)
 
     // Micrometer for metrics
-    api("io.micrometer:micrometer-core")
+    api(libs.micrometer.core)
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)

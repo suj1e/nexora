@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  contents: write  # For dependency graph submission
 
 jobs:
   snapshot:
@@ -16,8 +17,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -28,27 +27,41 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: '9.0'
+          # Use wrapper version from gradle-wrapper.properties
+          # Enable dependency graph submission
+          dependency-graph: upload-and-submit
+          # Generate build scan for detailed analysis
+          generate-job-summary: true
 
       - name: Determine snapshot version
         id: version
         run: |
-          CURRENT=$(grep '^version=' gradle.properties | cut -d'=' -f2 | tr -d ' ')
-          NEXT=${CURRENT%-SNAPSHOT}
-          echo "version=$NEXT-SNAPSHOT" >> $GITHUB_OUTPUT
-          echo "current=$CURRENT" >> $GITHUB_OUTPUT
-          echo "next=$NEXT" >> $GITHUB_OUTPUT
+          # Use Gradle properties to get version
+          VERSION=$(./gradlew properties -q | grep "^version:" | awk '{print $2}')
+
+          # Ensure version ends with -SNAPSHOT
+          if [[ ! "$VERSION" =~ -SNAPSHOT$ ]]; then
+            VERSION="${VERSION}-SNAPSHOT"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "base_version=${VERSION%-SNAPSHOT}" >> $GITHUB_OUTPUT
+
+      - name: Run tests before publishing
+        run: ./gradlew check --no-daemon
 
       - name: Publish snapshot to Aliyun Yunxiao
         env:
           YUNXIAO_USERNAME: ${{ secrets.YUNXIAO_USERNAME }}
           YUNXIAO_PASSWORD: ${{ secrets.YUNXIAO_PASSWORD }}
           YUNXIAO_SNAPSHOT_URL: ${{ secrets.YUNXIAO_SNAPSHOT_URL }}
+          YUNXIAO_RELEASE_URL: ${{ secrets.YUNXIAO_RELEASE_URL }}
         run: |
-          gradle publish --no-daemon \
+          ./gradlew publish --no-daemon --scan \
             -PYunxiaoSnapshotRepositoryUrl="$YUNXIAO_SNAPSHOT_URL" \
-            -PYunxiaoSnapshotUsername="$YUNXIAO_USERNAME" \
-            -PYunxiaoSnapshotPassword="$YUNXIAO_PASSWORD" \
+            -PYunxiaoReleaseRepositoryUrl="$YUNXIAO_RELEASE_URL" \
+            -PYUNXIAO_USERNAME="$YUNXIAO_USERNAME" \
+            -PYUNXIAO_PASSWORD="$YUNXIAO_PASSWORD" \
             -PprojectVersion=${{ steps.version.outputs.version }}
 
       - name: Publish summary
@@ -60,8 +73,22 @@ jobs:
           echo "|----------|-------|" >> $GITHUB_STEP_SUMMARY
           echo "| **Status** | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Version** | \`${{ steps.version.outputs.version }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Base Version** | \`${{ steps.version.outputs.base_version }}\` |" >> $GITHUB_STEP_SUMMARY
           echo "| **Branch** | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Published Modules:**" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-common" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-web" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-webflux" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-data-jpa" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-redis" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-kafka" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-resilience" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-security" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-file-storage" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-audit" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-observability" >> $GITHUB_STEP_SUMMARY
 
       - name: Notify on failure
         if: failure()

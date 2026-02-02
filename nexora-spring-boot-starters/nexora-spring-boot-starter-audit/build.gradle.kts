@@ -19,12 +19,12 @@ dependencies {
     api(project(":nexora-spring-boot-starter-data-jpa"))
 
     // Spring AOP (for aspect)
-    api("org.springframework.boot:spring-boot-starter-aop")
+    api(libs.spring.boot.starter.aop)
 
     // Spring Web (for HttpServletRequest)
     compileOnly(libs.jakarta.servlet.api)
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation("com.h2database:h2")
+    testImplementation(libs.h2)
 }

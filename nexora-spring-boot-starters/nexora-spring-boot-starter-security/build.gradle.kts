@@ -27,10 +27,10 @@ dependencies {
     api(libs.spring.security.web)
 
     // WebFlux for reactive support
-    api("org.springframework.boot:spring-boot-starter-webflux")
+    api(libs.spring.boot.starter.webflux)
 
     // Reactor Core
-    api("io.projectreactor:reactor-core")
+    api(libs.reactor.core)
 
     // Jasypt for encryption
     api(libs.jasypt.spring.boot.starter)

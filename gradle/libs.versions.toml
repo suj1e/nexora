@@ -10,6 +10,10 @@ lettuce = "7.2.1.RELEASE"
 resilience4j = "2.3.0"
 lombok = "1.18.42"
 
+# Reactor
+reactor-core = "3.7.3"
+reactor-test = "3.7.3"
+
 # Spring Cloud 2025.0.0 (Northfields)
 spring-cloud = "2025.0.0"
 
@@ -32,21 +36,35 @@ spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-a
 # Spring Boot starters
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
 spring-boot-starter-aop = { module = "org.springframework.boot:spring-boot-starter-aop" }
+spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-boot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-jdbc = { module = "org.springframework.boot:spring-boot-starter-data-jdbc" }
 spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux" }
 spring-boot-configuration-processor = { module = "org.springframework.boot:spring-boot-configuration-processor" }
+spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
 
 # Spring Kafka
 spring-kafka = { module = "org.springframework.kafka:spring-kafka" }
 
+# Spring Security
+spring-security-web = { module = "org.springframework.security:spring-security-web" }
+
+# Reactor
+reactor-core = { module = "io.projectreactor:reactor-core", version.ref = "reactor-core" }
+reactor-test = { module = "io.projectreactor:reactor-test", version.ref = "reactor-test" }
+
 # Jackson
 jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind" }
 jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" }
+
+# Micrometer
+micrometer-core = { module = "io.micrometer:micrometer-core" }
 
 # Caffeine (with explicit version, not in BOM)
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
@@ -66,17 +84,21 @@ jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-jackson = { module = "io.jsonwebtoken:jjwt-jackson", version.ref = "jjwt" }
 
-# Jakarta Persistence (for Outbox entity)
+# Jakarta APIs
 jakarta-persistence-api = { module = "jakarta.persistence:jakarta.persistence-api" }
-
-# Jakarta Servlet API (for web filters)
 jakarta-servlet-api = { module = "jakarta.servlet:jakarta.servlet-api" }
+jakarta-validation-api = { module = "jakarta.validation:jakarta.validation-api" }
 
-# Spring Security Web (for authentication filters)
-spring-security-web = { module = "org.springframework.security:spring-security-web" }
+# Database drivers (for testing)
+h2 = { module = "com.h2database:h2" }
 
-# Spring Boot AutoConfigure (for EntityScan annotation)
-spring-boot-autoconfigure = { module = "org.springframework.boot:spring-boot-autoconfigure" }
+# Utilities
+commons-io = { module = "commons-io:commons-io", version = { strictly = "2.15.1" } }
+
+# Cloud storage providers (optional)
+aliyun-sdk-oss = { module = "com.aliyun.oss:aliyun-sdk-oss", version = { strictly = "3.17.4" } }
+aws-s3 = { module = "software.amazon.awssdk:s3", version = { strictly = "2.25.0" } }
+minio = { module = "io.minio:minio", version = { strictly = "8.5.7" } }
 
 # Lombok (with explicit version)
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }

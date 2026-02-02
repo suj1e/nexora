@@ -21,9 +21,9 @@ dependencies {
     api(libs.spring.boot.starter.data.jpa)
 
     // Spring Data JDBC (optional, for lighter weight)
-    compileOnly("org.springframework.boot:spring-boot-starter-data-jdbc")
+    compileOnly(libs.spring.boot.starter.data.jdbc)
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation("com.h2database:h2")
+    testImplementation(libs.h2)
 }
