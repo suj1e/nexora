@@ -4,6 +4,7 @@ import com.nexora.storage.FileStorageProperties;
 import com.nexora.storage.FileStorageService;
 import com.nexora.storage.FileUploadHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @EnableConfigurationProperties(FileStorageProperties.class)
 public class FileStorageAutoConfiguration {
 

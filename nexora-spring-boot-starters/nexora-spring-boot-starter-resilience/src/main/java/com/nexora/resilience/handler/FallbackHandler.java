@@ -3,10 +3,8 @@ package com.nexora.resilience.handler;
 import com.nexora.common.api.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
@@ -39,8 +37,6 @@ import java.util.Map;
  *
  * @author sujie
  */
-@Component
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class FallbackHandler {
 
     private static final Logger log = LoggerFactory.getLogger(FallbackHandler.class);

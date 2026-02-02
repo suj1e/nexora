@@ -17,6 +17,10 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+    // Spring Boot configuration processor for metadata generation
+    annotationProcessor(platform(libs.spring.boot.dependencies))
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     // Depend on common module for shared classes
     api(project(":nexora-common"))
 
@@ -27,6 +31,9 @@ dependencies {
 
     // WebFlux for reactive fallback handlers
     api("org.springframework.boot:spring-boot-starter-webflux")
+
+    // Validation API for @Validated and constraint annotations
+    compileOnly(libs.spring.boot.starter.validation)
 
     testImplementation(libs.spring.boot.starter.test)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

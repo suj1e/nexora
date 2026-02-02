@@ -26,7 +26,7 @@ import java.util.Optional;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(EntityManagerFactory.class)
 @EnableConfigurationProperties(JpaProperties.class)
 @ConditionalOnProperty(prefix = "nexora.jpa.auditing", name = "enabled", havingValue = "true", matchIfMissing = true)

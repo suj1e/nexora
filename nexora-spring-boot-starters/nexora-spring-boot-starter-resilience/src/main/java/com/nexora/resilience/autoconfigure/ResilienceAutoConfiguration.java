@@ -1,5 +1,6 @@
 package com.nexora.resilience.autoconfigure;
 
+import com.nexora.resilience.handler.FallbackHandler;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.core.ConfigurationNotFoundException;
@@ -8,8 +9,12 @@ import io.github.resilience4j.retry.RetryRegistry;
 import io.github.resilience4j.timelimiter.TimeLimiterConfig;
 import io.github.resilience4j.timelimiter.TimeLimiterRegistry;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +37,7 @@ import java.util.Map;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = {"io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry",
         "io.github.resilience4j.retry.RetryRegistry"})
 @EnableConfigurationProperties(ResilienceProperties.class)
@@ -147,5 +152,15 @@ public class ResilienceAutoConfiguration {
         log.info("Initialized TimeLimiterRegistry with timeout: {}", properties.getTimeLimiter().getTimeoutDuration());
 
         return TimeLimiterRegistry.of(config);
+    }
+
+    /**
+     * Fallback Handler for circuit breaker and rate limiter scenarios.
+     */
+    @Bean
+    @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
+    public FallbackHandler fallbackHandler() {
+        log.info("Initialized FallbackHandler");
+        return new FallbackHandler();
     }
 }

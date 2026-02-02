@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.Objects;
 
 /**
  * Base JPA entity with audit fields.
@@ -138,21 +139,35 @@ public abstract class BaseEntity implements Serializable {
     }
 
     /**
-     * Equality based on ID.
+     * Equality based on ID and class type.
+     * <p>
+     * For new entities (id is null), uses reference equality.
+     * For persisted entities, compares by id and class type.
+     * This ensures proper behavior in collections and JPA contexts.
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof BaseEntity)) return false;
-        BaseEntity that = (BaseEntity) o;
-        return id != null && id.equals(that.id);
+        if (!(o instanceof BaseEntity that)) return false;
+
+        // For new entities, use reference equality
+        if (id == null && that.id == null) {
+            return this == o;
+        }
+
+        // For persisted entities, compare by id and class
+        return id != null && id.equals(that.id) && getClass().equals(that.getClass());
     }
 
     /**
-     * Hash code based on ID.
+     * Hash code based on a constant value to maintain consistency.
+     * <p>
+     * Returns a constant hash code since equals() depends on the id field
+     * which may be null for new entities. This prevents issues when entities
+     * are added to collections before being persisted.
      */
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return 31; // Constant value for entities with mutable id
     }
 }

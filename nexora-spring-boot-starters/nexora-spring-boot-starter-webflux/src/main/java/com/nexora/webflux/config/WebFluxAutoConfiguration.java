@@ -33,7 +33,7 @@ public class WebFluxAutoConfiguration {
     /**
      * WebFlux configuration for CORS.
      */
-    @Configuration
+    @AutoConfiguration
     @ConditionalOnProperty(prefix = "nexora.webflux.cors", name = "enabled", havingValue = "true")
     public static class CorsConfiguration implements WebFluxConfigurer {
 

@@ -3,7 +3,9 @@ package com.nexora.kafka.autoconfigure;
 import com.nexora.kafka.properties.KafkaProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +27,7 @@ import org.springframework.util.backoff.FixedBackOff;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = "org.springframework.kafka.core.KafkaTemplate")
 @ConditionalOnProperty(prefix = "nexora.kafka.dlq", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(KafkaProperties.class)

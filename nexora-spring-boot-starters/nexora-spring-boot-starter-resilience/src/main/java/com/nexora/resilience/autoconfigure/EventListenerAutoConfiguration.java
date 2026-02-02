@@ -5,7 +5,9 @@ import com.nexora.resilience.listener.RetryEventLogger;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.retry.RetryRegistry;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +22,7 @@ import jakarta.annotation.PostConstruct;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = {"io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry",
         "io.github.resilience4j.retry.RetryRegistry"})
 @ComponentScan(basePackageClasses = {CircuitBreakerEventLogger.class, RetryEventLogger.class})

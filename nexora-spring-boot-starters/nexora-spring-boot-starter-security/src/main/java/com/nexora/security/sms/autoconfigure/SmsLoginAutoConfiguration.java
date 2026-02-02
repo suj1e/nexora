@@ -2,7 +2,9 @@ package com.nexora.security.sms.autoconfigure;
 
 import com.nexora.security.sms.SmsProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +72,7 @@ import org.springframework.context.annotation.Configuration;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "nexora.security.sms", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(SmsProperties.class)

@@ -78,11 +78,6 @@ public class ResilienceProperties {
         private int minimumNumberOfCalls = 5;
 
         /**
-         * Exception types that should be treated as failures.
-         */
-        private Map<String, Duration> instanceConfigs = new HashMap<>();
-
-        /**
          * Per-instance circuit breaker configurations.
          * Allows overriding default settings for specific instances.
          *

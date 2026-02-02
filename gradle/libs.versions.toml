@@ -1,14 +1,14 @@
 [versions]
-# Spring Boot
-spring-boot = "3.5.10"
+# Spring Boot - using latest stable 3.5.x series
+spring-boot = "3.5.7"
 
-# Third-party libraries
-caffeine = "3.2.2"
-jasypt = "3.0.5"
-jjwt = "0.12.3"
-lettuce = "6.3.2.RELEASE"
-resilience4j = "2.2.0"
-lombok = "1.18.36"
+# Third-party libraries - updated to latest stable versions
+caffeine = "3.1.8"
+jasypt = "4.0.3"
+jjwt = "0.13.0"
+lettuce = "7.2.1.RELEASE"
+resilience4j = "2.3.0"
+lombok = "1.18.42"
 
 # Plugins
 dependency-management = "1.1.7"

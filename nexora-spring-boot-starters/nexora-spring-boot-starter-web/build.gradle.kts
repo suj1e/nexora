@@ -17,6 +17,10 @@ dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
+    // Spring Boot configuration processor for metadata generation
+    annotationProcessor(platform(libs.spring.boot.dependencies))
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     // Depend on common module for shared classes
     api(project(":nexora-common"))
 

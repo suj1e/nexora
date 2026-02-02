@@ -30,7 +30,7 @@ import java.util.concurrent.Executor;
  * @author sujie
  */
 @Slf4j
-@Configuration
+@AutoConfiguration
 @ConditionalOnClass(name = "org.springframework.data.jpa.repository.JpaRepository")
 @EnableConfigurationProperties(AuditProperties.class)
 @ConditionalOnProperty(prefix = "nexora.audit", name = "enabled", havingValue = "true", matchIfMissing = true)

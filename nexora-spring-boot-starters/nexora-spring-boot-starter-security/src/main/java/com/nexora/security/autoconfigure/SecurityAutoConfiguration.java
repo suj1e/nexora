@@ -4,6 +4,7 @@ import com.nexora.security.crypto.Encryptor;
 import com.nexora.security.domain.RefreshToken;
 import com.nexora.security.jwt.JwtProperties;
 import com.nexora.security.jwt.JwtTokenProvider;
+import com.nexora.security.jwt.ReactiveJwtTokenProvider;
 import com.nexora.security.repository.RefreshTokenRepository;
 import com.nexora.security.service.RefreshTokenService;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
@@ -31,7 +32,7 @@ public class SecurityAutoConfiguration {
     /**
      * JWT Token Provider configuration.
      */
-    @Configuration
+    @AutoConfiguration
     @EnableConfigurationProperties(JwtProperties.class)
     @ConditionalOnProperty(prefix = "nexora.security.jwt", name = "enabled", havingValue = "true")
     public static class JwtTokenProviderConfiguration {
@@ -41,12 +42,18 @@ public class SecurityAutoConfiguration {
         public JwtTokenProvider jwtTokenProvider(JwtProperties properties) {
             return new JwtTokenProvider(properties);
         }
+
+        @Bean
+        @ConditionalOnMissingBean
+        public ReactiveJwtTokenProvider reactiveJwtTokenProvider(JwtProperties properties) {
+            return new ReactiveJwtTokenProvider(properties);
+        }
     }
 
     /**
      * Refresh Token configuration.
      */
-    @Configuration
+    @AutoConfiguration
     @ConditionalOnClass(name = "org.springframework.data.jpa.repository.JpaRepository")
     @ConditionalOnProperty(prefix = "nexora.security.jwt", name = "enabled", havingValue = "true")
     @EnableJpaRepositories(basePackages = "com.nexora.security.repository")
@@ -65,8 +72,9 @@ public class SecurityAutoConfiguration {
     /**
      * Encryptor configuration.
      */
-    @Configuration
+    @AutoConfiguration
     @ConditionalOnClass(StandardPBEStringEncryptor.class)
+    @ConditionalOnProperty(prefix = "nexora.security.jasypt", name = "enabled", havingValue = "true")
     public static class EncryptorConfiguration {
 
         @Bean

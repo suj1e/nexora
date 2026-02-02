@@ -3,15 +3,20 @@ rootProject.name = "nexora"
 // Include common module
 include("nexora-common")
 
-// Dynamically include all starter modules as direct subprojects
-val startersDir = rootDir.listFiles { file -> file.isDirectory && !file.name.startsWith(".") }
-    ?.find { it.name == "nexora-spring-boot-starters" }
-
-startersDir
-    ?.listFiles { it.isDirectory && !it.name.startsWith(".") }
-    ?.filter { it.name.startsWith("nexora-spring-boot-starter-") }
-    ?.sorted()
-    ?.forEach { starterDir ->
-        include(starterDir.name)
-        project(":${starterDir.name}").projectDir = starterDir
-    }
+// Explicitly declare all starter modules for better IDE support
+// and build predictability (instead of dynamic scanning)
+listOf(
+    "nexora-spring-boot-starter-web",
+    "nexora-spring-boot-starter-webflux",
+    "nexora-spring-boot-starter-data-jpa",
+    "nexora-spring-boot-starter-redis",
+    "nexora-spring-boot-starter-kafka",
+    "nexora-spring-boot-starter-resilience",
+    "nexora-spring-boot-starter-security",
+    "nexora-spring-boot-starter-file-storage",
+    "nexora-spring-boot-starter-audit",
+    "nexora-spring-boot-starter-observability"
+).forEach { moduleName ->
+    include(moduleName)
+    project(":$moduleName").projectDir = file("nexora-spring-boot-starters/$moduleName")
+}
