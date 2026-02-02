@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  * <p>Logs circuit breaker state transitions and important events for monitoring.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @Component

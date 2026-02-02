@@ -32,6 +32,7 @@ import java.time.Instant;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Entity
 @Table(name = "audit_logs", indexes = {

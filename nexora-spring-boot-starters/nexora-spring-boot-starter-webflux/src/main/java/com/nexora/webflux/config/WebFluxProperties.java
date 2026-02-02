@@ -9,6 +9,7 @@ import java.time.Duration;
  * WebFlux configuration properties.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @ConfigurationProperties(prefix = "nexora.webflux")
 public class WebFluxProperties {

@@ -2,8 +2,7 @@ package com.nexora.webflux.handler;
 
 import com.nexora.common.api.Result;
 import com.nexora.common.exception.BusinessException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,12 +23,12 @@ import java.util.stream.Collectors;
  * <p>Handles exceptions and returns consistent error responses.
  *
  * @author sujie
+ * @since 1.0.0
  */
+@Slf4j
 @Component
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class GlobalWebFluxExceptionHandler implements WebExceptionHandler {
-
-    private static final Logger log = LoggerFactory.getLogger(GlobalWebFluxExceptionHandler.class);
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {

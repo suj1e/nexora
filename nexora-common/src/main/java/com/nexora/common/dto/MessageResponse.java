@@ -8,6 +8,7 @@ package com.nexora.common.dto;
  *
  * @param message the response message
  * @author sujie
+ * @since 1.0.0
  */
 public record MessageResponse(String message) {
 

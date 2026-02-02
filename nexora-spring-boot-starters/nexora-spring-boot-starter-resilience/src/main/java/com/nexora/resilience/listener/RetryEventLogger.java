@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
  * <p>Logs retry attempts and failures for monitoring.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @Component

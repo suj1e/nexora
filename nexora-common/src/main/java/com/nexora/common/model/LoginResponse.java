@@ -26,6 +26,7 @@ import java.util.Map;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Builder
 public record LoginResponse(
@@ -39,6 +40,9 @@ public record LoginResponse(
 
     /**
      * User information in login response.
+     *
+     * @author sujie
+     * @since 1.0.0
      */
     @Builder
     public record UserInfo(

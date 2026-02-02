@@ -6,11 +6,9 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -44,14 +42,14 @@ import java.util.function.Supplier;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
+@Slf4j
 @Component
 @ConditionalOnClass(name = "io.micrometer.core.instrument.MeterRegistry")
 @ConditionalOnProperty(prefix = "nexora.observability", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
 public class MetricsUtil {
-
-    private static final Logger log = LoggerFactory.getLogger(MetricsUtil.class);
 
     private final MeterRegistry meterRegistry;
 

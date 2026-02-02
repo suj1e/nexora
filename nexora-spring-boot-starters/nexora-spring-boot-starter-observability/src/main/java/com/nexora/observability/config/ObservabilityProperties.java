@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * Observability configuration properties.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Data
 @ConfigurationProperties(prefix = "nexora.observability")

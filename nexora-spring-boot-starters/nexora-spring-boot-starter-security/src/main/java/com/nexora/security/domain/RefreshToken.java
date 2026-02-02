@@ -13,6 +13,7 @@ import java.time.Instant;
  * Allows revocation of refresh tokens for security purposes.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Getter
 @Setter
