@@ -13,8 +13,8 @@ lombok = "1.18.42"
 # Spring Cloud 2025.0.0 (Northfields)
 spring-cloud = "2025.0.0"
 
-# Spring Cloud Alibaba 2025.0.0.0-preview
-spring-cloud-alibaba = "2025.0.0.0-preview"
+# Spring Cloud Alibaba 2025.0.0.0
+spring-cloud-alibaba = "2025.0.0.0"
 
 # Plugins
 dependency-management = "1.1.7"
@@ -26,7 +26,7 @@ spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-depe
 # Spring Cloud - BOM (for testing compatibility with Spring Cloud 2025.0.0)
 spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
 
-# Spring Cloud Alibaba - BOM (for testing compatibility with Spring Cloud Alibaba 2025.0.0.0-preview)
+# Spring Cloud Alibaba - BOM (for testing compatibility with Spring Cloud Alibaba 2025.0.0.0)
 spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba" }
 
 # Spring Boot starters
