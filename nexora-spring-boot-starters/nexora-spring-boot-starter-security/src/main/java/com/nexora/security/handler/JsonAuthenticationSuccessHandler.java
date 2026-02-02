@@ -36,6 +36,7 @@ import java.time.Instant;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 public class JsonAuthenticationSuccessHandler implements AuthenticationSuccessHandler {

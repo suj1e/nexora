@@ -19,6 +19,7 @@ import java.util.Date;
  * <p>This handler should be used together with {@link JsonAuthenticationSuccessHandler}.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 public class TokenAuthenticationSuccessHandler implements AuthenticationSuccessHandler {

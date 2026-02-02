@@ -29,6 +29,7 @@ import java.io.IOException;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 public class JsonAuthenticationFailureHandler implements AuthenticationFailureHandler {
