@@ -1,19 +1,18 @@
 plugins {
-    id("java-library")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/spring") }
-    mavenCentral()
+    id("nexora.java-conventions")
+    id("nexora.publishing-conventions")
 }
 
 dependencies {
     api(platform(libs.spring.boot.dependencies))
+
+    // Lombok
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
+    // Spring Boot configuration processor for metadata generation
+    annotationProcessor(platform(libs.spring.boot.dependencies))
+    annotationProcessor(libs.spring.boot.configuration.processor)
 
     api(project(":nexora-common"))
 
@@ -30,15 +29,7 @@ dependencies {
     api("com.fasterxml.jackson.core:jackson-databind")
     api("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
-
-    // Configuration processor
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.5.10")
-
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("io.projectreactor:reactor-test")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

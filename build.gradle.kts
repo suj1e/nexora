@@ -1,8 +1,7 @@
 plugins {
     id("java")
     alias(libs.plugins.spring.boot) apply false
-    alias(libs.plugins.dependency.management) apply false
-    id("maven-publish")
+    id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
 allprojects {
@@ -16,76 +15,23 @@ allprojects {
     }
 }
 
-subprojects {
-    apply(plugin = "java")
-    apply(plugin = "maven-publish")
-
-    java {
-        sourceCompatibility = JavaVersion.VERSION_21
-        targetCompatibility = JavaVersion.VERSION_21
-    }
-
-    // Configure publishing for Aliyun Yunxiao
-    configure<PublishingExtension> {
-        publications {
-            create<MavenPublication>("maven") {
-                from(components["java"])
-
-                // Add pom information
-                pom {
-                    name.set(project.name)
-                    description.set("Nexora Spring Boot Starters - ${project.name}")
-                    url.set("https://github.com/suj1e/nexora-spring-boot-starters")
-
-                    licenses {
-                        license {
-                            name.set("The Apache License, Version 2.0")
-                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id.set("sujie")
-                            name.set("SuJie")
-                            email.set("sujie@example.com")
-                        }
-                    }
-
-                    scm {
-                        connection.set("scm:git:git://github.com:suj1e/nexora-spring-boot-starters.git")
-                        developerConnection.set("scm:git:ssh://github.com:suj1e/nexora-spring-boot-starters.git")
-                        url.set("https://github.com/suj1e/nexora-spring-boot-starters")
-                    }
-                }
-            }
-        }
-
-        repositories {
-            // Snapshot repository (for main branch pushes)
-            maven {
-                name = "YunxiaoSnapshotRepository"
-                url = uri(project.findProperty("repositoryUrl") ?: project.findProperty("YunxiaoSnapshotRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/snapshot")
-                credentials {
-                    username = (project.findProperty("repositoryUsername") ?: project.findProperty("YunxiaoSnapshotUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
-                    password = (project.findProperty("repositoryPassword") ?: project.findProperty("YunxiaoSnapshotPassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
-                }
-            }
-
-            // Release repository (for tags/releases)
-            maven {
-                name = "YunxiaoReleaseRepository"
-                url = uri(project.findProperty("repositoryUrl") ?: project.findProperty("YunxiaoReleaseRepositoryUrl") ?: "https://packages.aliyun.com/maven/repository/release")
-                credentials {
-                    username = (project.findProperty("repositoryUsername") ?: project.findProperty("YunxiaoReleaseUsername") ?: System.getenv("YUNXIAO_USERNAME")) as String?
-                    password = (project.findProperty("repositoryPassword") ?: project.findProperty("YunxiaoReleasePassword") ?: System.getenv("YUNXIAO_PASSWORD")) as String?
-                }
-            }
-        }
-    }
-}
-
 // Task to publish all subprojects
 tasks.register("publishAll") {
-    dependsOn(subprojects.map { it.tasks.withType<PublishToMavenRepository>() })
+    group = "publishing"
+    description = "Publish all subprojects to configured repositories"
+    dependsOn(subprojects.map { "${it.path}:publish" })
+}
+
+// Task to verify all subprojects
+tasks.register("verifyAll") {
+    group = "verification"
+    description = "Run all verification tasks including tests and checks"
+    dependsOn(subprojects.map { "${it.path}:check" })
+}
+
+// Task for full CI build
+tasks.register("ciBuild") {
+    group = "build"
+    description = "Run full CI build including clean, build, and verify"
+    dependsOn(":clean", ":build", ":verifyAll")
 }

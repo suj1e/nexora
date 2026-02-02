@@ -1,40 +1,25 @@
 plugins {
-    id("java-library")
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/spring") }
-    mavenCentral()
+    id("nexora.java-conventions")
+    id("nexora.publishing-conventions")
 }
 
 dependencies {
     api(platform(libs.spring.boot.dependencies))
 
-    // Jackson for JSON serialization
-    api(libs.jackson.databind)
-
-    // Lombok (optional at compile time)
+    // Lombok
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
 
     // Spring Boot configuration processor for metadata generation
     annotationProcessor(platform(libs.spring.boot.dependencies))
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    annotationProcessor(libs.spring.boot.configuration.processor)
+
+    // Jackson for JSON serialization
+    api(libs.jackson.databind)
 
     // Jakarta validation (optional)
     compileOnly("jakarta.validation:jakarta.validation-api:3.0.2")
 
-    // Testing
+    // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
-
-// Configure Lombok to support sealed classes
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add("-parameters")
 }

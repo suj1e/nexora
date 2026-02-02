@@ -1,15 +1,18 @@
 plugins {
-    id("java-library")
-}
-
-repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/spring") }
-    mavenCentral()
+    id("nexora.java-conventions")
+    id("nexora.publishing-conventions")
 }
 
 dependencies {
     api(platform(libs.spring.boot.dependencies))
+
+    // Lombok
+    compileOnly(libs.lombok)
+    annotationProcessor(libs.lombok)
+
+    // Spring Boot configuration processor for metadata generation
+    annotationProcessor(platform(libs.spring.boot.dependencies))
+    annotationProcessor(libs.spring.boot.configuration.processor)
 
     // Depend on common module for shared classes
     api(project(":nexora-common"))
@@ -20,13 +23,6 @@ dependencies {
 
     // Micrometer for metrics
     api("io.micrometer:micrometer-core")
-
-    // Lombok
-    compileOnly(libs.lombok)
-    annotationProcessor(libs.lombok)
-
-    // Configuration processor - use full dependency with Spring Boot version
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.5.10")
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
