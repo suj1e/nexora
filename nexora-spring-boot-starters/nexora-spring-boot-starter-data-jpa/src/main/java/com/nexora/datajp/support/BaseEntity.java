@@ -33,6 +33,7 @@ import java.util.Objects;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

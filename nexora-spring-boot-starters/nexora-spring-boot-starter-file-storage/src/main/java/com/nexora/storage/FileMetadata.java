@@ -11,6 +11,7 @@ import java.util.Map;
  * <p>Contains file information such as name, size, type, upload time, etc.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Data
 public class FileMetadata {

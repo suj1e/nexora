@@ -31,6 +31,7 @@ import java.util.List;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 public interface FileStorageService {
 

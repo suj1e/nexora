@@ -37,6 +37,7 @@ import java.util.function.Supplier;
  * }</pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 public final class Entities {
 
