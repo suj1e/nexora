@@ -1,4 +1,5 @@
 import org.gradle.api.publish.PublishingExtension
+import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
     `maven-publish`
@@ -51,39 +52,82 @@ configure<PublishingExtension> {
     }
 
     repositories {
+        // Determine if this is a snapshot version
+        val isSnapshot = project.version.toString().endsWith("-SNAPSHOT")
+
+        // Helper function to get property from multiple possible sources
+        fun getProperty(names: List<String>, defaultValue: String): String {
+            for (name in names) {
+                // Try project property first
+                val projectProp = project.findProperty(name)
+                if (projectProp != null) return projectProp.toString()
+
+                // Try system property (passed with -P)
+                val systemProp = System.getProperty(name)
+                if (systemProp != null) return systemProp
+
+                // Try environment variable
+                val envProp = System.getenv(name)
+                if (envProp != null) return envProp
+
+                // Try environment variable with alternate naming (e.g., YUNXIAO_SNAPSHOT_URL)
+                val envAlt = System.getenv(
+                    name.uppercase()
+                        .replace("Yunxiao", "YUNXIAO")
+                        .replace("Codeup", "CODEUP")
+                )
+                if (envAlt != null) return envAlt
+            }
+            return defaultValue
+        }
+
         // Snapshot repository - Yunxiao
-        maven {
-            name = "YunxiaoSnapshot"
-            val snapshotUrl = project.findProperty("YUNXIAO_SNAPSHOT_URL") as String?
-                ?: project.findProperty("yunxiaoSnapshotRepositoryUrl") as String?
-                ?: System.getenv("YUNXIAO_SNAPSHOT_URL")
-                ?: "https://packages.aliyun.com/maven/repository/2381107-snapshotXXXXX"
-            url = uri(snapshotUrl)
-            credentials {
-                username = project.findProperty("YUNXIAO_USERNAME") as String?
-                    ?: System.getenv("YUNXIAO_USERNAME")
-                    ?: ""
-                password = project.findProperty("YUNXIAO_PASSWORD") as String?
-                    ?: System.getenv("YUNXIAO_PASSWORD")
-                    ?: ""
+        if (isSnapshot) {
+            maven {
+                name = "YunxiaoSnapshot"
+                val snapshotUrl = getProperty(
+                    listOf("YunxiaoSnapshotRepositoryUrl", "yunxiaoSnapshotRepositoryUrl",
+                          "codeupSnapshotUrl", "YUNXIAO_SNAPSHOT_URL"),
+                    "https://packages.aliyun.com/maven/repository/snapshot"
+                )
+                url = uri(snapshotUrl)
+                credentials {
+                    username = getProperty(
+                        listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
+                              "codeupUsername", "CODEUP_USERNAME"),
+                        ""
+                    )
+                    password = getProperty(
+                        listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
+                              "codeupPassword", "CODEUP_PASSWORD"),
+                        ""
+                    )
+                }
             }
         }
 
         // Release repository - Yunxiao
-        maven {
-            name = "YunxiaoRelease"
-            val releaseUrl = project.findProperty("YUNXIAO_RELEASE_URL") as String?
-                ?: project.findProperty("yunxiaoReleaseRepositoryUrl") as String?
-                ?: System.getenv("YUNXIAO_RELEASE_URL")
-                ?: "https://packages.aliyun.com/maven/repository/2381107-releaseXXXXX"
-            url = uri(releaseUrl)
-            credentials {
-                username = project.findProperty("YUNXIAO_USERNAME") as String?
-                    ?: System.getenv("YUNXIAO_USERNAME")
-                    ?: ""
-                password = project.findProperty("YUNXIAO_PASSWORD") as String?
-                    ?: System.getenv("YUNXIAO_PASSWORD")
-                    ?: ""
+        if (!isSnapshot) {
+            maven {
+                name = "YunxiaoRelease"
+                val releaseUrl = getProperty(
+                    listOf("YunxiaoReleaseRepositoryUrl", "yunxiaoReleaseRepositoryUrl",
+                          "codeupReleaseUrl", "YUNXIAO_RELEASE_URL"),
+                    "https://packages.aliyun.com/maven/repository/release"
+                )
+                url = uri(releaseUrl)
+                credentials {
+                    username = getProperty(
+                        listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
+                              "codeupUsername", "CODEUP_USERNAME"),
+                        ""
+                    )
+                    password = getProperty(
+                        listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
+                              "codeupPassword", "CODEUP_PASSWORD"),
+                        ""
+                    )
+                }
             }
         }
     }

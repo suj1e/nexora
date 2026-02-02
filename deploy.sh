@@ -159,8 +159,6 @@ execute_with_retry() {
 # Rollback Functions
 #===========================================
 create_backup() {
-  log_step "Creating backup for potential rollback..."
-
   mkdir -p "$BACKUP_DIR"
   local backup_file="$BACKUP_DIR/deploy_${TIMESTAMP}.tar.gz"
 
@@ -169,7 +167,7 @@ create_backup() {
     gradle.properties \
     .gradle/ 2>/dev/null || true
 
-  log_success "Backup created: $backup_file"
+  # Return only the file path (not the log message)
   echo "$backup_file"
 }
 
@@ -515,7 +513,9 @@ main() {
 
   # Create backup for rollback
   if [[ "$ROLLBACK_ON_FAILURE" == true ]]; then
+    log_step "Creating backup for potential rollback..."
     backup_file=$(create_backup)
+    log_success "Backup created: $backup_file"
   fi
 
   # Execute deployment
