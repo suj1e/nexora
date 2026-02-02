@@ -25,10 +25,19 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3
         with:
-          gradle-version: '9.0'
+          # Use wrapper version from gradle-wrapper.properties
+          # gradle-version: '9.0'  # Removed - use wrapper instead
+          # Enable dependency graph submission for better supply chain security
+          dependency-graph: upload-and-submit
+          # Cache configuration for faster builds
+          cache-read-only: ${{ github.ref != 'refs/heads/main' }}
+          # Generate build scan for detailed build analysis
+          generate-job-summary: true
 
       - name: Build and validate
-        run: gradle build check --no-daemon
+        run: |
+          # Run full CI build using custom task
+          ./gradlew ciBuild --no-daemon --scan
 
       - name: Upload test report
         if: always()
@@ -37,7 +46,8 @@ jobs:
           name: Test Results
           path: '**/build/test-results/test/*.xml'
           reporter: java-junit
-          fail-on-error: false
+          fail-on-error: true
+          max-annotations: 50
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
@@ -45,6 +55,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: '**/build/reports/jacoco/test/jacocoTestReport.xml'
           fail_ci_if_error: false
+          verbose: true
 
       - name: Security scan (PR only)
         if: github.event_name == 'pull_request'
@@ -54,6 +65,7 @@ jobs:
           scan-ref: '.'
           format: 'sarif'
           output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
 
       - name: Upload security results
         if: github.event_name == 'pull_request'
@@ -72,3 +84,16 @@ jobs:
           echo "| **Event** | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Branch** | ${{ github.ref_name }} |" >> $GITHUB_STEP_SUMMARY
           echo "| **Commit** | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📦 **Modules:**" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-common" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-web" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-webflux" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-data-jpa" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-redis" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-kafka" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-resilience" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-security" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-file-storage" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-audit" >> $GITHUB_STEP_SUMMARY
+          echo "- nexora-spring-boot-starter-observability" >> $GITHUB_STEP_SUMMARY
