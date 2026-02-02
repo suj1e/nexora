@@ -1,6 +1,6 @@
 [versions]
 # Spring Boot - using latest stable 3.5.x series
-spring-boot = "3.5.7"
+spring-boot = "3.5.10"
 
 # Third-party libraries - updated to latest stable versions
 caffeine = "3.1.8"
@@ -10,12 +10,24 @@ lettuce = "7.2.1.RELEASE"
 resilience4j = "2.3.0"
 lombok = "1.18.42"
 
+# Spring Cloud 2025.0.0 (Northfields)
+spring-cloud = "2025.0.0"
+
+# Spring Cloud Alibaba 2025.0.0.0-preview
+spring-cloud-alibaba = "2025.0.0.0-preview"
+
 # Plugins
 dependency-management = "1.1.7"
 
 [libraries]
 # Spring Boot - platform/BOM
 spring-boot-dependencies = { module = "org.springframework.boot:spring-boot-dependencies", version.ref = "spring-boot" }
+
+# Spring Cloud - BOM (for testing compatibility with Spring Cloud 2025.0.0)
+spring-cloud-dependencies = { module = "org.springframework.cloud:spring-cloud-dependencies", version.ref = "spring-cloud" }
+
+# Spring Cloud Alibaba - BOM (for testing compatibility with Spring Cloud Alibaba 2025.0.0.0-preview)
+spring-cloud-alibaba-dependencies = { module = "com.alibaba.cloud:spring-cloud-alibaba-dependencies", version.ref = "spring-cloud-alibaba" }
 
 # Spring Boot starters
 spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter" }
