@@ -1,6 +1,6 @@
 # Architecture
 
-This document describes the architecture, design principles, and technical decisions behind the Nexora Spring Boot Starters project.
+This document describes the architecture, design principles, and technical decisions behind the Nexora project.
 
 ## Table of Contents
 

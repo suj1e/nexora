@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Currently, only the latest version of Nexora Spring Boot Starters receives security updates.
+Currently, only the latest version of Nexora receives security updates.
 
 | Version | Supported          |
 |---------|--------------------|
@@ -328,4 +328,4 @@ For security-related questions:
 
 ## Acknowledgments
 
-We thank all security researchers who have responsibly disclosed vulnerabilities to help improve the security of Nexora Spring Boot Starters.
+We thank all security researchers who have responsibly disclosed vulnerabilities to help improve the security of Nexora.

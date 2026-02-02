@@ -1,6 +1,6 @@
 # Contributing to Nexora
 
-Thank you for your interest in contributing to Nexora Spring Boot Starters! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Nexora! This document provides guidelines and instructions for contributing.
 
 ## Table of Contents
 

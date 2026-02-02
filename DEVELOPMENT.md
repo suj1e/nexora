@@ -1,6 +1,6 @@
 # Development Guide
 
-This guide provides comprehensive information for contributors to the Nexora Spring Boot Starters project.
+This guide provides comprehensive information for contributors to the Nexora project.
 
 ## Table of Contents
 

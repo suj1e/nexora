@@ -1,8 +1,8 @@
-# Nexora Spring Boot Starters
+# Nexora
 
-统一的微服务基础设施组件库，提供开箱即用的自动配置。
+统一的微服务基础设施 Spring Boot Starters 库，提供开箱即用的自动配置。
 
-Unified microservice infrastructure component library providing zero-configuration auto-configuration for Spring Boot applications.
+Unified microservice infrastructure Spring Boot Starters library providing zero-configuration auto-configuration.
 
 [![Build Status](https://github.com/suj1e/nexora/actions/workflows/ci.yml/badge.svg)](https://github.com/suj1e/nexora/actions/workflows/ci.yml)
 [![Snapshot Version](https://img.shields.io/maven-central/v/com.nexora/nexora-spring-boot-starter-web?version=1.0.0-SNAPSHOT)](https://oss.sonatype.org/content/repositories/snapshots/com/nexora/)
