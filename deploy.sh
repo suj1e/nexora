@@ -15,14 +15,14 @@ set -euo pipefail
 #===========================================
 # Color Definitions
 #===========================================
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-MAGENTA='\033[0;35m'
-GRAY='\033[0;90m'
-NC='\033[0m' # No Color
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+YELLOW=$'\033[1;33m'
+BLUE=$'\033[0;34m'
+CYAN=$'\033[0;36m'
+MAGENTA=$'\033[0;35m'
+GRAY=$'\033[0;90m'
+NC=$'\033[0m' # No Color
 
 #===========================================
 # Configuration
@@ -33,6 +33,10 @@ MAX_RETRIES=3
 RETRY_DELAY=5
 DRY_RUN=false
 ROLLBACK_ON_FAILURE=true
+TYPE="snapshot"
+VERSION_OVERRIDE=""
+SKIP_CONFIRM=false
+DEBUG=false
 
 # Credential file
 GRADLE_PROPERTIES="$HOME/.gradle/gradle.properties"
@@ -257,9 +261,15 @@ validate_environment() {
     log_warn "Java version $java_version detected. JDK 21+ is recommended."
   fi
 
-  # Check Gradle wrapper
-  if [[ ! -f "./gradlew" ]]; then
-    log_error "Gradle wrapper not found. Please run: gradle wrapper"
+  # Check for Gradle (wrapper or system)
+  if [[ -f "./gradlew" ]]; then
+    GRADLE_CMD="./gradlew"
+    log_debug "Using Gradle wrapper: ./gradlew"
+  elif command -v gradle &> /dev/null; then
+    GRADLE_CMD="gradle"
+    log_debug "Using system Gradle: gradle"
+  else
+    log_error "Gradle not found. Please install Gradle or run: gradle wrapper"
     return 1
   fi
 
@@ -269,7 +279,7 @@ validate_environment() {
     return 1
   fi
 
-  log_success "Environment validated"
+  log_success "Environment validated (using: $GRADLE_CMD)"
   return 0
 }
 
@@ -308,7 +318,7 @@ dry_run_deployment() {
 execute_deployment() {
   log_step "Building and publishing..."
 
-  local gradle_cmd="./gradlew publish --no-daemon --scan \
+  local gradle_cmd="$GRADLE_CMD publish --no-daemon --scan \
     -PYunxiaoSnapshotRepositoryUrl=\"$YUNXIAO_SNAPSHOT_URL\" \
     -PYunxiaoReleaseRepositoryUrl=\"$YUNXIAO_RELEASE_URL\" \
     -PYUNXIAO_USERNAME=\"$YUNXIAO_USERNAME\" \
