@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor(libs.lombok)
 
     // Jakarta validation (optional)
-    compileOnly("jakarta.validation:jakarta.validation-api:3.0.2")
+    compileOnly("jakarta.validation:jakarta.validation-api:3.1.1")
 
     // Testing
     testImplementation(libs.spring.boot.starter.test)
