@@ -9,6 +9,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 
     withSourcesJar()
+
+    // Javadoc generation is disabled due to doclint configuration issues
+    // Can be enabled per-module if needed
+    // withJavadocJar()
 }
 
 tasks.withType<Test> {
