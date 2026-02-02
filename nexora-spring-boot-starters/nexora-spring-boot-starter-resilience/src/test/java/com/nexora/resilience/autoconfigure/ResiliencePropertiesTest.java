@@ -129,16 +129,28 @@ class ResiliencePropertiesTest {
     void testCircuitBreakerInstanceConfigs() {
         ResilienceProperties properties = new ResilienceProperties();
         ResilienceProperties.CircuitBreaker cb = properties.getCircuitBreaker();
-        Map<String, Duration> configs = new HashMap<>();
-        configs.put("userService", Duration.ofSeconds(30));
-        configs.put("orderService", Duration.ofMinutes(1));
 
-        cb.setInstanceConfigs(configs);
+        ResilienceProperties.CircuitBreakerInstanceConfig userServiceConfig =
+            new ResilienceProperties.CircuitBreakerInstanceConfig();
+        userServiceConfig.setWaitDurationInOpenState(Duration.ofSeconds(30));
+
+        ResilienceProperties.CircuitBreakerInstanceConfig orderServiceConfig =
+            new ResilienceProperties.CircuitBreakerInstanceConfig();
+        orderServiceConfig.setWaitDurationInOpenState(Duration.ofMinutes(1));
+
+        Map<String, ResilienceProperties.CircuitBreakerInstanceConfig> configs = new HashMap<>();
+        configs.put("userService", userServiceConfig);
+        configs.put("orderService", orderServiceConfig);
+
+        cb.setInstances(configs);
 
         assertAll("Instance configs",
-            () -> assertEquals(2, cb.getInstanceConfigs().size()),
-            () -> assertEquals(Duration.ofSeconds(30), cb.getInstanceConfigs().get("userService")),
-            () -> assertEquals(Duration.ofMinutes(1), cb.getInstanceConfigs().get("orderService"))
+            () -> assertEquals(2, cb.getInstances().size()),
+            () -> assertNotNull(cb.getInstances().get("userService")),
+            () -> assertEquals(Duration.ofSeconds(30),
+                cb.getInstances().get("userService").getWaitDurationInOpenState()),
+            () -> assertEquals(Duration.ofMinutes(1),
+                cb.getInstances().get("orderService").getWaitDurationInOpenState())
         );
     }
 
@@ -148,8 +160,8 @@ class ResiliencePropertiesTest {
         ResilienceProperties properties = new ResilienceProperties();
         ResilienceProperties.CircuitBreaker cb = properties.getCircuitBreaker();
 
-        assertNotNull(cb.getInstanceConfigs(), "Instance configs should not be null");
-        assertTrue(cb.getInstanceConfigs().isEmpty(), "Instance configs should be empty by default");
+        assertNotNull(cb.getInstances(), "Instance configs should not be null");
+        assertTrue(cb.getInstances().isEmpty(), "Instance configs should be empty by default");
     }
 
     @Test

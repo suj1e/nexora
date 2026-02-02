@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @AutoConfiguration
 @ConditionalOnWebApplication

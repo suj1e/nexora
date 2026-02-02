@@ -6,6 +6,7 @@ package com.nexora.common.api;
  * <p>Used for list endpoints to specify page number and size.
  *
  * @author sujie
+ * @since 1.0.0
  */
 public record PageRequest(
     int page,

@@ -19,7 +19,8 @@ class SecurityAutoConfigurationTest {
 
     private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
         .withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class))
-        .withBean(StandardPBEStringEncryptor.class, () -> new StandardPBEStringEncryptor());
+        .withBean(StandardPBEStringEncryptor.class, () -> new StandardPBEStringEncryptor())
+        .withPropertyValues("nexora.security.jasypt.enabled=true", "nexora.security.jasypt.password=testPassword");
 
     @Test
     @DisplayName("Should load SecurityAutoConfiguration")
@@ -78,15 +79,14 @@ class SecurityAutoConfigurationTest {
     }
 
     @Test
-    @DisplayName("Should not load without StandardPBEStringEncryptor class")
-    void shouldNotLoadWithoutEncryptorClass() {
+    @DisplayName("Should not create Encryptor without jasypt enabled property")
+    void shouldNotCreateEncryptorWithoutJasyptEnabled() {
         new ApplicationContextRunner()
-            .withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class))
+            .withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, JasyptAutoConfiguration.class))
+            .withBean(StandardPBEStringEncryptor.class, () -> new StandardPBEStringEncryptor())
             .run(context -> {
-                // Context should fail to start without StandardPBEStringEncryptor bean
-                assertThat(context).hasFailed();
-                assertThat(context.getStartupFailure()).isInstanceOf(
-                    org.springframework.beans.factory.UnsatisfiedDependencyException.class);
+                // Encryptor should not be created when nexora.security.jasypt.enabled is not set
+                assertThat(context).doesNotHaveBean(Encryptor.class);
             });
     }
 }

@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * <ul>
  *   <li>Minimum 8 characters, maximum 128 characters</li>
  *   <li>At least one uppercase letter</li>
- *   <li>At least one lowercase letter</li>
+   <li>At least one lowercase letter</li>
  *   *   <li>At least one digit</li>
  *   *   <li>At least one special character</li>
  * </ul>
@@ -29,6 +29,7 @@ import java.util.regex.Pattern;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 public final class PasswordUtil {
 

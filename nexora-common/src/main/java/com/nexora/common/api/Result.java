@@ -23,6 +23,7 @@ import java.util.UUID;
  *
  * @param <T> data type
  * @author sujie
+ * @since 1.0.0
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record Result<T>(

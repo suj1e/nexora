@@ -20,6 +20,7 @@ import java.util.List;
  *
  * @param <T> record type
  * @author sujie
+ * @since 1.0.0
  */
 public record PageResult<T>(
     List<T> records,

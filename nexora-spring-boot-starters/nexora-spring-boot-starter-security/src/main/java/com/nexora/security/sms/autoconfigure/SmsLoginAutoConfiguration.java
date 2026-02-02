@@ -4,10 +4,8 @@ import com.nexora.security.sms.SmsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Auto-configuration for SMS login feature.
@@ -70,6 +68,7 @@ import org.springframework.context.annotation.Configuration;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration

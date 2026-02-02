@@ -40,6 +40,7 @@ import org.springframework.context.annotation.Configuration;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration

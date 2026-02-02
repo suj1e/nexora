@@ -28,6 +28,7 @@ import java.util.concurrent.Executor;
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration

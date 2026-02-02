@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration

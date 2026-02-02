@@ -1,7 +1,6 @@
 package com.nexora.webflux.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -16,28 +15,30 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
  * <p>Automatically configures:
  * <ul>
  *   <li>CORS settings</li>
- *   <li>Request logging filter</li>
- *   <li>Global exception handler</li>
+   *   <li>Request logging filter</li>
+   *   <li>Global exception handler</li>
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
+@Slf4j
 @AutoConfiguration
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @EnableConfigurationProperties(WebFluxProperties.class)
 @ConditionalOnProperty(prefix = "nexora.webflux", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class WebFluxAutoConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(WebFluxAutoConfiguration.class);
-
     /**
      * WebFlux configuration for CORS.
+     *
+     * @author sujie
+     * @since 1.0.0
      */
+    @Slf4j
     @AutoConfiguration
     @ConditionalOnProperty(prefix = "nexora.webflux.cors", name = "enabled", havingValue = "true")
     public static class CorsConfiguration implements WebFluxConfigurer {
-
-        private static final Logger log = LoggerFactory.getLogger(CorsConfiguration.class);
 
         private final WebFluxProperties properties;
 

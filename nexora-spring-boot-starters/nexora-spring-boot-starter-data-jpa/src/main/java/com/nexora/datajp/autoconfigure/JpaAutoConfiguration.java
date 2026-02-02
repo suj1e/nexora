@@ -24,6 +24,7 @@ import java.util.Optional;
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration

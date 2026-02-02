@@ -24,6 +24,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * <p>Registers JWT, encryption, and refresh token beans.
  *
  * @author sujie
+ * @since 1.0.0
  */
 @AutoConfiguration
 @ConditionalOnClass(StandardPBEStringEncryptor.class)

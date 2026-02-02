@@ -4,16 +4,13 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * </ul>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @Slf4j
 @AutoConfiguration
@@ -54,16 +52,12 @@ public class CaffeineAutoConfiguration {
                 String key = kv[0].trim();
                 String value = kv[1].trim();
 
+                // Java 21 Switch Expression
                 switch (key) {
-                    case "maximumSize":
-                        caffeineBuilder.maximumSize(Long.parseLong(value));
-                        break;
-                    case "expireAfterWrite":
-                        caffeineBuilder.expireAfterWrite(parseDuration(value), TimeUnit.MILLISECONDS);
-                        break;
-                    case "expireAfterAccess":
-                        caffeineBuilder.expireAfterAccess(parseDuration(value), TimeUnit.MILLISECONDS);
-                        break;
+                    case "maximumSize" -> caffeineBuilder.maximumSize(Long.parseLong(value));
+                    case "expireAfterWrite" -> caffeineBuilder.expireAfterWrite(parseDuration(value), TimeUnit.MILLISECONDS);
+                    case "expireAfterAccess" -> caffeineBuilder.expireAfterAccess(parseDuration(value), TimeUnit.MILLISECONDS);
+                    default -> { /* ignore unknown keys */ }
                 }
             }
         }
@@ -72,17 +66,36 @@ public class CaffeineAutoConfiguration {
         return cacheManager;
     }
 
+    /**
+     * Parse duration string to milliseconds.
+     * Uses Java 21 switch expression for pattern matching.
+     *
+     * @param duration the duration string (e.g., "100ms", "5s", "10m", "1h")
+     * @return duration in milliseconds
+     */
     private long parseDuration(String duration) {
-        duration = duration.toLowerCase();
-        if (duration.endsWith("ms")) {
-            return Long.parseLong(duration.substring(0, duration.length() - 2));
-        } else if (duration.endsWith("s")) {
-            return Long.parseLong(duration.substring(0, duration.length() - 1)) * 1000;
-        } else if (duration.endsWith("m")) {
-            return Long.parseLong(duration.substring(0, duration.length() - 1)) * 60 * 1000;
-        } else if (duration.endsWith("h")) {
-            return Long.parseLong(duration.substring(0, duration.length() - 1)) * 60 * 60 * 1000;
-        }
-        return Long.parseLong(duration);
+        String lowerDuration = duration.toLowerCase();
+
+        return switch (extractSuffix(lowerDuration)) {
+            case "ms" -> Long.parseLong(lowerDuration.substring(0, lowerDuration.length() - 2));
+            case "s" -> Long.parseLong(lowerDuration.substring(0, lowerDuration.length() - 1)) * 1000;
+            case "m" -> Long.parseLong(lowerDuration.substring(0, lowerDuration.length() - 1)) * 60 * 1000;
+            case "h" -> Long.parseLong(lowerDuration.substring(0, lowerDuration.length() - 1)) * 60 * 60 * 1000;
+            default -> Long.parseLong(lowerDuration); // plain number, treat as milliseconds
+        };
+    }
+
+    /**
+     * Extract suffix from duration string.
+     *
+     * @param duration the duration string
+     * @return the suffix (ms, s, m, h) or empty string
+     */
+    private String extractSuffix(String duration) {
+        if (duration.endsWith("ms")) return "ms";
+        if (duration.endsWith("s")) return "s";
+        if (duration.endsWith("m")) return "m";
+        if (duration.endsWith("h")) return "h";
+        return "";
     }
 }

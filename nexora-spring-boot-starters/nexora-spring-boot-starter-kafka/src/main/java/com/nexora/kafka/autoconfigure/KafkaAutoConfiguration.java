@@ -28,6 +28,7 @@ import org.springframework.kafka.annotation.EnableKafka;
  * </pre>
  *
  * @author sujie
+ * @since 1.0.0
  */
 @AutoConfiguration
 @ConditionalOnClass(org.springframework.kafka.core.KafkaTemplate.class)
