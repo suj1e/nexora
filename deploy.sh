@@ -8,27 +8,59 @@
 # Usage: ./deploy.sh [OPTIONS]
 #
 # Author: Nexora Team
-# Version: 2.0.0
+# Version: 2.0.1
 
-set -euo pipefail
+set -eo pipefail
 
 #===========================================
-# Color Definitions
+# Color Detection & Definitions
 #===========================================
-RED=$'\033[0;31m'
-GREEN=$'\033[0;32m'
-YELLOW=$'\033[1;33m'
-BLUE=$'\033[0;34m'
-CYAN=$'\033[0;36m'
-MAGENTA=$'\033[0;35m'
-GRAY=$'\033[0;90m'
-NC=$'\033[0m' # No Color
+setup_colors() {
+  # Check if NO_COLOR is set or stdout is not a terminal
+  if [[ -n "${NO_COLOR:-}" ]] || ! [[ -t 1 ]]; then
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    CYAN=""
+    MAGENTA=""
+    GRAY=""
+    NC=""
+    return
+  fi
+
+  # Check if terminal supports colors
+  if [[ "${TERM:-}" == *"dumb"* ]] || [[ "${TERM:-}" == "unknown" ]]; then
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    CYAN=""
+    MAGENTA=""
+    GRAY=""
+    NC=""
+    return
+  fi
+
+  # Enable colors
+  RED=$'\033[0;31m'
+  GREEN=$'\033[0;32m'
+  YELLOW=$'\033[1;33m'
+  BLUE=$'\033[0;34m'
+  CYAN=$'\033[0;36m'
+  MAGENTA=$'\033[0;35m'
+  GRAY=$'\033[0;90m'
+  NC=$'\033[0m'
+}
+
+# Initialize colors
+setup_colors
 
 #===========================================
 # Configuration
 #===========================================
 GROUP="com.nexora"
-VERSION=$(grep '^version=' gradle.properties | cut -d'=' -f2 | tr -d ' ')
+VERSION=$(grep '^version=' gradle.properties 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
 MAX_RETRIES=3
 RETRY_DELAY=5
 DRY_RUN=false
@@ -37,6 +69,7 @@ TYPE="snapshot"
 VERSION_OVERRIDE=""
 SKIP_CONFIRM=false
 DEBUG=false
+NO_COLOR=false
 
 # Credential file
 GRADLE_PROPERTIES="$HOME/.gradle/gradle.properties"
@@ -44,64 +77,35 @@ GRADLE_PROPERTIES="$HOME/.gradle/gradle.properties"
 # Backup directory for rollback
 BACKUP_DIR=".deploy-backup"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+GRADLE_CMD=""
 
 #===========================================
 # Utility Functions
 #===========================================
-
 log_info() {
-  echo -e "${GREEN}[INFO]${NC} $1"
+  echo "${GREEN}[INFO]${NC} $1"
 }
 
 log_warn() {
-  echo -e "${YELLOW}[WARN]${NC} $1"
+  echo "${YELLOW}[WARN]${NC} $1"
 }
 
 log_error() {
-  echo -e "${RED}[ERROR]${NC} $1"
+  echo "${RED}[ERROR]${NC} $1"
 }
 
 log_debug() {
-  if [[ "${DEBUG:-false}" == "true" ]]; then
-    echo -e "${GRAY}[DEBUG]${NC} $1"
+  if [[ "$DEBUG" == "true" ]]; then
+    echo "${GRAY}[DEBUG]${NC} $1"
   fi
 }
 
 log_step() {
-  echo -e "${CYAN}[STEP]${NC} $1"
+  echo "${CYAN}[STEP]${NC} $1"
 }
 
 log_success() {
-  echo -e "${GREEN}[SUCCESS]${NC} $1"
-}
-
-# Progress indicator
-show_progress() {
-  local pid=$1
-  local message="$2"
-  local spin='-\|/'
-
-  echo -ne "${BLUE}[${NC}${message}${BLUE}]${NC} "
-
-  while kill -0 $pid 2>/dev/null; do
-    for i in $(seq 0 3); do
-      if ! kill -0 $pid 2>/dev/null; then
-        break
-      fi
-      echo -ne "\b${spin:$i:1}"
-      sleep 0.1
-    done
-  done
-  echo -ne "\b\r"
-}
-
-# Dry run banner
-show_dry_run_banner() {
-  echo -e "${YELLOW}╔══════════════════════════════════════════════════════════╗${NC}"
-  echo -e "${YELLOW}║                    DRY RUN MODE                          ║${NC}"
-  echo -e "${YELLOW}║           No actual deployment will be performed         ║${NC}"
-  echo -e "${YELLOW}╚══════════════════════════════════════════════════════════╝${NC}"
-  echo ""
+  echo "${GREEN}[SUCCESS]${NC} $1"
 }
 
 # Read property from gradle.properties
@@ -110,14 +114,13 @@ read_gradle_property() {
   local file="$2"
 
   if [[ -f "$file" ]]; then
-    grep "^${property_name}=" "$file" | cut -d'=' -f2 | tr -d ' ' || echo ""
+    grep "^${property_name}=" "$file" 2>/dev/null | cut -d'=' -f2 | tr -d ' ' || echo ""
   fi
 }
 
 #===========================================
 # Retry Logic with Exponential Backoff
 #===========================================
-
 execute_with_retry() {
   local command="$1"
   local attempt=1
@@ -131,7 +134,7 @@ execute_with_retry() {
     fi
 
     if [[ $attempt -ge $MAX_RETRIES ]]; then
-      log_error "Command failed after $MAX_RETRIES attempts: $command"
+      log_error "Command failed after $MAX_RETRIES attempts"
       return 1
     fi
 
@@ -147,7 +150,6 @@ execute_with_retry() {
 #===========================================
 # Rollback Functions
 #===========================================
-
 create_backup() {
   log_step "Creating backup for potential rollback..."
 
@@ -185,7 +187,6 @@ rollback_deployment() {
 #===========================================
 # Credential Loading
 #===========================================
-
 load_credentials() {
   log_step "Loading credentials..."
 
@@ -215,20 +216,19 @@ load_credentials() {
 #===========================================
 # Validation Functions
 #===========================================
-
 validate_credentials() {
   log_step "Validating credentials..."
 
   if [[ -z "$YUNXIAO_USERNAME" ]]; then
     log_error "Username not configured."
     echo ""
-    echo -e "${YELLOW}Configure credentials in ~/.gradle/gradle.properties:${NC}"
+    echo "Configure credentials in ~/.gradle/gradle.properties:"
     echo "  yunxiaoUsername=your_username"
     echo "  yunxiaoPassword=your_password"
     echo "  yunxiaoSnapshotRepositoryUrl=https://..."
     echo "  yunxiaoReleaseRepositoryUrl=https://..."
     echo ""
-    echo -e "${YELLOW}Or set environment variables:${NC}"
+    echo "Or set environment variables:"
     echo "  export YUNXIAO_USERNAME=your_username"
     echo "  export YUNXIAO_PASSWORD=your_password"
     return 1
@@ -237,7 +237,7 @@ validate_credentials() {
   if [[ -z "$YUNXIAO_PASSWORD" ]]; then
     log_error "Password not configured."
     echo ""
-    echo -e "${YELLOW}Configure credentials in ~/.gradle/gradle.properties:${NC}"
+    echo "Configure credentials in ~/.gradle/gradle.properties:"
     echo "  yunxiaoUsername=your_username"
     echo "  yunxiaoPassword=your_password"
     return 1
@@ -286,19 +286,22 @@ validate_environment() {
 #===========================================
 # Deployment Functions
 #===========================================
-
 dry_run_deployment() {
-  show_dry_run_banner
+  echo "${YELLOW}╔══════════════════════════════════════════════════════════╗${NC}"
+  echo "${YELLOW}║                    DRY RUN MODE                          ║${NC}"
+  echo "${YELLOW}║           No actual deployment will be performed         ║${NC}"
+  echo "${YELLOW}╚══════════════════════════════════════════════════════════╝${NC}"
+  echo ""
 
   log_info "Dry run: Would deploy the following:"
   echo ""
-  echo -e "${BLUE}  Configuration:${NC}"
+  echo "  Configuration:"
   echo "  Group:    $GROUP"
   echo "  Version:  $FINAL_VERSION"
   echo "  Type:     $REPO_NAME"
   echo "  URL:      $REPO_URL"
   echo ""
-  echo -e "${BLUE}  Modules to deploy:${NC}"
+  echo "  Modules to deploy:"
   echo "  - nexora-common"
   echo "  - nexora-spring-boot-starter-web"
   echo "  - nexora-spring-boot-starter-webflux"
@@ -336,41 +339,42 @@ execute_deployment() {
 #===========================================
 # Help Function
 #===========================================
-
 show_help() {
-  cat << EOF
-${CYAN}Nexora Deployment Script${NC}
+  cat << 'EOF'
+Nexora Deployment Script
 
-${YELLOW}Usage:${NC}
-  $0 [OPTIONS]
+Usage:
+  ./deploy.sh [OPTIONS]
 
-${YELLOW}Options:${NC}
+Options:
   -t, --type TYPE          Deployment type: snapshot or release (default: snapshot)
   -v, --version VERSION    Override version (default: use gradle.properties)
   -y, --yes                Skip confirmation prompt
   -d, --dry-run            Show what would be deployed without actual deployment
   -r, --retry N            Maximum retry attempts (default: 3)
   --no-rollback            Disable automatic rollback on failure
+  --no-color               Disable colored output
   --debug                  Enable debug logging
   -h, --help               Show this help message
 
-${YELLOW}Examples:${NC}
-  $0                       # Deploy snapshot (with confirmation)
-  $0 -t release            # Deploy release version
-  $0 -t release -v 1.0.1   # Deploy specific version
-  $0 -y                    # Deploy snapshot without confirmation
-  $0 -d                    # Dry run - show what would be deployed
-  $0 --debug               # Deploy with debug logging
+Examples:
+  ./deploy.sh                       # Deploy snapshot (with confirmation)
+  ./deploy.sh -t release            # Deploy release version
+  ./deploy.sh -t release -v 1.0.1   # Deploy specific version
+  ./deploy.sh -y                    # Deploy snapshot without confirmation
+  ./deploy.sh -d                    # Dry run - show what would be deployed
+  ./deploy.sh --debug               # Deploy with debug logging
+  ./deploy.sh --no-color            # Deploy without colors
 
-${YELLOW}Credentials Configuration:${NC}
+Credentials Configuration:
   Add to ~/.gradle/gradle.properties:
-    ${GRAY}# Recommended format (matches CI)${NC}
+    # Recommended format (matches CI)
     yunxiaoUsername=your_username
     yunxiaoPassword=your_password
     yunxiaoSnapshotRepositoryUrl=https://packages.aliyun.com/maven/repository/xxx-snapshot/
     yunxiaoReleaseRepositoryUrl=https://packages.aliyun.com/maven/repository/xxx-release/
 
-    ${GRAY}# Legacy format (still supported)${NC}
+    # Legacy format (still supported)
     codeupUsername=your_username
     codeupPassword=your_password
 
@@ -380,22 +384,21 @@ ${YELLOW}Credentials Configuration:${NC}
     export YUNXIAO_SNAPSHOT_URL=https://...
     export YUNXIAO_RELEASE_URL=https://...
 
-${YELLOW}Features:${NC}
+Features:
   • Retry logic with exponential backoff
   • Automatic rollback on failure
   • Dry-run mode for testing
-  • Progress indicators
-  • Detailed logging
+  • Colored output (can be disabled with --no-color or NO_COLOR env var)
+  • Automatic Gradle detection (wrapper or system)
 
-${YELLOW}Version:${NC} 2.0.0
-${YELLOW}Author:${NC} Nexora Team
+Version: 2.0.1
+Author: Nexora Team
 EOF
 }
 
 #===========================================
 # Main Deployment Flow
 #===========================================
-
 main() {
   local backup_file=""
 
@@ -426,6 +429,11 @@ main() {
       ROLLBACK_ON_FAILURE=false
       shift
       ;;
+    --no-color)
+      NO_COLOR=true
+      setup_colors  # Re-init with no colors
+      shift
+      ;;
     --debug)
       DEBUG=true
       shift
@@ -442,9 +450,9 @@ main() {
   done
 
   # Print banner
-  echo -e "${MAGENTA}╔══════════════════════════════════════════════════════════╗${NC}"
-  echo -e "${MAGENTA}║           Nexora Deployment Script v2.0.0              ║${NC}"
-  echo -e "${MAGENTA}╚══════════════════════════════════════════════════════════╝${NC}"
+  echo "${MAGENTA}╔══════════════════════════════════════════════════════════╗${NC}"
+  echo "${MAGENTA}║           Nexora Deployment Script v2.0.1              ║${NC}"
+  echo "${MAGENTA}╚══════════════════════════════════════════════════════════╝${NC}"
   echo ""
 
   # Load and validate credentials
@@ -480,15 +488,15 @@ main() {
   # Show deployment summary
   log_info "Deployment Configuration"
   echo ""
-  echo -e "${BLUE}  Project:${NC}  $GROUP"
-  echo -e "${BLUE}  Version:${NC}  $FINAL_VERSION"
-  echo -e "${BLUE}  Type:${NC}     $REPO_NAME"
-  echo -e "${BLUE}  URL:${NC}      $REPO_URL"
-  echo -e "${BLUE}  Max Retries:${NC} $MAX_RETRIES"
+  echo "  Project:  $GROUP"
+  echo "  Version:  $FINAL_VERSION"
+  echo "  Type:     $REPO_NAME"
+  echo "  URL:      $REPO_URL"
+  echo "  Retries:  $MAX_RETRIES"
   echo ""
 
   # Confirm deployment
-  if [[ "${SKIP_CONFIRM:-false}" == false ]]; then
+  if [[ "$SKIP_CONFIRM" == false ]]; then
     read -p "Continue with deployment? [y/N] " -n 1 -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
@@ -506,11 +514,11 @@ main() {
   echo ""
   if execute_deployment; then
     echo ""
-    log_success "✅ Deployment completed successfully!"
+    log_success "Deployment completed successfully!"
     echo ""
-    echo -e "${GREEN}  Version:${NC}     $FINAL_VERSION"
-    echo -e "${GREEN}  Repository:${NC}  $REPO_NAME"
-    echo -e "${GREEN}  URL:${NC}         $REPO_URL"
+    echo "  Version:     $FINAL_VERSION"
+    echo "  Repository:  $REPO_NAME"
+    echo "  URL:         $REPO_URL"
     echo ""
 
     # Clean up old backups (keep last 5)
@@ -521,7 +529,7 @@ main() {
     exit 0
   else
     echo ""
-    log_error "❌ Deployment failed!"
+    log_error "Deployment failed!"
 
     # Rollback if enabled
     if [[ "$ROLLBACK_ON_FAILURE" == true ]] && [[ -n "$backup_file" ]]; then
