@@ -329,7 +329,7 @@ dry_run_deployment() {
 execute_deployment() {
   log_step "Building and publishing..."
 
-  local gradle_cmd="$GRADLE_CMD publish --no-daemon --scan \
+  local gradle_cmd="$GRADLE_CMD publish --no-daemon \
     -PYunxiaoSnapshotRepositoryUrl=\"$YUNXIAO_SNAPSHOT_URL\" \
     -PYunxiaoReleaseRepositoryUrl=\"$YUNXIAO_RELEASE_URL\" \
     -PYUNXIAO_USERNAME=\"$YUNXIAO_USERNAME\" \
