@@ -60,7 +60,7 @@ setup_colors
 # Configuration
 #===========================================
 GROUP="com.nexora"
-VERSION=$(grep '^version=' gradle.properties 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
+VERSION="${VERSION:-1.0.0}"  # Default to 1.0.0 if not set
 MAX_RETRIES=3
 RETRY_DELAY=5
 DRY_RUN=false
@@ -70,6 +70,14 @@ VERSION_OVERRIDE=""
 SKIP_CONFIRM=false
 DEBUG=false
 NO_COLOR=false
+
+# Read version from gradle.properties if available
+if [[ -f "gradle.properties" ]]; then
+  READ_VERSION=$(grep '^version=' gradle.properties 2>/dev/null | cut -d'=' -f2 | tr -d ' ')
+  if [[ -n "$READ_VERSION" ]]; then
+    VERSION="$READ_VERSION"
+  fi
+fi
 
 # Credential file
 GRADLE_PROPERTIES="$HOME/.gradle/gradle.properties"
