@@ -1,6 +1,5 @@
 package com.nexora.redis.cache;
 
-import com.nexora.redis.autoconfigure.CaffeineAutoConfiguration;
 import com.nexora.redis.autoconfigure.RedisProperties;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import org.junit.jupiter.api.DisplayName;

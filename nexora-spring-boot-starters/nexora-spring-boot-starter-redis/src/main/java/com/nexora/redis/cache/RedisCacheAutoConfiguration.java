@@ -1,9 +1,16 @@
-package com.nexora.redis.autoconfigure;
+package com.nexora.redis.cache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.RequiredArgsConstructor;
+import com.nexora.redis.autoconfigure.RedisProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.ClusterServersConfig;
+import org.redisson.config.SentinelServersConfig;
+import org.redisson.config.SingleServerConfig;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -24,7 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Redis cache auto-configuration.
+ * Redis cache auto-configuration using Redisson.
  *
  * <p>Features:
  * <ul>
@@ -32,16 +39,17 @@ import java.util.Map;
  *   <li>Configurable TTL per cache</li>
  *   <li>Key prefix support</li>
  *   <li>Null values caching</li>
+ *   <li>Single, Cluster, Sentinel, and Replicated modes support</li>
  * </ul>
  *
  * @author sujie
  * @since 1.0.0
  */
 @Slf4j
-@AutoConfiguration(after = org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration.class)
+@AutoConfiguration
 @EnableCaching
 @EnableConfigurationProperties(RedisProperties.class)
-@ConditionalOnClass(RedisConnectionFactory.class)
+@ConditionalOnClass(Redisson.class)
 @ConditionalOnProperty(prefix = "nexora.redis", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class RedisCacheAutoConfiguration {
 
@@ -58,8 +66,157 @@ public class RedisCacheAutoConfiguration {
         return objectMapper;
     }
 
+    /**
+     * Creates and configures the RedissonClient based on the specified mode.
+     * Supports SINGLE, CLUSTER, SENTINEL, and REPLICATED modes.
+     */
+    @Bean(destroyMethod = "shutdown")
+    @ConditionalOnMissingBean
+    public RedissonClient redissonClient(RedisProperties properties) {
+        Config config = new Config();
+
+        log.info("Initializing RedissonClient with mode: {}", properties.getMode());
+
+        switch (properties.getMode()) {
+            case SINGLE -> configureSingleServer(config, properties);
+            case CLUSTER -> configureClusterServers(config, properties);
+            case SENTINEL -> configureSentinelServers(config, properties);
+            case REPLICATED -> configureReplicatedServers(config, properties);
+            default -> throw new IllegalArgumentException("Unknown Redis mode: " + properties.getMode());
+        }
+
+        return Redisson.create(config);
+    }
+
+    /**
+     * Configure single server mode for standalone Redis.
+     */
+    private void configureSingleServer(Config config, RedisProperties properties) {
+        RedisProperties.SingleServerConfig serverConfig = properties.getSingleServer();
+
+        log.info("Configuring Redisson single server: {}", serverConfig.getAddress());
+
+        SingleServerConfig singleServerConfig = config.useSingleServer()
+                .setAddress(serverConfig.getAddress())
+                .setDatabase(serverConfig.getDatabase())
+                .setConnectionPoolSize(serverConfig.getConnectionPoolSize())
+                .setConnectionMinimumIdleSize(serverConfig.getConnectionMinimumIdleSize())
+                .setSubscriptionConnectionPoolSize(serverConfig.getSubscriptionConnectionPoolSize())
+                .setConnectTimeout(serverConfig.getConnectTimeout())
+                .setTimeout(serverConfig.getTimeout())
+                .setRetryAttempts(serverConfig.getRetryAttempts())
+                .setRetryInterval(serverConfig.getRetryInterval())
+                .setSubscriptionConnectionMinimumIdleSize(serverConfig.getSubscriptionConnectionMinimumIdleSize());
+
+        if (serverConfig.getPassword() != null && !serverConfig.getPassword().isEmpty()) {
+            singleServerConfig.setPassword(serverConfig.getPassword());
+        }
+    }
+
+    /**
+     * Configure cluster servers mode for Redis Cluster.
+     */
+    private void configureClusterServers(Config config, RedisProperties properties) {
+        RedisProperties.ClusterServersConfig serverConfig = properties.getClusterServers();
+
+        if (serverConfig.getNodeAddresses().isEmpty()) {
+            throw new IllegalArgumentException("Cluster node addresses cannot be empty in CLUSTER mode");
+        }
+
+        String[] addresses = serverConfig.getNodeAddresses().values().toArray(new String[0]);
+        log.info("Configuring Redisson cluster with {} nodes", addresses.length);
+
+        ClusterServersConfig clusterConfig = config.useClusterServers()
+                .addNodeAddress(addresses)
+                .setScanInterval(serverConfig.getScanInterval())
+                .setRetryAttempts(serverConfig.getRetryAttempts())
+                .setRetryInterval(serverConfig.getRetryInterval())
+                .setTimeout(serverConfig.getTimeout())
+                .setConnectTimeout(serverConfig.getTimeout())
+                .setSubscriptionConnectionPoolSize(serverConfig.getSubscriptionConnectionPoolSize())
+                .setSubscriptionConnectionMinimumIdleSize(serverConfig.getSubscriptionConnectionMinimumIdleSize());
+
+        if (serverConfig.getPassword() != null && !serverConfig.getPassword().isEmpty()) {
+            clusterConfig.setPassword(serverConfig.getPassword());
+        }
+    }
+
+    /**
+     * Configure sentinel servers mode for Redis Sentinel.
+     */
+    private void configureSentinelServers(Config config, RedisProperties properties) {
+        RedisProperties.SentinelServersConfig serverConfig = properties.getSentinelServers();
+
+        if (serverConfig.getSentinelAddresses().isEmpty()) {
+            throw new IllegalArgumentException("Sentinel addresses cannot be empty in SENTINEL mode");
+        }
+
+        String[] addresses = serverConfig.getSentinelAddresses().values().toArray(new String[0]);
+        log.info("Configuring Redisson sentinel with master '{}' and {} sentinels",
+                serverConfig.getMasterName(), addresses.length);
+
+        SentinelServersConfig sentinelConfig = config.useSentinelServers()
+                .addSentinelAddress(addresses)
+                .setMasterName(serverConfig.getMasterName())
+                .setDatabase(serverConfig.getDatabase())
+                .setScanInterval(serverConfig.getScanInterval())
+                .setRetryAttempts(serverConfig.getRetryAttempts())
+                .setRetryInterval(serverConfig.getRetryInterval())
+                .setTimeout(serverConfig.getTimeout())
+                .setConnectTimeout(serverConfig.getTimeout())
+                .setSubscriptionConnectionPoolSize(serverConfig.getSubscriptionConnectionPoolSize())
+                .setSubscriptionConnectionMinimumIdleSize(serverConfig.getSubscriptionConnectionMinimumIdleSize());
+
+        if (serverConfig.getPassword() != null && !serverConfig.getPassword().isEmpty()) {
+            sentinelConfig.setPassword(serverConfig.getPassword());
+        }
+    }
+
+    /**
+     * Configure replicated servers mode for Redis Replicated (cluster-wide) setup.
+     * Uses cluster configuration but with replicated mode enabled.
+     */
+    private void configureReplicatedServers(Config config, RedisProperties properties) {
+        RedisProperties.ClusterServersConfig serverConfig = properties.getClusterServers();
+
+        if (serverConfig.getNodeAddresses().isEmpty()) {
+            throw new IllegalArgumentException("Node addresses cannot be empty in REPLICATED mode");
+        }
+
+        String[] addresses = serverConfig.getNodeAddresses().values().toArray(new String[0]);
+        log.info("Configuring Redisson replicated mode with {} nodes", addresses.length);
+
+        org.redisson.config.ReplicatedServersConfig replicatedConfig = config.useReplicatedServers()
+                .addNodeAddress(addresses)
+                .setScanInterval(serverConfig.getScanInterval())
+                .setRetryAttempts(serverConfig.getRetryAttempts())
+                .setRetryInterval(serverConfig.getRetryInterval())
+                .setTimeout(serverConfig.getTimeout())
+                .setConnectTimeout(serverConfig.getTimeout())
+                .setSubscriptionConnectionPoolSize(serverConfig.getSubscriptionConnectionPoolSize())
+                .setSubscriptionConnectionMinimumIdleSize(serverConfig.getSubscriptionConnectionMinimumIdleSize());
+
+        if (serverConfig.getPassword() != null && !serverConfig.getPassword().isEmpty()) {
+            replicatedConfig.setPassword(serverConfig.getPassword());
+        }
+    }
+
+    /**
+     * Creates RedisConnectionFactory using Redisson.
+     */
     @Bean
     @ConditionalOnMissingBean
+    public RedisConnectionFactory redisConnectionFactory(RedissonClient redissonClient) {
+        return new RedissonConnectionFactory(redissonClient);
+    }
+
+    /**
+     * Creates CacheManager using Spring Data Redis's RedisCacheManager with Redisson connection factory.
+     * Configures TTL per cache, key prefix, and null value caching.
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @SuppressWarnings("removal")
     public CacheManager cacheManager(
             RedisConnectionFactory connectionFactory,
             RedisProperties properties,
@@ -98,6 +255,7 @@ public class RedisCacheAutoConfiguration {
                     entry.getKey(),
                     config.entryTtl(entry.getValue())
             );
+            log.debug("Cache '{}' configured with TTL: {}", entry.getKey(), entry.getValue());
         }
 
         return RedisCacheManager.builder(connectionFactory)

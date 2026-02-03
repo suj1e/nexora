@@ -15,10 +15,10 @@ dependencies {
     annotationProcessor(libs.spring.boot.configuration.processor)
 
     api(libs.spring.boot.starter)
-    api(libs.spring.boot.starter.data.redis)
+    api(libs.redisson.spring.boot.starter)
+    api(libs.redisson.spring.data)
     api(libs.spring.boot.starter.cache)
     api(libs.caffeine)
-    api(libs.lettuce.core)
     api(libs.jackson.databind)
     api(libs.jackson.datatype.jsr310)
 

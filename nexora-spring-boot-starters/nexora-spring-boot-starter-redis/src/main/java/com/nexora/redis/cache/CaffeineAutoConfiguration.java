@@ -1,6 +1,7 @@
-package com.nexora.redis.autoconfigure;
+package com.nexora.redis.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.nexora.redis.autoconfigure.RedisProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

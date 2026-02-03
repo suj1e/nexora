@@ -6,7 +6,7 @@ spring-boot = "3.5.10"
 caffeine = "3.1.8"
 jasypt = "4.0.3"
 jjwt = "0.13.0"
-lettuce = "7.2.1.RELEASE"
+redisson = "4.1.0"
 resilience4j = "2.3.0"
 lombok = "1.18.42"
 
@@ -69,8 +69,9 @@ micrometer-core = { module = "io.micrometer:micrometer-core" }
 # Caffeine (with explicit version, not in BOM)
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
-# Lettuce (with explicit version, not in BOM)
-lettuce-core = { module = "io.lettuce:lettuce-core", version.ref = "lettuce" }
+# Redisson (with explicit version, not in BOM)
+redisson-spring-boot-starter = { module = "org.redisson:redisson-spring-boot-starter", version.ref = "redisson" }
+redisson-spring-data = { module = "org.redisson:redisson-spring-data-40", version.ref = "redisson" }
 
 # Resilience4j (with explicit version, not in BOM)
 resilience4j-spring-boot3 = { module = "io.github.resilience4j:resilience4j-spring-boot3", version.ref = "resilience4j" }
