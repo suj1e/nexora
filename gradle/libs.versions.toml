@@ -70,7 +70,7 @@ micrometer-core = { module = "io.micrometer:micrometer-core" }
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeine" }
 
 # Redisson (with explicit version, not in BOM)
-redisson-spring-boot-starter = { module = "org.redisson:redisson-spring-boot-starter", version.ref = "redisson" }
+redisson = { module = "org.redisson:redisson", version.ref = "redisson" }
 redisson-spring-data = { module = "org.redisson:redisson-spring-data-40", version.ref = "redisson" }
 
 # Resilience4j (with explicit version, not in BOM)

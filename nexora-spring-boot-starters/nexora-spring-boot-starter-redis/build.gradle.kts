@@ -15,7 +15,7 @@ dependencies {
     annotationProcessor(libs.spring.boot.configuration.processor)
 
     api(libs.spring.boot.starter)
-    api(libs.redisson.spring.boot.starter)
+    api(libs.redisson)
     api(libs.redisson.spring.data)
     api(libs.spring.boot.starter.cache)
     api(libs.caffeine)
