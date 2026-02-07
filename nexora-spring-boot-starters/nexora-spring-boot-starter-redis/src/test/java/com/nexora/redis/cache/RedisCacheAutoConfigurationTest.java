@@ -247,7 +247,7 @@ class RedisCacheAutoConfigurationTest {
             )
             .withBean(RedissonClient.class, () -> mock(RedissonClient.class))
             .run(context -> {
-                assertThat(context).hasBean("redisObjectMapper");
+                assertThat(context).hasBean("redisCacheObjectMapper");
                 assertThat(context).hasSingleBean(com.fasterxml.jackson.databind.ObjectMapper.class);
             });
     }

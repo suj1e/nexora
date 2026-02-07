@@ -11,6 +11,7 @@ import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.SentinelServersConfig;
 import org.redisson.config.SingleServerConfig;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
+import org.redisson.codec.JsonJacksonCodec;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -33,8 +34,18 @@ import java.util.Map;
 /**
  * Redis cache auto-configuration using Redisson.
  *
+ * <p>Architecture:
+ * <ul>
+ *   <li>Redisson: Redis connection layer (replacing Lettuce)</li>
+ *   <li>Spring Data Redis: Cache abstraction layer</li>
+ *   <li>RedissonConnectionFactory: Bridges Redisson to Spring Data Redis</li>
+ * </ul>
+ *
+ * <p>This is the recommended best practice approach for Redisson + Spring Cache integration.
+ *
  * <p>Features:
  * <ul>
+ *   <li>Redisson's superior connection pooling and cluster support</li>
  *   <li>JSON serialization with Jackson</li>
  *   <li>Configurable TTL per cache</li>
  *   <li>Key prefix support</li>
@@ -58,8 +69,8 @@ public class RedisCacheAutoConfiguration {
      * Created only if not already provided by the application.
      */
     @Bean
-    @ConditionalOnMissingBean(ObjectMapper.class)
-    public ObjectMapper redisObjectMapper() {
+    @ConditionalOnMissingBean(name = "redisCacheObjectMapper")
+    public ObjectMapper redisCacheObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModules(new JavaTimeModule());
         log.debug("Created ObjectMapper for Redis cache with JavaTimeModule");
@@ -74,6 +85,9 @@ public class RedisCacheAutoConfiguration {
     @ConditionalOnMissingBean
     public RedissonClient redissonClient(RedisProperties properties) {
         Config config = new Config();
+
+        // Use JsonJacksonCodec for JSON serialization with Jackson
+        config.setCodec(new JsonJacksonCodec(redisCacheObjectMapper()));
 
         log.info("Initializing RedissonClient with mode: {}", properties.getMode());
 
@@ -174,7 +188,6 @@ public class RedisCacheAutoConfiguration {
 
     /**
      * Configure replicated servers mode for Redis Replicated (cluster-wide) setup.
-     * Uses cluster configuration but with replicated mode enabled.
      */
     private void configureReplicatedServers(Config config, RedisProperties properties) {
         RedisProperties.ClusterServersConfig serverConfig = properties.getClusterServers();
@@ -203,6 +216,7 @@ public class RedisCacheAutoConfiguration {
 
     /**
      * Creates RedisConnectionFactory using Redisson.
+     * This bridges Redisson to Spring Data Redis.
      */
     @Bean
     @ConditionalOnMissingBean
@@ -212,7 +226,13 @@ public class RedisCacheAutoConfiguration {
 
     /**
      * Creates CacheManager using Spring Data Redis's RedisCacheManager with Redisson connection factory.
-     * Configures TTL per cache, key prefix, and null value caching.
+     *
+     * <p>This is the recommended approach:
+     * <ul>
+     *   <li>Redisson: Superior Redis client (connection pooling, cluster support, etc.)</li>
+     *   <li>Spring Data Redis: Familiar cache abstraction</li>
+     *   <li>RedissonConnectionFactory: Bridges the two</li>
+     * </ul>
      */
     @Bean
     @ConditionalOnMissingBean
@@ -220,9 +240,9 @@ public class RedisCacheAutoConfiguration {
     public CacheManager cacheManager(
             RedisConnectionFactory connectionFactory,
             RedisProperties properties,
-            ObjectMapper objectMapper
+            ObjectMapper redisCacheObjectMapper
     ) {
-        log.info("Initializing RedisCacheManager with default TTL: {}", properties.getCacheDefaultTtl());
+        log.info("Initializing RedisCacheManager with Redisson connection, default TTL: {}", properties.getCacheDefaultTtl());
 
         // Redis cache configuration
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
@@ -234,7 +254,7 @@ public class RedisCacheAutoConfiguration {
                 )
                 .serializeValuesWith(
                         RedisSerializationContext.SerializationPair.fromSerializer(
-                                new GenericJackson2JsonRedisSerializer(objectMapper)
+                                new GenericJackson2JsonRedisSerializer(redisCacheObjectMapper)
                         )
                 );
 
