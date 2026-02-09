@@ -1,6 +1,6 @@
 [versions]
 # Spring Boot - using latest stable 3.5.x series
-spring-boot = "3.5.10"
+spring-boot = "4.0.2"
 
 # Third-party libraries - updated to latest stable versions
 caffeine = "3.1.8"
