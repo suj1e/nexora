@@ -18,7 +18,7 @@ reactor-test = "3.7.3"
 spring-cloud = "2025.0.0"
 
 # Spring Cloud Alibaba 2025.0.0.0
-spring-cloud-alibaba = "2025.0.0.0"
+spring-cloud-alibaba = "2025.1.0.0"
 
 # Plugins
 dependency-management = "1.1.7"
