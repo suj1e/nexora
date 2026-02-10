@@ -56,17 +56,6 @@ We follow responsible disclosure practices:
 
 ## Security Best Practices
 
-### Dependency Management
-
-Nexora uses strict dependency verification to ensure supply chain security:
-
-```properties
-# gradle.properties
-org.gradle.dependency.verification.mode=strict
-```
-
-All dependencies are verified with SHA-256 checksums in `gradle/verification-metadata.xml`.
-
 ### Configuration Security
 
 #### Sensitive Configuration

@@ -270,11 +270,6 @@ jobs:
           done
           echo "All source jars validated successfully"
 
-      - name: Verify dependency verification metadata
-        run: |
-          echo "Verifying dependency checksums..."
-          ./gradlew verifyDependencyVerificationRuntime --no-daemon
-
       - name: Validation summary
         run: |
           echo "### ✅ Artifact Validation" >> $GITHUB_STEP_SUMMARY

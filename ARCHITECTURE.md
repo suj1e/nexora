@@ -74,8 +74,7 @@ nexora/
 │   └── nexora-spring-boot-starter-observability/ # Metrics & tracing
 │
 ├── gradle/
-│   ├── libs.versions.toml                 # Version catalog
-│   └── verification-metadata.xml          # Dependency checksums
+│   └── libs.versions.toml                 # Version catalog
 │
 ├── build.gradle.kts                       # Root build configuration
 ├── settings.gradle.kts                    # Module declarations

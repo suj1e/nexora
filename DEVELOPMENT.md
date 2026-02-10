@@ -101,8 +101,7 @@ nexora/
 │       ├── model/                         # LoginResponse, ProblemDetail
 │       └── security/                       # PasswordUtil
 ├── gradle/
-│   ├── libs.versions.toml                 # Version catalog
-│   └── verification-metadata.xml          # Dependency checksums
+│   └── libs.versions.toml                 # Version catalog
 ├── nexora-spring-boot-starters/          # Starters directory
 │   ├── nexora-spring-boot-starter-web/
 │   │   ├── build.gradle.kts
@@ -354,14 +353,6 @@ version=1.0.1-SNAPSHOT
 ```bash
 ./gradlew clean --no-configuration-cache
 ./gradlew build
-```
-
-**Issue:** Dependency verification failed
-
-**Solution:**
-```bash
-# Regenerate verification metadata
-./gradlew --write-verification-metadata sha256 help
 ```
 
 ### IDE Setup

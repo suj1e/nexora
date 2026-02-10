@@ -96,7 +96,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Convention plugins for build configuration elimination
 - Version catalog (`libs.versions.toml`) for dependency management
 - Configuration cache enabled for performance
-- Strict dependency verification with SHA-256 checksums
 - GPG signing support for release artifacts
 - Rich POM metadata generation
 

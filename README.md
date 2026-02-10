@@ -508,12 +508,6 @@ spring:
 ./gradlew build
 ```
 
-If dependency verification fails:
-
-```bash
-./gradlew --write-verification-metadata sha256 help
-```
-
 ### Debug Mode
 
 Enable comprehensive debug logging:
