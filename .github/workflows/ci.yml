@@ -50,11 +50,11 @@ jobs:
           generate-job-summary: true
 
       - name: Build and validate
-        run: ./gradlew ciBuild --no-daemon --scan
+        run: gradle ciBuild --no-daemon --scan
 
       - name: Generate coverage report (Java 21 only)
         if: matrix.java == '21' && matrix.os == 'ubuntu-latest'
-        run: ./gradlew jacocoTestReport --no-daemon
+        run: gradle jacocoTestReport --no-daemon
 
       - name: Upload coverage to Codecov (Java 21 only)
         if: matrix.java == '21' && matrix.os == 'ubuntu-latest'
@@ -94,7 +94,7 @@ jobs:
 
       - name: Check coverage thresholds
         run: |
-          ./gradlew jacocoTestCoverageVerification --no-daemon
+          gradle jacocoTestCoverageVerification --no-daemon
 
       - name: Generate coverage summary
         run: |
@@ -141,12 +141,12 @@ jobs:
           cache-read-only: true
 
       - name: Run performance benchmarks
-        run: ./gradlew jmh --no-daemon -Djmh.includeThreads=.* || echo "No JMH tests configured yet"
+        run: gradle jmh --no-daemon -Djmh.includeThreads=.* || echo "No JMH tests configured yet"
 
       - name: Build performance baseline
         run: |
           # Measure build time
-          time ./gradlew clean build --no-daemon --scan
+          time gradle clean build --no-daemon --scan
 
       - name: Performance summary
         run: |
@@ -182,7 +182,7 @@ jobs:
           cache-read-only: true
 
       - name: Run OWASP Dependency Check
-        run: ./gradlew dependencyCheckAnalyze --no-daemon || true
+        run: gradle dependencyCheckAnalyze --no-daemon || true
         continue-on-error: true
 
       - name: Upload dependency check report
@@ -243,7 +243,7 @@ jobs:
           cache-read-only: true
 
       - name: Publish to local repository
-        run: ./gradlew publishToMavenLocal --no-daemon
+        run: gradle publishToMavenLocal --no-daemon
 
       - name: Verify POM files
         run: |

@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  contents: write  # For dependency graph submission
+  contents: write
+  pull-requests: read
 
 jobs:
   snapshot:
@@ -37,7 +37,7 @@ jobs:
         id: version
         run: |
           # Use Gradle properties to get version
-          VERSION=$(./gradlew properties -q | grep "^version:" | awk '{print $2}')
+          VERSION=$(gradle properties -q | grep "^version:" | awk '{print $2}')
 
           # Ensure version ends with -SNAPSHOT
           if [[ ! "$VERSION" =~ -SNAPSHOT$ ]]; then
@@ -48,7 +48,7 @@ jobs:
           echo "base_version=${VERSION%-SNAPSHOT}" >> $GITHUB_OUTPUT
 
       - name: Run tests before publishing
-        run: ./gradlew check --no-daemon
+        run: gradle check --no-daemon
 
       - name: Publish snapshot to Aliyun Yunxiao
         env:
@@ -57,7 +57,7 @@ jobs:
           YUNXIAO_SNAPSHOT_URL: ${{ secrets.YUNXIAO_SNAPSHOT_URL }}
           YUNXIAO_RELEASE_URL: ${{ secrets.YUNXIAO_RELEASE_URL }}
         run: |
-          ./gradlew publish --no-daemon --scan \
+          gradle publish --no-daemon --scan \
             -PYunxiaoSnapshotRepositoryUrl="$YUNXIAO_SNAPSHOT_URL" \
             -PYunxiaoReleaseRepositoryUrl="$YUNXIAO_RELEASE_URL" \
             -PYUNXIAO_USERNAME="$YUNXIAO_USERNAME" \
