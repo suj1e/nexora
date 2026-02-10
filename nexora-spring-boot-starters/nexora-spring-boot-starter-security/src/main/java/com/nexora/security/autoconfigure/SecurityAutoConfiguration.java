@@ -33,7 +33,7 @@ public class SecurityAutoConfiguration {
     /**
      * JWT Token Provider configuration.
      */
-    @AutoConfiguration
+    @Configuration
     @EnableConfigurationProperties(JwtProperties.class)
     @ConditionalOnProperty(prefix = "nexora.security.jwt", name = "enabled", havingValue = "true")
     public static class JwtTokenProviderConfiguration {
@@ -53,10 +53,12 @@ public class SecurityAutoConfiguration {
 
     /**
      * Refresh Token configuration.
+     * Requires explicit opt-in via nexora.security.refresh-token.enabled property
+     * to avoid JPA initialization issues in non-JPA applications.
      */
-    @AutoConfiguration
+    @Configuration
     @ConditionalOnClass(name = "org.springframework.data.jpa.repository.JpaRepository")
-    @ConditionalOnProperty(prefix = "nexora.security.jwt", name = "enabled", havingValue = "true")
+    @ConditionalOnProperty(prefix = "nexora.security.refresh-token", name = "enabled", havingValue = "true")
     @EnableJpaRepositories(basePackages = "com.nexora.security.repository")
     // Note: EntityScan not available in Spring Boot 4.x milestone - entities should be scanned via main application configuration
     public static class RefreshTokenConfiguration {
@@ -73,7 +75,7 @@ public class SecurityAutoConfiguration {
     /**
      * Encryptor configuration.
      */
-    @AutoConfiguration
+    @Configuration
     @ConditionalOnClass(StandardPBEStringEncryptor.class)
     @ConditionalOnProperty(prefix = "nexora.security.jasypt", name = "enabled", havingValue = "true")
     public static class EncryptorConfiguration {
