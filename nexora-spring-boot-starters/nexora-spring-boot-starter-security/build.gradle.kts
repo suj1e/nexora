@@ -44,8 +44,9 @@ dependencies {
     compileOnly(libs.jakarta.servlet.api)
 
     // JPA (optional, for RefreshToken support)
-    compileOnly(libs.spring.boot.starter.data.jpa)
-    compileOnly(libs.jakarta.persistence.api)
+    // Changed to api to make EntityScan and JPA annotations available
+    api(libs.spring.boot.starter.data.jpa)
+    api(libs.jakarta.persistence.api)
 
     // Validation API for @Validated and constraint annotations
     compileOnly(libs.spring.boot.starter.validation)

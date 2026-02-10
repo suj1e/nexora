@@ -5,7 +5,7 @@ import com.nexora.observability.util.MetricsUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
+// MeterRegistryCustomizer removed in Spring Boot 4.x - use direct configuration
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -55,10 +55,11 @@ public class ObservabilityAutoConfiguration {
 
     /**
      * Configure common tags for all metrics.
+     * Spring Boot 4.x: Tags are configured directly on MeterRegistry
      */
     @Bean
     @ConditionalOnMissingBean(name = "metricsCommonTags")
-    public MeterRegistryCustomizer<MeterRegistry> metricsCommonTags() {
+    public MeterRegistryCustomizerConfig metricsCommonTags() {
         return registry -> {
             registry.config()
                     .commonTags("application", properties.getApplicationName());
@@ -74,5 +75,13 @@ public class ObservabilityAutoConfiguration {
                 log.debug("Added custom common tags: {}", customTags);
             }
         };
+    }
+
+    /**
+     * Functional interface for MeterRegistry customization (Spring Boot 4.x compatible).
+     */
+    @FunctionalInterface
+    public interface MeterRegistryCustomizerConfig {
+        void customize(io.micrometer.core.instrument.MeterRegistry registry);
     }
 }

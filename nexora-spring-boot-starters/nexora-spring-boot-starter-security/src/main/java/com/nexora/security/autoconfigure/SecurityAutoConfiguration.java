@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+// EntityScan not available in Spring Boot 4.x milestone - using @Configuration with @ComponentScan instead
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,7 +58,7 @@ public class SecurityAutoConfiguration {
     @ConditionalOnClass(name = "org.springframework.data.jpa.repository.JpaRepository")
     @ConditionalOnProperty(prefix = "nexora.security.jwt", name = "enabled", havingValue = "true")
     @EnableJpaRepositories(basePackages = "com.nexora.security.repository")
-    @EntityScan(basePackages = "com.nexora.security.domain")
+    // Note: EntityScan not available in Spring Boot 4.x milestone - entities should be scanned via main application configuration
     public static class RefreshTokenConfiguration {
 
         @Bean
