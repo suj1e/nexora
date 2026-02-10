@@ -83,50 +83,56 @@ configure<PublishingExtension> {
 
         // Snapshot repository - Yunxiao
         if (isSnapshot) {
-            maven {
-                name = "YunxiaoSnapshot"
-                val snapshotUrl = getProperty(
-                    listOf("YunxiaoSnapshotRepositoryUrl", "yunxiaoSnapshotRepositoryUrl",
-                          "codeupSnapshotUrl", "YUNXIAO_SNAPSHOT_URL"),
-                    "https://packages.aliyun.com/maven/repository/snapshot"
-                )
-                url = uri(snapshotUrl)
-                credentials {
-                    username = getProperty(
-                        listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
-                              "codeupUsername", "CODEUP_USERNAME"),
-                        ""
-                    )
-                    password = getProperty(
-                        listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
-                              "codeupPassword", "CODEUP_PASSWORD"),
-                        ""
-                    )
+            val snapshotUrl = getProperty(
+                listOf("YunxiaoSnapshotRepositoryUrl", "yunxiaoSnapshotRepositoryUrl",
+                      "codeupSnapshotUrl", "YUNXIAO_SNAPSHOT_URL"),
+                "https://packages.aliyun.com/maven/repository/snapshot"
+            )
+            // Only configure repository if URL is not empty
+            if (snapshotUrl.isNotEmpty()) {
+                maven {
+                    name = "YunxiaoSnapshot"
+                    url = uri(snapshotUrl)
+                    credentials {
+                        username = getProperty(
+                            listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
+                                  "codeupUsername", "CODEUP_USERNAME"),
+                            ""
+                        )
+                        password = getProperty(
+                            listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
+                                  "codeupPassword", "CODEUP_PASSWORD"),
+                            ""
+                        )
+                    }
                 }
             }
         }
 
         // Release repository - Yunxiao
         if (!isSnapshot) {
-            maven {
-                name = "YunxiaoRelease"
-                val releaseUrl = getProperty(
-                    listOf("YunxiaoReleaseRepositoryUrl", "yunxiaoReleaseRepositoryUrl",
-                          "codeupReleaseUrl", "YUNXIAO_RELEASE_URL"),
-                    "https://packages.aliyun.com/maven/repository/release"
-                )
-                url = uri(releaseUrl)
-                credentials {
-                    username = getProperty(
-                        listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
-                              "codeupUsername", "CODEUP_USERNAME"),
-                        ""
-                    )
-                    password = getProperty(
-                        listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
-                              "codeupPassword", "CODEUP_PASSWORD"),
-                        ""
-                    )
+            val releaseUrl = getProperty(
+                listOf("YunxiaoReleaseRepositoryUrl", "yunxiaoReleaseRepositoryUrl",
+                      "codeupReleaseUrl", "YUNXIAO_RELEASE_URL"),
+                "https://packages.aliyun.com/maven/repository/release"
+            )
+            // Only configure repository if URL is not empty
+            if (releaseUrl.isNotEmpty()) {
+                maven {
+                    name = "YunxiaoRelease"
+                    url = uri(releaseUrl)
+                    credentials {
+                        username = getProperty(
+                            listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
+                                  "codeupUsername", "CODEUP_USERNAME"),
+                            ""
+                        )
+                        password = getProperty(
+                            listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
+                                  "codeupPassword", "CODEUP_PASSWORD"),
+                            ""
+                        )
+                    }
                 }
             }
         }
