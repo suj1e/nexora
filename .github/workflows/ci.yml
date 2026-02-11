@@ -36,11 +36,10 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
           dependency-graph: generate-and-submit
           cache-read-only: ${{ github.event_name == 'pull_request' }}
-          generate-job-summary: true
 
       - name: Build
         run: gradle build --no-daemon
@@ -69,7 +68,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Publish snapshot to Maven Central
         env:
@@ -103,7 +102,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Import GPG key
         env:
