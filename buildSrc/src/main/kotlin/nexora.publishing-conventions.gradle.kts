@@ -40,10 +40,8 @@ configure<PublishingExtension> {
     }
 
     repositories {
-        // Determine if this is a snapshot version
         val isSnapshot = project.version.toString().endsWith("-SNAPSHOT")
 
-        // Helper function to get property from multiple possible sources
         fun getProperty(names: List<String>, defaultValue: String): String {
             for (name in names) {
                 val projectProp = project.findProperty(name)
@@ -58,72 +56,21 @@ configure<PublishingExtension> {
             return defaultValue
         }
 
-        // Maven Central (Sonatype) - Snapshot
-        if (isSnapshot) {
-            val ossrhUsername = getProperty(listOf("OSSRH_USERNAME", "MAVEN_USERNAME"), "")
-            val ossrhPassword = getProperty(listOf("OSSRH_TOKEN", "OSSRH_PASSWORD", "MAVEN_PASSWORD"), "")
+        val mavenUsername = getProperty(listOf("MAVEN_USERNAME", "OSSRH_USERNAME"), "")
+        val mavenPassword = getProperty(listOf("MAVEN_PASSWORD", "OSSRH_TOKEN"), "")
 
-            if (ossrhUsername.isNotEmpty() && ossrhPassword.isNotEmpty()) {
-                maven {
-                    name = "OssrhSnapshot"
-                    url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                    credentials {
-                        username = ossrhUsername
-                        password = ossrhPassword
-                    }
+        // Maven Central Portal (new API)
+        if (mavenUsername.isNotEmpty() && mavenPassword.isNotEmpty()) {
+            maven {
+                name = "MavenCentral"
+                if (isSnapshot) {
+                    url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+                } else {
+                    url = uri("https://central.sonatype.com/repository/maven-releases/")
                 }
-            }
-        }
-
-        // Maven Central (Sonatype) - Release (via staging)
-        if (!isSnapshot) {
-            val ossrhUsername = getProperty(listOf("OSSRH_USERNAME", "MAVEN_USERNAME"), "")
-            val ossrhPassword = getProperty(listOf("OSSRH_TOKEN", "OSSRH_PASSWORD", "MAVEN_PASSWORD"), "")
-
-            if (ossrhUsername.isNotEmpty() && ossrhPassword.isNotEmpty()) {
-                maven {
-                    name = "OssrhStaging"
-                    url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                    credentials {
-                        username = ossrhUsername
-                        password = ossrhPassword
-                    }
-                }
-            }
-        }
-
-        // Aliyun Yunxiao - Snapshot (fallback for Chinese users)
-        if (isSnapshot) {
-            val snapshotUrl = getProperty(
-                listOf("YUNXIAO_SNAPSHOT_URL", "YunxiaoSnapshotRepositoryUrl"),
-                ""
-            )
-            if (snapshotUrl.isNotEmpty()) {
-                maven {
-                    name = "YunxiaoSnapshot"
-                    url = uri(snapshotUrl)
-                    credentials {
-                        username = getProperty(listOf("YUNXIAO_USERNAME"), "")
-                        password = getProperty(listOf("YUNXIAO_PASSWORD"), "")
-                    }
-                }
-            }
-        }
-
-        // Aliyun Yunxiao - Release (fallback for Chinese users)
-        if (!isSnapshot) {
-            val releaseUrl = getProperty(
-                listOf("YUNXIAO_RELEASE_URL", "YunxiaoReleaseRepositoryUrl"),
-                ""
-            )
-            if (releaseUrl.isNotEmpty()) {
-                maven {
-                    name = "YunxiaoRelease"
-                    url = uri(releaseUrl)
-                    credentials {
-                        username = getProperty(listOf("YUNXIAO_USERNAME"), "")
-                        password = getProperty(listOf("YUNXIAO_PASSWORD"), "")
-                    }
+                credentials {
+                    username = mavenUsername
+                    password = mavenPassword
                 }
             }
         }
