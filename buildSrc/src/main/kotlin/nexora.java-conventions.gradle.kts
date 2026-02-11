@@ -3,7 +3,6 @@ import org.gradle.external.javadoc.CoreJavadocOptions
 plugins {
     java
     `java-library`
-    `maven-publish`
 }
 
 java {
