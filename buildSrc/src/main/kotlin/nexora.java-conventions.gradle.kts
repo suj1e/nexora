@@ -24,6 +24,12 @@ tasks.withType<Javadoc>().configureEach {
     isFailOnError = false
 }
 
+// Disable javadoc tasks entirely (let gradle-maven-publish-plugin handle it)
+// This avoids Lombok annotation processing issues in javadoc
+tasks.named("javadoc") {
+    enabled = false
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 
