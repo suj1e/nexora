@@ -36,7 +36,7 @@ configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
         }
     }
 
-    // Configure Central Portal
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    // Central Portal for releases only (no snapshot support)
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL, true)
     signAllPublications()
 }
