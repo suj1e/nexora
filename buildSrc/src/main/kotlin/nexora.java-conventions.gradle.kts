@@ -1,3 +1,5 @@
+import org.gradle.external.javadoc.CoreJavadocOptions
+
 plugins {
     java
     `java-library`
@@ -8,11 +10,23 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
 
+    // Required for Maven Central
     withSourcesJar()
+    withJavadocJar()
+}
 
-    // Javadoc generation is disabled due to doclint configuration issues
-    // Can be enabled per-module if needed
-    // withJavadocJar()
+// Configure javadoc to be less strict
+tasks.withType<Javadoc>().configureEach {
+    options {
+        (this as CoreJavadocOptions).apply {
+            addStringOption("Xdoclint:none", "-quiet")
+            addStringOption("encoding", "UTF-8")
+            addBooleanOption("html5", true)
+        }
+    }
+    // Exclude generated sources and problematic files
+    exclude("**/generated/**")
+    isFailOnError = false
 }
 
 tasks.withType<Test> {
@@ -23,9 +37,6 @@ tasks.withType<Test> {
 
     // JVM args for better diagnostics
     jvmArgs("-XX:+HeapDumpOnOutOfMemoryError")
-
-    // Ensure tests are run consistently
-    systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 }
 
 tasks.withType<JavaCompile>().configureEach {

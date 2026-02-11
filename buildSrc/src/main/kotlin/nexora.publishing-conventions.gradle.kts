@@ -24,28 +24,16 @@ configure<PublishingExtension> {
 
                 developers {
                     developer {
-                        id.set("sujie")
+                        id.set("suj1e")
                         name.set("SuJie")
                         email.set("sujie@nexora.io")
-                        timezone.set("Asia/Shanghai")
-                        url.set("https://github.com/suj1e")
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com:suj1e/nexora.git")
-                    developerConnection.set("scm:git:ssh://github.com:suj1e/nexora.git")
+                    connection.set("scm:git:git://github.com/suj1e/nexora.git")
+                    developerConnection.set("scm:git:ssh://github.com/suj1e/nexora.git")
                     url.set("https://github.com/suj1e/nexora")
-                }
-
-                issueManagement {
-                    system.set("GitHub")
-                    url.set("https://github.com/suj1e/nexora/issues")
-                }
-
-                ciManagement {
-                    system.set("GitHub Actions")
-                    url.set("https://github.com/suj1e/nexora/actions")
                 }
             }
         }
@@ -58,80 +46,83 @@ configure<PublishingExtension> {
         // Helper function to get property from multiple possible sources
         fun getProperty(names: List<String>, defaultValue: String): String {
             for (name in names) {
-                // Try project property first
                 val projectProp = project.findProperty(name)
                 if (projectProp != null) return projectProp.toString()
 
-                // Try system property (passed with -P)
                 val systemProp = System.getProperty(name)
                 if (systemProp != null) return systemProp
 
-                // Try environment variable
                 val envProp = System.getenv(name)
                 if (envProp != null) return envProp
-
-                // Try environment variable with alternate naming (e.g., YUNXIAO_SNAPSHOT_URL)
-                val envAlt = System.getenv(
-                    name.uppercase()
-                        .replace("Yunxiao", "YUNXIAO")
-                        .replace("Codeup", "CODEUP")
-                )
-                if (envAlt != null) return envAlt
             }
             return defaultValue
         }
 
-        // Snapshot repository - Yunxiao
+        // Maven Central (Sonatype) - Snapshot
         if (isSnapshot) {
-            val snapshotUrl = getProperty(
-                listOf("YunxiaoSnapshotRepositoryUrl", "yunxiaoSnapshotRepositoryUrl",
-                      "codeupSnapshotUrl", "YUNXIAO_SNAPSHOT_URL"),
-                "https://packages.aliyun.com/maven/repository/snapshot"
-            )
-            // Only configure repository if URL is not empty
-            if (snapshotUrl.isNotEmpty()) {
+            val ossrhUsername = getProperty(listOf("OSSRH_USERNAME", "MAVEN_USERNAME"), "")
+            val ossrhPassword = getProperty(listOf("OSSRH_TOKEN", "OSSRH_PASSWORD", "MAVEN_PASSWORD"), "")
+
+            if (ossrhUsername.isNotEmpty() && ossrhPassword.isNotEmpty()) {
                 maven {
-                    name = "YunxiaoSnapshot"
-                    url = uri(snapshotUrl)
+                    name = "OssrhSnapshot"
+                    url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
                     credentials {
-                        username = getProperty(
-                            listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
-                                  "codeupUsername", "CODEUP_USERNAME"),
-                            ""
-                        )
-                        password = getProperty(
-                            listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
-                                  "codeupPassword", "CODEUP_PASSWORD"),
-                            ""
-                        )
+                        username = ossrhUsername
+                        password = ossrhPassword
                     }
                 }
             }
         }
 
-        // Release repository - Yunxiao
+        // Maven Central (Sonatype) - Release (via staging)
+        if (!isSnapshot) {
+            val ossrhUsername = getProperty(listOf("OSSRH_USERNAME", "MAVEN_USERNAME"), "")
+            val ossrhPassword = getProperty(listOf("OSSRH_TOKEN", "OSSRH_PASSWORD", "MAVEN_PASSWORD"), "")
+
+            if (ossrhUsername.isNotEmpty() && ossrhPassword.isNotEmpty()) {
+                maven {
+                    name = "OssrhStaging"
+                    url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+                    credentials {
+                        username = ossrhUsername
+                        password = ossrhPassword
+                    }
+                }
+            }
+        }
+
+        // Aliyun Yunxiao - Snapshot (fallback for Chinese users)
+        if (isSnapshot) {
+            val snapshotUrl = getProperty(
+                listOf("YUNXIAO_SNAPSHOT_URL", "YunxiaoSnapshotRepositoryUrl"),
+                ""
+            )
+            if (snapshotUrl.isNotEmpty()) {
+                maven {
+                    name = "YunxiaoSnapshot"
+                    url = uri(snapshotUrl)
+                    credentials {
+                        username = getProperty(listOf("YUNXIAO_USERNAME"), "")
+                        password = getProperty(listOf("YUNXIAO_PASSWORD"), "")
+                    }
+                }
+            }
+        }
+
+        // Aliyun Yunxiao - Release (fallback for Chinese users)
         if (!isSnapshot) {
             val releaseUrl = getProperty(
-                listOf("YunxiaoReleaseRepositoryUrl", "yunxiaoReleaseRepositoryUrl",
-                      "codeupReleaseUrl", "YUNXIAO_RELEASE_URL"),
-                "https://packages.aliyun.com/maven/repository/release"
+                listOf("YUNXIAO_RELEASE_URL", "YunxiaoReleaseRepositoryUrl"),
+                ""
             )
-            // Only configure repository if URL is not empty
             if (releaseUrl.isNotEmpty()) {
                 maven {
                     name = "YunxiaoRelease"
                     url = uri(releaseUrl)
                     credentials {
-                        username = getProperty(
-                            listOf("YUNXIAO_USERNAME", "yunxiaoUsername",
-                                  "codeupUsername", "CODEUP_USERNAME"),
-                            ""
-                        )
-                        password = getProperty(
-                            listOf("YUNXIAO_PASSWORD", "yunxiaoPassword",
-                                  "codeupPassword", "CODEUP_PASSWORD"),
-                            ""
-                        )
+                        username = getProperty(listOf("YUNXIAO_USERNAME"), "")
+                        password = getProperty(listOf("YUNXIAO_PASSWORD"), "")
                     }
                 }
             }

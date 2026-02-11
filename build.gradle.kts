@@ -5,7 +5,7 @@ plugins {
 }
 
 allprojects {
-    group = "com.nexora"
+    group = "io.github.suj1e"
     version = project.findProperty("projectVersion")?.toString() ?: (property("version") as String)
 
     repositories {
