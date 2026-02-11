@@ -75,7 +75,7 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.OSSRH_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.OSSRH_TOKEN }}
-        run: gradle publish --no-daemon
+        run: gradle publishAllPublicationsToMavenCentralSnapshotsRepository --no-daemon --no-configuration-cache
 
       - name: Summary
         run: |
@@ -118,7 +118,7 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.GPG_PRIVATE_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.GPG_PASSPHRASE }}
           VERSION: ${{ github.event.release.tag_name }}
-        run: gradle publish --no-daemon -PprojectVersion="$VERSION"
+        run: gradle publishToMavenCentral --no-daemon --no-configuration-cache -PprojectVersion="$VERSION"
 
       - name: Summary
         run: |

@@ -36,9 +36,30 @@ configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
         }
     }
 
-    // Central Portal: releases via portal API, snapshots via direct deployment
+    // Central Portal API for releases only
     publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
 
-    // Sign all publications (required for releases)
-    signAllPublications()
+    // Sign all publications (required for releases only, snapshots don't need signing)
+    if (!project.version.toString().endsWith("-SNAPSHOT")) {
+        signAllPublications()
+    }
+}
+
+// Configure snapshot repository separately (Portal API doesn't support snapshots)
+// Snapshots are deployed directly to: https://central.sonatype.com/repository/maven-snapshots/
+publishing {
+    repositories {
+        maven {
+            name = "MavenCentralSnapshots"
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+            credentials {
+                username = project.findProperty("mavenCentralUsername")?.toString()
+                    ?: System.getenv("ORG_GRADLE_PROJECT_mavenCentralUsername")
+                    ?: ""
+                password = project.findProperty("mavenCentralPassword")?.toString()
+                    ?: System.getenv("ORG_GRADLE_PROJECT_mavenCentralPassword")
+                    ?: ""
+            }
+        }
+    }
 }
