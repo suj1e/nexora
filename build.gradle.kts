@@ -4,6 +4,24 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7" apply false
 }
 
+// Load local.properties for credentials (gitignored)
+val localPropsFile = rootProject.file("local.properties")
+if (localPropsFile.exists()) {
+    localPropsFile.readLines().forEach { line ->
+        val trimmed = line.trim()
+        if (trimmed.isNotEmpty() && !trimmed.startsWith("#")) {
+            val idx = trimmed.indexOf('=')
+            if (idx > 0) {
+                val key = trimmed.substring(0, idx).trim()
+                val value = trimmed.substring(idx + 1).trim()
+                if (!project.extensions.extraProperties.has(key)) {
+                    project.extensions.extraProperties.set(key, value)
+                }
+            }
+        }
+    }
+}
+
 allprojects {
     group = "io.github.suj1e"
     version = project.findProperty("projectVersion")?.toString() ?: (property("version") as String)
