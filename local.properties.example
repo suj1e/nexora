@@ -1,0 +1,10 @@
+# Maven Central Publishing Credentials
+# Get these from: https://central.sonatype.com/publishing/credentials
+mavenCentralUsername=your-username-here
+mavenCentralPassword=your-token-here
+
+# GPG Signing (required for releases only, not snapshots)
+# Key ID from: gpg --list-keys (last 16 chars of fingerprint)
+signingInMemoryKeyId=your-key-id
+# Passphrase you set when creating the GPG key
+signingInMemoryKeyPassword=your-passphrase
