@@ -18,7 +18,7 @@ dependencies {
     api(libs.jackson.databind)
 
     // Jakarta validation (optional)
-    compileOnly("jakarta.validation:jakarta.validation-api:3.0.2")
+    compileOnly("jakarta.validation:jakarta.validation-api:3.1.1")
 
     // Test dependencies
     testImplementation(libs.spring.boot.starter.test)
