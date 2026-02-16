@@ -11,7 +11,7 @@ resilience4j = "2.3.0"
 lombok = "1.18.42"
 
 # Reactor
-reactor-core = "3.8.2"
+reactor-core = "3.8.3"
 reactor-test = "3.7.3"
 
 # Spring Cloud 2025.0.0 (Northfields)
